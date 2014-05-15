@@ -13,6 +13,8 @@ public class BlockShaft extends BlockContainer {
 		super(m);
 		
 		setCreativeTab(CreativeTabs.tabAllSearch);
+		setHardness(2.0F);
+        setStepSound(soundTypeWood);
 	}
 	
 	@Override
