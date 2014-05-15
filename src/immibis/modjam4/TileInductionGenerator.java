@@ -17,6 +17,10 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			
 			int slip = conn.getAngle(shaftSide^1) - angle;
 			
+			// J*d_freq/dt = T_electric - T_mechanical
+			// J is inertia
+			// applies to whole system
+			
 			angle += ShaftUtils.angdiff(s_angle, angle)/2;
 		}
 	}
