@@ -18,4 +18,8 @@ public class ShaftUtils {
 		
 		return a - b; // d'oh!
 	}
+
+	public static int bisectAngle(int a, int b) {
+		return b + angdiff(a, b) / 2;
+	}
 }

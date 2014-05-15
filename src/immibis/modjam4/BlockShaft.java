@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -40,5 +41,11 @@ public class BlockShaft extends BlockContainer {
 	@Override
 	public boolean renderAsNormalBlock() {
 		return false;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float hitx, float hity, float hitz) {
+		((TileShaft)w.getTileEntity(x, y, z)).debug(p);
+		return true;
 	}
 }
