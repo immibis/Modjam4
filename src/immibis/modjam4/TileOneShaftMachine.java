@@ -1,5 +1,6 @@
 package immibis.modjam4;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -10,6 +11,21 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 	public int realAngvel;
 	
 	public int shaftSide;
+	
+	public TileOneShaftMachine() {
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound tag) {
+		super.readFromNBT(tag);
+		shaftSide = tag.getInteger("shaftSide");
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound tag) {
+		super.writeToNBT(tag);
+		tag.setInteger("shaftSide", shaftSide);
+	}
 	
 	public TileOneShaftMachine(int shaftSide) {
 		this.shaftSide = shaftSide;

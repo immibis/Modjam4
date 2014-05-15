@@ -3,6 +3,10 @@ package immibis.modjam4;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileInductionGenerator extends TileOneShaftMachine implements IShaft {
+	
+	public TileInductionGenerator() {
+	}
+	
 	public TileInductionGenerator(int shaftSide) {
 		super(shaftSide);
 	}
@@ -10,7 +14,7 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		angvel /= 3;
+		angvel = 0;
 	}
 	
 }

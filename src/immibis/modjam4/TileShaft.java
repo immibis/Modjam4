@@ -14,6 +14,8 @@ public class TileShaft extends TileEntity implements IShaft {
 	@Override
 	public void updateEntity() {
 		lastUpdate = worldObj.getTotalWorldTime();
+		
+		int lastAngle = angle;
 		angle += angvel;
 		
 		int meta = getBlockMetadata();
@@ -28,6 +30,8 @@ public class TileShaft extends TileEntity implements IShaft {
 				updateOneConnection(conn1, meta^1);
 		else if(conn2 != null)
 			updateOneConnection(conn2, meta);
+		
+		angvel = angle - lastAngle;
 	}
 
 	IShaft getConnected(int dir) {
