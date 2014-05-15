@@ -39,6 +39,14 @@ public class ShaftUtils {
 		return (int)(angle * (4294967296.0 / Math.PI / 2.0));
 	}
 	
+	public static int fromDegrees(double angle) {
+		return (int)(angle * (4294967296.0 / 360.0));
+	}
+	
+	public static int fromDegreesPerSecond(double angvel) {
+		return (int)(angvel * (4294967296.0 / 360.0 / 20.0));
+	}
+	
 	public static int averageAngle(int[] angles, int n) {
 		double totSin = 0, totCos = 0;
 		for(int k = 0; k < n; k++) {

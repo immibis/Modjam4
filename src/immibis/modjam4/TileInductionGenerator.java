@@ -6,6 +6,9 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 	
 	@Override
 	public void updateEntity() {
+		
+		angvel = ShaftUtils.fromDegreesPerSecond(45);
+		angle += angvel;
 
 		IShaft conn = getConnectedShaft();
 		if(conn != null) {
