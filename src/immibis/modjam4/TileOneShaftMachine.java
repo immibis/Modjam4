@@ -12,9 +12,6 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 	
 	public int shaftSide;
 	
-	public TileOneShaftMachine() {
-	}
-	
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
@@ -27,7 +24,7 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 		tag.setInteger("shaftSide", shaftSide);
 	}
 	
-	public TileOneShaftMachine(int shaftSide) {
+	public void initSide(int shaftSide) {
 		this.shaftSide = shaftSide;
 	}
 	

@@ -4,17 +4,18 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileInductionGenerator extends TileOneShaftMachine implements IShaft {
 	
-	public TileInductionGenerator() {
-	}
-	
-	public TileInductionGenerator(int shaftSide) {
-		super(shaftSide);
-	}
-	
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
-		angvel = 0;
+
+		IShaft conn = getConnectedShaft();
+		if(conn != null) {
+			int s_angvel = conn.getAngVel(shaftSide^1);
+			int s_angle = conn.getAngle(shaftSide^1);
+			
+			int slip = conn.getAngle(shaftSide^1) - angle;
+			
+			angle += ShaftUtils.angdiff(s_angle, angle)/2;
+		}
 	}
 	
 }

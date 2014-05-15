@@ -33,10 +33,11 @@ public class BlockInductionGenerator extends BlockContainer {
 	@Override
 	public void onBlockPlacedBy(World w, int x, int y, int z, EntityLivingBase pl, ItemStack stack) {
 		w.setBlockMetadataWithNotify(x, y, z, BlockPistonBase.determineOrientation(w, x, y, z, pl), 3);
+		((TileInductionGenerator)w.getTileEntity(x, y, z)).initSide(w.getBlockMetadata(x, y, z));
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileInductionGenerator(var2);
+		return new TileInductionGenerator();
 	}
 }
