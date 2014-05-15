@@ -20,6 +20,7 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 	@Override
 	public void renderTileEntityAt(TileEntity te_, double renderX, double renderY, double renderZ, float partialTick) {
 		int meta = te_.getBlockMetadata();
+		TileShaft te = (TileShaft)te_;
 		
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		Tessellator t = Tessellator.instance;
@@ -38,6 +39,8 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 			// X -> Y
 			GL11.glRotatef(90, 0, 0, 1);
 		}
+		float angle = (float)(te.angle / (4294967296.0 / 360.0));
+		GL11.glRotatef(angle, 0, 1, 0);
 		GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
 		
 		t.startDrawingQuads();
