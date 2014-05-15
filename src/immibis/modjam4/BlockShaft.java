@@ -29,4 +29,14 @@ public class BlockShaft extends BlockContainer {
 	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TileShaft();
 	}
+	
+	@Override
+	public boolean isOpaqueCube() {
+		return false;
+	}
+	
+	@Override
+	public boolean renderAsNormalBlock() {
+		return false;
+	}
 }
