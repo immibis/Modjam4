@@ -39,8 +39,10 @@ public class BlockCable extends BlockContainer {
 	
 	@Override
 	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer pl, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
-		TileCable tc = ((TileCable)w.getTileEntity(x, y, z));
-		pl.addChatMessage(new ChatComponentText(tc.getNetwork().toString()));
+		if(w.isRemote) {
+			TileCable tc = ((TileCable)w.getTileEntity(x, y, z));
+			pl.addChatMessage(new ChatComponentText(tc.getNetwork().toString()));
+		}
 		return true;
 	}
 

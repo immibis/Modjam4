@@ -8,8 +8,14 @@ public class CableNetwork {
 	private List<ICable> cables = new ArrayList<ICable>();
 
 	public void mergeInto(CableNetwork network) {
-		for(ICable c : cables)
+		if(network == this)
+			return;
+		
+		//System.out.println(this+" mergeInto "+network);
+		for(ICable c : cables) {
 			c.setNetwork(network);
+			network.add(c);
+		}
 	}
 
 	public void add(ICable cable) {
@@ -18,7 +24,14 @@ public class CableNetwork {
 	
 	@Override
 	public String toString() {
-		return cables.size()+" cables";
+		return cables.size()+" cables "+hashCode();
+	}
+	
+	
+
+	public void tick() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

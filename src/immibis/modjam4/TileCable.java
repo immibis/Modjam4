@@ -21,6 +21,7 @@ public class TileCable extends TileEntity implements ICable {
 	
 	private ICable[] neighbours = new TileCable[6];
 	private CableNetwork network = new CableNetwork();
+	{network.add(this);}
 	
 	@Override
 	public void onNeighbourCableUnload(int dir, ICable obj, int x, int y, int z) {
@@ -45,6 +46,7 @@ public class TileCable extends TileEntity implements ICable {
 	
 	private void setNeighbour(int dir, ICable te) {
 		if(neighbours[dir] != te) {
+			//System.out.println(this+" set "+dir+" "+neighbours[dir]+" -> "+te);
 			if(neighbours[dir] != null) {
 				neighbours[dir].propagateNetwork(new CableNetwork());
 			}
@@ -53,6 +55,11 @@ public class TileCable extends TileEntity implements ICable {
 			}
 			neighbours[dir] = te;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return xCoord+","+yCoord+","+zCoord;
 	}
 
 	private boolean firstUpdate = true;
@@ -66,6 +73,8 @@ public class TileCable extends TileEntity implements ICable {
 			for(int k = 0; k < 6; k++)
 				updateNeighbour(k);
 		}
+		
+		network.tick();
 	}
 
 	public void onBlockUpdate() {

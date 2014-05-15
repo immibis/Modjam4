@@ -10,6 +10,8 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 		angvel = ShaftUtils.fromDegreesPerSecond(45);
 		angle += angvel;
 
+		ICable cable = getConnectedCable();
+		
 		IShaft conn = getConnectedShaft();
 		if(conn != null) {
 			int s_angvel = conn.getAngVel(shaftSide^1);
