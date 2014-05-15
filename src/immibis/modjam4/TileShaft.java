@@ -31,9 +31,10 @@ public class TileShaft extends TileEntity implements IShaft {
 		int s_angvel = s.getAngVel(dir^1);
 		int s_angle = s.getAngle(dir^1);
 		
-		if(s_angvel >= angvel) {
-			angle = (angle + s_angle)/2;
-		}
+		//if(s_angvel >= angvel) {
+			angle += ShaftUtils.angdiff(s_angle, angle)/2;
+			angvel += (s_angvel - angvel) / 8;
+		//}
 	}
 
 	@Override
