@@ -1,5 +1,6 @@
 package immibis.modjam4;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -27,6 +28,11 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TileCable();
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World w, int x, int y, int z, Block p_149695_5_) {
+		((TileCable)w.getTileEntity(x, y, z)).onBlockUpdate();
 	}
 
 }
