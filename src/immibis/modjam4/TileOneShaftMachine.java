@@ -76,4 +76,17 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 		
 		return s;
 	}
+	
+	public CableNetwork getConnectedCable() {
+		ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[shaftSide^1];
+		int x = xCoord+fd.offsetX, y = yCoord+fd.offsetY, z = zCoord+fd.offsetZ;
+		if(!worldObj.blockExists(x, y, z))
+			return null;
+		
+		TileEntity te = worldObj.getTileEntity(x, y, z);
+		if(!(te instanceof ICable))
+			return null;
+		
+		return ((ICable)te).getNetwork();
+	}
 }

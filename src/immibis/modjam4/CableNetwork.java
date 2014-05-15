@@ -6,6 +6,11 @@ import java.util.List;
 public class CableNetwork {
 	
 	private List<ICable> cables = new ArrayList<ICable>();
+	
+	public double generatedPower; // W
+	public double frequency; // Hz
+	
+	public double generatedPowerAcc;
 
 	public void mergeInto(CableNetwork network) {
 		if(network == this)
@@ -30,8 +35,8 @@ public class CableNetwork {
 	
 
 	public void tick() {
-		// TODO Auto-generated method stub
-		
+		generatedPower = generatedPowerAcc;
+		generatedPowerAcc = 0;
 	}
 
 }
