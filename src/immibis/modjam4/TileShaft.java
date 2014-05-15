@@ -9,8 +9,11 @@ public class TileShaft extends TileEntity implements IShaft {
 	public int angle; // INT_MIN to INT_MAX
 	public int angvel; // angle units per tick
 	
+	long lastUpdate = -1;
+	
 	@Override
 	public void updateEntity() {
+		lastUpdate = worldObj.getTotalWorldTime();
 		angle += angvel;
 		
 		int meta = getBlockMetadata();
@@ -65,11 +68,30 @@ public class TileShaft extends TileEntity implements IShaft {
 	}
 	
 	public void debug(EntityPlayer p) {
-		p.addChatMessage(new ChatComponentText("Angvel: "+ShaftUtils.toDegreesPerSecond(angvel));
+		if(!worldObj.isRemote)
+			return;
+		
+		p.addChatMessage(new ChatComponentText("Angvel: "+ShaftUtils.toDegreesPerSecond(angvel)));
+		
+		int meta = getBlockMetadata(); 
+		IShaft c1 = getConnected(meta);
+		IShaft c2 = getConnected(meta^1);
+	
+		if(c1 != null) {
+			p.addChatMessage(new ChatComponentText("End 1 angvel: "+ShaftUtils.toDegreesPerSecond(c1.getAngVel(meta^1))));
+			p.addChatMessage(new ChatComponentText("End 1 slip: "+ShaftUtils.toDegrees(angle - c1.getAngle(meta^1))));
+		}
+		
+		if(c2 != null) {
+			p.addChatMessage(new ChatComponentText("End 2 angvel: "+ShaftUtils.toDegreesPerSecond(c2.getAngVel(meta))));
+			p.addChatMessage(new ChatComponentText("End 2 slip: "+ShaftUtils.toDegrees(angle - c2.getAngle(meta))));
+		}
 	}
 
 	@Override
 	public int getAngle(int side) {
+		if(lastUpdate != worldObj.getTotalWorldTime())
+			return angle + angvel;
 		return angle;
 	}
 	
