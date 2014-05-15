@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -25,38 +26,45 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 		
 		IIcon icon = Blocks.log.getIcon(2, 0);
 		
-		//OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 255, 255);
-		OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-		GL11.glTexCoord2f(0.99f, 0.99f);
-		OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
+		RenderHelper.disableStandardItemLighting();
+		
+		GL11.glPushMatrix();
+		GL11.glTranslated(renderX+0.5, renderY+0.5, renderZ+0.5);
+		if(meta == 2) {
+			// Z -> Y
+			GL11.glRotatef(90, 1, 0, 0);
+		}
+		if(meta == 4) {
+			// X -> Y
+			GL11.glRotatef(90, 0, 0, 1);
+		}
+		GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
 		
 		t.startDrawingQuads();
-		t.setTranslation(renderX, renderY, renderZ);
-		switch(meta) {
-		case 0:
-			t.addVertexWithUV(0.25, 0, 0.25, icon.getMinU(), icon.getMinV());
-			t.addVertexWithUV(0.25, 0, 0.75, icon.getMaxU(), icon.getMinV());
-			t.addVertexWithUV(0.25, 1, 0.75, icon.getMaxU(), icon.getMaxV());
-			t.addVertexWithUV(0.25, 1, 0.25, icon.getMinU(), icon.getMaxV());
-			
-			t.addVertexWithUV(0.75, 1, 0.25, icon.getMinU(), icon.getMaxV());
-			t.addVertexWithUV(0.75, 1, 0.75, icon.getMaxU(), icon.getMaxV());
-			t.addVertexWithUV(0.75, 0, 0.75, icon.getMaxU(), icon.getMinV());
-			t.addVertexWithUV(0.75, 0, 0.25, icon.getMinU(), icon.getMinV());
-			
-			t.addVertexWithUV(0.25, 1, 0.25, icon.getMinU(), icon.getMaxV());
-			t.addVertexWithUV(0.75, 1, 0.25, icon.getMaxU(), icon.getMaxV());
-			t.addVertexWithUV(0.75, 0, 0.25, icon.getMaxU(), icon.getMinV());
-			t.addVertexWithUV(0.25, 0, 0.25, icon.getMinU(), icon.getMinV());
-			
-			t.addVertexWithUV(0.25, 0, 0.75, icon.getMinU(), icon.getMinV());
-			t.addVertexWithUV(0.75, 0, 0.75, icon.getMaxU(), icon.getMinV());
-			t.addVertexWithUV(0.75, 1, 0.75, icon.getMaxU(), icon.getMaxV());
-			t.addVertexWithUV(0.25, 1, 0.75, icon.getMinU(), icon.getMaxV());
-			break;
-		}
+		
+		t.addVertexWithUV(0.25, 0, 0.25, icon.getMinU(), icon.getMinV());
+		t.addVertexWithUV(0.25, 0, 0.75, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(0.25, 1, 0.75, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(0.25, 1, 0.25, icon.getMinU(), icon.getMaxV());
+		
+		t.addVertexWithUV(0.75, 1, 0.25, icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV(0.75, 1, 0.75, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(0.75, 0, 0.75, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(0.75, 0, 0.25, icon.getMinU(), icon.getMinV());
+		
+		t.addVertexWithUV(0.25, 1, 0.25, icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV(0.75, 1, 0.25, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(0.75, 0, 0.25, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(0.25, 0, 0.25, icon.getMinU(), icon.getMinV());
+		
+		t.addVertexWithUV(0.25, 0, 0.75, icon.getMinU(), icon.getMinV());
+		t.addVertexWithUV(0.75, 0, 0.75, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(0.75, 1, 0.75, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(0.25, 1, 0.75, icon.getMinU(), icon.getMaxV());
+	
 		t.draw();
 		t.setTranslation(0, 0, 0);
+		GL11.glPopMatrix();
 	}
 
 }
