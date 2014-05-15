@@ -24,10 +24,19 @@ public class ShaftUtils {
 	}
 
 	public static double toDegreesPerSecond(int angvel) {
-		return angvel / 4294967296.0 * 360 * 20;
+		return angvel * (360.0 * 20.0 / 4294967296.0);
 	}
 	
 	public static double toDegrees(int angle) {
-		return angle / 4294967296.0 * 360;
+		return angle * (360.0 / 4294967296.0);
+	}
+	
+	public static double toRadians(int angle) {
+		return angle * ()
+	}
+
+	public static int averageAngle(int[] angles, int nConn) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
