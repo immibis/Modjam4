@@ -20,6 +20,7 @@ public class TileCable extends TileEntity implements ICable {
 	}
 	
 	private ICable[] neighbours = new TileCable[6];
+	private CableNetwork network = new CableNetwork();
 	
 	@Override
 	public void onNeighbourCableUnload(int dir, ICable obj, int x, int y, int z) {
@@ -45,7 +46,10 @@ public class TileCable extends TileEntity implements ICable {
 	private void setNeighbour(int dir, ICable te) {
 		if(neighbours[dir] != te) {
 			if(neighbours[dir] != null) {
-				te.propagateNetwork(new CableNetwork());
+				neighbours[dir].propagateNetwork(new CableNetwork());
+			}
+			if(te != null) {
+				te.getNetwork().mergeInto(network);
 			}
 			neighbours[dir] = te;
 		}
@@ -67,5 +71,35 @@ public class TileCable extends TileEntity implements ICable {
 	public void onBlockUpdate() {
 		for(int k = 0; k < 6; k++)
 			updateNeighbour(k);
+	}
+	
+	@Override
+	public CableNetwork getNetwork() {
+		return network;
+	}
+	
+	@Override
+	public void propagateNetwork(CableNetwork newNetwork) {
+		if(network == newNetwork)
+			return;
+		
+		network = newNetwork;
+		newNetwork.add(this);
+		
+		for(int k = 0; k < 6; k++) {
+			ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[k];
+			int x = xCoord+fd.offsetX, y = yCoord+fd.offsetY, z = zCoord+fd.offsetZ;
+			
+			if(worldObj.blockExists(x, y, z)) {
+				TileEntity te = worldObj.getTileEntity(x, y, z);
+				if(te instanceof ICable)
+					((ICable)te).propagateNetwork(newNetwork);
+			}
+		}
+	}
+
+	@Override
+	public void setNetwork(CableNetwork network) {
+		this.network = network;
 	}
 }

@@ -4,8 +4,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -33,6 +35,13 @@ public class BlockCable extends BlockContainer {
 	@Override
 	public void onNeighborBlockChange(World w, int x, int y, int z, Block p_149695_5_) {
 		((TileCable)w.getTileEntity(x, y, z)).onBlockUpdate();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer pl, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_) {
+		TileCable tc = ((TileCable)w.getTileEntity(x, y, z));
+		pl.addChatMessage(new ChatComponentText(tc.getNetwork().toString()));
+		return true;
 	}
 
 }
