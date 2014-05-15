@@ -25,7 +25,8 @@ public class Modjam4Mod
 	@Instance(MODID) public static Modjam4Mod INSTANCE;
 	@SidedProxy(clientSide="immibis.modjam4.ProxyClient", serverSide="immibis.modjam4.ProxyBase") public static ProxyBase PROXY;
 	
-	public static BlockShaft blockWoodenShaft; 
+	public static BlockShaft blockWoodenShaft;
+	public static BlockCreativeEngine blockCreativeEngine;
 	
 	public static int NULL_RENDER_ID = 0;
 	
@@ -34,10 +35,13 @@ public class Modjam4Mod
     {
 		blockWoodenShaft = new BlockShaft(Material.wood);
 		blockWoodenShaft.setBlockName("immibis_modjam4.woodenShaft");
-		
 		GameRegistry.registerBlock(blockWoodenShaft, "woodenShaft");
 		
+		blockCreativeEngine = new BlockCreativeEngine();
+		GameRegistry.registerBlock(blockCreativeEngine, "creativeEngine");
+		
 		GameRegistry.registerTileEntity(TileShaft.class, "immibisMJ4.shaft");
+		GameRegistry.registerTileEntity(TileCreativeEngine.class, "immibisMJ4.creativeEngine");
 		
 		PROXY.init();
     }
