@@ -10,7 +10,7 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 	public int angvel;
 	public int realAngvel;
 	
-	public int shaftSide;
+	public int shaftSide = 0;
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {

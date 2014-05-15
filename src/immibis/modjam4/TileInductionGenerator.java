@@ -9,8 +9,12 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 	@Override
 	public void updateEntity() {
 		
-		angvel = ShaftUtils.fromDegreesPerSecond(45);
+		if(worldObj.isRemote)
+			initSide(getBlockMetadata());
+		
+		//angvel = ShaftUtils.fromDegreesPerSecond(45);
 		angle += angvel;
+		// angle = cable.currentPhaseAngle;
 
 		CableNetwork cable = getConnectedCable();
 		IShaft conn = getConnectedShaft();
@@ -18,20 +22,23 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			int s_angvel = conn.getAngVel(shaftSide^1);
 			int s_angle = conn.getAngle(shaftSide^1);
 			
-			int slip = conn.getAngle(shaftSide^1) - angle;
+			int slip = angle - conn.getAngle(shaftSide^1);
 			
+			// torque is proportional to slip
+			// input power (W) = input torque (kgm^2s^-2) * input speed (rad/s)
 			
-			// torque = dspeed/dt * moment of inertia
-			// input power = input torque * input speed (rad/s)
+			// negative slip = power input
 			
-			//double genpower = powerFreqCurve(cable.frequency);
+			double torque = ShaftUtils.toDegrees(slip) * 1000;
+			double genPower = torque * ShaftUtils.toRadiansPerSecond(angvel); 
+					
 			//cable.generatedPowerAcc += genpower;
 			
 			// J*d_freq/dt = T_electric - T_mechanical
 			// J is inertia
 			// applies to whole system
 			
-			angle += ShaftUtils.angdiff(s_angle, angle)/2;
+			angle += ShaftUtils.angdiff(s_angle, angle)/16;
 		}
 	}
 
