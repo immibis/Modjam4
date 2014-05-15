@@ -27,6 +27,7 @@ public class Modjam4Mod
 	
 	public static BlockShaft blockWoodenShaft;
 	public static BlockCreativeEngine blockCreativeEngine;
+	public static BlockGearboxDirectional blockStoneDirectionalGearbox;
 	
 	public static int NULL_RENDER_ID = 0;
 	
@@ -39,6 +40,11 @@ public class Modjam4Mod
 		
 		blockCreativeEngine = new BlockCreativeEngine();
 		GameRegistry.registerBlock(blockCreativeEngine, "creativeEngine");
+		
+		blockStoneDirectionalGearbox = new BlockGearboxDirectional(Material.rock);
+		blockStoneDirectionalGearbox.setBlockTextureName("immibis_modjam4:gearbox1");
+		blockStoneDirectionalGearbox.setBlockName("immibis_modjam4.stoneDirectionalGearbox");
+		GameRegistry.registerBlock(blockStoneDirectionalGearbox, "stoneDirectionalGearbox");
 		
 		GameRegistry.registerTileEntity(TileShaft.class, "immibisMJ4.shaft");
 		GameRegistry.registerTileEntity(TileCreativeEngine.class, "immibisMJ4.creativeEngine");

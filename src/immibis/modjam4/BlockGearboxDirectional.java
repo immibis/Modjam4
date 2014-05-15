@@ -11,7 +11,7 @@ public class BlockGearboxDirectional extends BlockContainer {
 		super(m);
 		
 		setCreativeTab(CreativeTabs.tabAllSearch);
-		setBlockName("immibis_modjam4.directionalGearbox");
+		setHardness(2);
 	}
 	
 	@Override

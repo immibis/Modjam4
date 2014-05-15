@@ -32,11 +32,19 @@ public class ShaftUtils {
 	}
 	
 	public static double toRadians(int angle) {
-		return angle * ()
+		return angle * (Math.PI * 2.0 / 4294967296.0);
 	}
 
-	public static int averageAngle(int[] angles, int nConn) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static int fromRadians(double angle) {
+		return (int)(angle * (4294967296.0 / Math.PI / 2.0));
+	}
+	public static int averageAngle(int[] angles, int n) {
+		double totSin = 0, totCos = 0;
+		for(int k = 0; k < n; k++) {
+			double r = toRadians(angles[k]);
+			totSin += Math.sin(r);
+			totCos += Math.cos(r);
+		}
+		return fromRadians(Math.atan2(totSin / n, totCos / n));
 	}
 }

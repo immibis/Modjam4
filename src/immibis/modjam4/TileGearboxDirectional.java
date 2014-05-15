@@ -106,8 +106,8 @@ public class TileGearboxDirectional extends TileEntity implements IShaft {
 	@Override
 	public int getAngle(int side) {
 		if(lastUpdate != worldObj.getTotalWorldTime())
-			return angle + angvel;
-		return angle;
+			return angle + angvel + angleOffset[side];
+		return angle + angleOffset[side];
 	}
 	
 	@Override
