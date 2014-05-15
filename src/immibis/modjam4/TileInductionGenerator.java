@@ -24,8 +24,8 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			// torque = dspeed/dt * moment of inertia
 			// input power = input torque * input speed (rad/s)
 			
-			double genpower = powerFreqCurve(cable.frequency);
-			cable.generatedPowerAcc += genpower;
+			//double genpower = powerFreqCurve(cable.frequency);
+			//cable.generatedPowerAcc += genpower;
 			
 			// J*d_freq/dt = T_electric - T_mechanical
 			// J is inertia
@@ -35,8 +35,9 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 		}
 	}
 
-	private double powerFreqCurve(double frequency) {
-		
+	@Override
+	public double getMomentOfInertia(int side) {
+		return MOMENT_OF_INERTIA;
 	}
 	
 }

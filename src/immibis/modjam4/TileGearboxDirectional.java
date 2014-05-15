@@ -119,4 +119,9 @@ public class TileGearboxDirectional extends TileEntity implements IShaft {
 	public boolean doesShaftConnect(int side) {
 		return true;
 	}
+	
+	@Override
+	public double getMomentOfInertia(int side) {
+		return TileShaft.MOMENT_OF_INERTIA;
+	}
 }

@@ -6,6 +6,9 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileShaft extends TileEntity implements IShaft {
+	
+	public static final double MOMENT_OF_INERTIA = 50;
+	
 	public int angle; // INT_MIN to INT_MAX
 	public int angvel; // angle units per tick
 	
@@ -62,13 +65,23 @@ public class TileShaft extends TileEntity implements IShaft {
 	
 	private void updateTwoConnections(IShaft conn1, int dir1, IShaft conn2, int dir2) {
 		
+		// distribute energy across this, conn1/dir1 and conn2/dir2
+		
 		int s1_angvel = conn1.getAngVel(dir1);
 		int s1_angle = conn1.getAngle(dir1);
 		int s2_angvel = conn2.getAngVel(dir2);
 		int s2_angle = conn2.getAngle(dir2);
 		
+		double s1_moi = conn1.getMomentOfInertia(dir1);
+		double s2_moi = conn2.getMomentOfInertia(dir2);
+		
+		double totEnergy = 0.5 * (s1_moi*s1_angvel*s1_angvel + s2_moi*s2_angvel*s2_angvel + MOMENT_OF_INERTIA*angvel*angvel);
+		
+		// find angvel such that totEnergy = 0.5 * angvel * angvel * (s1_moi + s2_moi + MOMENT_OF_INERTIA)
+		angvel = (int)Math.sqrt(totEnergy / (s1_moi + s2_moi + MOMENT_OF_INERTIA) * 2);
+		
 		angle = ShaftUtils.bisectAngle(s1_angle, s2_angle);
-		angvel = (s1_angvel + s2_angvel)/2;
+		//angvel = (s1_angvel + s2_angvel)/2;
 	}
 	
 	public void debug(EntityPlayer p) {
@@ -107,5 +120,10 @@ public class TileShaft extends TileEntity implements IShaft {
 	@Override
 	public boolean doesShaftConnect(int side) {
 		return (side & 6) == getBlockMetadata();
+	}
+	
+	@Override
+	public double getMomentOfInertia(int side) {
+		return MOMENT_OF_INERTIA;
 	}
 }

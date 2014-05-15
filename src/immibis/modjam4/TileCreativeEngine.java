@@ -26,5 +26,10 @@ public class TileCreativeEngine extends TileEntity implements IShaft {
 	public void updateEntity() {
 		angle += angvel;
 	}
+	
+	@Override
+	public double getMomentOfInertia(int side) {
+		return 100000000;
+	}
 
 }
