@@ -62,3 +62,15 @@ processResources
     }
 }
 
+sourceSets {
+	main {
+		java {
+			srcDir "src"
+			include "**/*.java"
+		}
+		resources {
+			srcDir "src"
+			exclude "**/*.java"
+		}
+	}
+}
