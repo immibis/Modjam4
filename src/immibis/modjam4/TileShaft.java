@@ -12,8 +12,10 @@ public class TileShaft extends TileEntity implements IShaft {
 		angle += angvel;
 		
 		int meta = getBlockMetadata();
+		int oldAngle = angle;
 		updateFromDirection(meta);
 		updateFromDirection(meta^1);
+		angvel += (angle - oldAngle) / 2;
 	}
 
 	private void updateFromDirection(int dir) {
