@@ -3,14 +3,17 @@ package immibis.modjam4;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.world.World;
+
 public class CableNetwork {
 	
 	private List<ICable> cables = new ArrayList<ICable>();
 	
 	public double generatedPower; // W
-	public double frequency; // Hz
+	public double consumedPower; // W
+	public int frequency; // angle units/tick (!)
 	
-	public double generatedPowerAcc;
+	public double generatedPowerAcc, consumedPowerAcc;
 
 	public void mergeInto(CableNetwork network) {
 		if(network == this)
@@ -29,14 +32,30 @@ public class CableNetwork {
 	
 	@Override
 	public String toString() {
-		return cables.size()+" cables "+hashCode();
+		return cables.size()+" cables "+hashCode()+" angvel="+ShaftUtils.toDegreesPerSecond(frequency);
 	}
 	
 	
+	long lastUpdate;
 
-	public void tick() {
+	public void tick(World world) {
+		if(lastUpdate == world.getTotalWorldTime())
+			return;
+		lastUpdate = world.getTotalWorldTime();
+		
 		generatedPower = generatedPowerAcc;
-		generatedPowerAcc = 0;
+		consumedPower = consumedPowerAcc;
+		generatedPowerAcc = consumedPowerAcc = 0;
+		
+		double excessPower = generatedPower - consumedPower;
+		
+		// 1kW excess = 0.01 rad/s/tick increase in frequency
+		frequency += ShaftUtils.fromRadiansPerSecond(excessPower / 1000000.0);
+		
+		System.out.println("excess power "+excessPower);
+		
+		if(frequency < ShaftUtils.fromRadiansPerSecond(0.0001))
+			frequency = ShaftUtils.fromRadiansPerSecond(0.0001);
 	}
 
 }

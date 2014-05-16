@@ -74,7 +74,7 @@ public class TileCable extends TileEntity implements ICable {
 				updateNeighbour(k);
 		}
 		
-		network.tick();
+		network.tick(worldObj);
 	}
 
 	public void onBlockUpdate() {
