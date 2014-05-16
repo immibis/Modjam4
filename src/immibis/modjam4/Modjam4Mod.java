@@ -28,6 +28,7 @@ public class Modjam4Mod
 	public static BlockShaft blockWoodenShaft;
 	public static BlockCreativeEngine blockCreativeEngine;
 	public static BlockGearboxDirectional blockStoneDirectionalGearbox;
+	public static BlockGearboxDouble blockStoneDoubleGearbox;
 	public static BlockInductionGenerator blockInductionGenerator;
 	public static BlockCable blockCable;
 	
@@ -54,11 +55,16 @@ public class Modjam4Mod
 		blockCable = new BlockCable();
 		GameRegistry.registerBlock(blockCable, "cable");
 		
+		blockStoneDoubleGearbox = new BlockGearboxDouble(Material.rock);
+		blockStoneDoubleGearbox.setBlockName("immibis_modjam4.stoneDoubleGearbox");
+		GameRegistry.registerBlock(blockStoneDoubleGearbox, "stoneDoubleGearbox");
+		
 		GameRegistry.registerTileEntity(TileShaft.class, "immibisMJ4.shaft");
 		GameRegistry.registerTileEntity(TileCreativeEngine.class, "immibisMJ4.creativeEngine");
 		GameRegistry.registerTileEntity(TileGearboxDirectional.class, "immibisMJ4.dirGearbox");
 		GameRegistry.registerTileEntity(TileInductionGenerator.class, "immibisMJ4.inductionGenerator");
 		GameRegistry.registerTileEntity(TileCable.class, "immibisMJ4.cable");
+		GameRegistry.registerTileEntity(TileGearboxDouble.class, "stoneDoubleGearbox");
 		
 		PROXY.init();
     }
