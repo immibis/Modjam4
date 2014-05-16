@@ -39,7 +39,8 @@ public class ShaftNode {
 		newNetwork.add(this);
 		
 		for(ShaftNode neighbour : adjNodes)
-			neighbour.propagateNetwork(newNetwork);
+			if(neighbour != null)
+				neighbour.propagateNetwork(newNetwork);
 	}
 
 	private boolean updateNeighbour(int dir) {

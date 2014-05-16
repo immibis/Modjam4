@@ -1,5 +1,6 @@
 package immibis.modjam4;
 
+import immibis.modjam4.shaftnet.ShaftNode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
@@ -15,6 +16,11 @@ public class TileShaft extends TileMachine /*implements IShaft*/ {
 	long lastUpdate = -1;
 	
 	@Override
+	public ShaftNode getShaftNode(int side) {
+		return (side & 6) == (getBlockMetadata() & 6) ? shaftNode : null;
+	}
+	
+	@Override
 	public void updateEntity() {
 		lastUpdate = worldObj.getTotalWorldTime();
 		
@@ -22,6 +28,8 @@ public class TileShaft extends TileMachine /*implements IShaft*/ {
 		angle += angvel;
 		
 		int meta = getBlockMetadata();
+		
+		shaftNode.setSideMask(3 << meta);
 		
 		IShaft conn1 = getConnected(meta);
 		IShaft conn2 = getConnected(meta^1);
@@ -90,6 +98,10 @@ public class TileShaft extends TileMachine /*implements IShaft*/ {
 	public void debug(EntityPlayer p) {
 		if(!worldObj.isRemote)
 			return;
+		
+		boolean x = true;
+		
+		shaftNode.updateNeighbours();
 		
 		/*p.addChatMessage(new ChatComponentText("Angvel: "+ShaftUtils.toDegreesPerSecond(angvel)));
 		
