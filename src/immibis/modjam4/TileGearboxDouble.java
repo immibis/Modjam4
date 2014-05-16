@@ -31,7 +31,7 @@ public class TileGearboxDouble extends TileMachineBase implements IShaft {
 		//   totEnergy = 0.5 * (ls_moi + MOMENT_OF_INERTIA + hs_moi*4)*angvel*angvel
 		angvel = (int)Math.sqrt(totEnergy * 2 / (ls_moi + MOMENT_OF_INERTIA + hs_moi*4));
 		
-		System.out.println(totEnergy+" "+0.5 * (ls_moi*angvel*angvel + hs_moi*angvel*angvel*4 + MOMENT_OF_INERTIA*angvel*angvel));
+		//System.out.println(totEnergy+" "+0.5 * (ls_moi*angvel*angvel + hs_moi*angvel*angvel*4 + MOMENT_OF_INERTIA*angvel*angvel));
 		
 		angle += angvel;
 	}
