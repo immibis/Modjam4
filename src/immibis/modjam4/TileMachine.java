@@ -1,6 +1,7 @@
 package immibis.modjam4;
 
 import immibis.modjam4.shaftnet.ShaftNode;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -52,5 +53,9 @@ public abstract class TileMachine extends TileEntity implements IShaft {
 	public void onBlockUpdate() {
 		updateNeighbourConnections();
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	}
+
+	public boolean onBlockActivated(EntityPlayer pl) {
+		return false;
 	}
 }

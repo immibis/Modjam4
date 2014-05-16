@@ -18,6 +18,7 @@ import net.minecraft.util.IIcon;
 public class RenderTileShaft extends TileEntitySpecialRenderer  {
 	
 	public void renderAttachment() {}
+	public void renderStatic() {}
 
 	@Override
 	public void renderTileEntityAt(TileEntity te_, double renderX, double renderY, double renderZ, float partialTick) {
@@ -40,6 +41,9 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 			GL11.glRotatef(90, 0, 0, 1);
 		}
 		float angle = (float)((te.shaftNode.getNetwork().angle + te.shaftNode.getNetwork().angvel * partialTick) / (4294967296.0 / 360.0));
+		
+		renderStatic();
+		
 		GL11.glRotatef(angle, 0, 1, 0);
 		
 		t.startDrawingQuads();

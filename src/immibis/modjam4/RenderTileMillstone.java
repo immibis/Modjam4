@@ -8,14 +8,21 @@ import net.minecraft.util.IIcon;
 
 public class RenderTileMillstone extends RenderTileShaft {
 	public void renderAttachment() {
-		final double MINY = -1/16f, MAXY = 0.51;
+		renderStone(-2/16f, 3/16f);
+	}
+	
+	public void renderStatic() {
+		Tessellator.instance.startDrawingQuads();
+		renderStone(-7/16f, -2/16f);
+		Tessellator.instance.draw();
+	}
+	
+	public void renderStone(double MINY, double MAXY) {
 		final int NUM_SLICES = 16;
 		Tessellator t = Tessellator.instance;
 		IIcon i = Blocks.stone.getIcon(0, 0);
 		
-		final double RADIUS = 24/16f;
-		
-		final double SPOKESIZE = 4/16f;
+		final double RADIUS = 1.0f;
 		
 		for(int slice = 0; slice < NUM_SLICES; slice += 2) {
 			
