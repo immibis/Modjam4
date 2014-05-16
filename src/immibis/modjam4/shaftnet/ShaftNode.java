@@ -38,6 +38,8 @@ public class ShaftNode {
 		network = newNetwork;
 		newNetwork.add(this);
 		
+		System.out.println("propagate "+te+" "+network);
+		
 		for(ShaftNode neighbour : adjNodes)
 			if(neighbour != null)
 				neighbour.propagateNetwork(newNetwork);
