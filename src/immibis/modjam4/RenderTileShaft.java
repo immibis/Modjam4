@@ -16,6 +16,8 @@ import net.minecraft.util.IIcon;
 
 @SideOnly(Side.CLIENT)
 public class RenderTileShaft extends TileEntitySpecialRenderer  {
+	
+	protected void renderAttachment() {}
 
 	@Override
 	public void renderTileEntityAt(TileEntity te_, double renderX, double renderY, double renderZ, float partialTick) {
@@ -44,6 +46,8 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 		GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
 		
 		t.startDrawingQuads();
+		
+		renderAttachment();
 		
 		t.addVertexWithUV(0.25, 0, 0.25, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV(0.25, 0, 0.75, icon.getMaxU(), icon.getMinV());

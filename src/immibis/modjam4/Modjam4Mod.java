@@ -31,6 +31,7 @@ public class Modjam4Mod
 	public static BlockGearboxDouble blockStoneDoubleGearbox;
 	public static BlockInductionGenerator blockInductionGenerator;
 	public static BlockCable blockCable;
+	public static BlockWatermill blockWatermill;
 	
 	public static int NULL_RENDER_ID = 0;
 	
@@ -59,12 +60,19 @@ public class Modjam4Mod
 		blockStoneDoubleGearbox.setBlockName("immibis_modjam4.stoneDoubleGearbox");
 		GameRegistry.registerBlock(blockStoneDoubleGearbox, "stoneDoubleGearbox");
 		
+		blockWatermill = new BlockWatermill(Material.wood);
+		blockWatermill.setBlockName("immibis_modjam4.woodenWatermill");
+		GameRegistry.registerBlock(blockWatermill, "woodenWatermill");
+		
+		Blocks.fire.setFireInfo(blockWatermill, 60, 20);
+		
 		GameRegistry.registerTileEntity(TileShaft.class, "immibisMJ4.shaft");
 		GameRegistry.registerTileEntity(TileCreativeEngine.class, "immibisMJ4.creativeEngine");
 		GameRegistry.registerTileEntity(TileGearboxDirectional.class, "immibisMJ4.dirGearbox");
 		GameRegistry.registerTileEntity(TileInductionGenerator.class, "immibisMJ4.inductionGenerator");
 		GameRegistry.registerTileEntity(TileCable.class, "immibisMJ4.cable");
 		GameRegistry.registerTileEntity(TileGearboxDouble.class, "immibisMJ4.doubleGearbox");
+		GameRegistry.registerTileEntity(TileWatermill.class, "immibisMJ4.watermill");
 		
 		PROXY.init();
     }
@@ -72,6 +80,7 @@ public class Modjam4Mod
     @SideOnly(Side.CLIENT)
 	public static void clientInit() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileShaft.class, new RenderTileShaft());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileWatermill.class, new RenderTileWatermill());
 		
 		NULL_RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderBlockNothing());
