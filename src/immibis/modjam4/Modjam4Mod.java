@@ -73,6 +73,7 @@ public class Modjam4Mod
 		GameRegistry.registerTileEntity(TileCable.class, "immibisMJ4.cable");
 		GameRegistry.registerTileEntity(TileGearboxDouble.class, "immibisMJ4.doubleGearbox");
 		GameRegistry.registerTileEntity(TileWatermill.class, "immibisMJ4.watermill");
+		GameRegistry.registerTileEntity(TileMillstone.class, "immibisMJ4.millstone");
 		
 		PROXY.init();
     }
@@ -81,6 +82,7 @@ public class Modjam4Mod
 	public static void clientInit() {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileShaft.class, new RenderTileShaft());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileWatermill.class, new RenderTileWatermill());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileMillstone.class, new RenderTileMillstone());
 		
 		NULL_RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderBlockNothing());

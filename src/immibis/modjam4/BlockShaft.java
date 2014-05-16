@@ -1,11 +1,18 @@
 package immibis.modjam4;
 
+import org.lwjgl.opengl.GL11;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -49,6 +56,9 @@ public class BlockShaft extends BlockMachineBase {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderInvBlock(RenderBlocks rb) {
-		
+		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+		Tessellator.instance.startDrawingQuads();
+		new RenderTileShaft().renderShaft(true);
+		Tessellator.instance.draw();
 	}
 }

@@ -19,7 +19,7 @@ public class BlockMillstone extends BlockMachineBase {
 	
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return null;
+		return new TileMillstone();
 	}
 	
 	@Override

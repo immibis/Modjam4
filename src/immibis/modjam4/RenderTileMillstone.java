@@ -6,12 +6,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 
-public class RenderTileWatermill extends RenderTileShaft {
+public class RenderTileMillstone extends RenderTileShaft {
 	public void renderAttachment() {
 		final double MINY = -7/16f, MAXY = -MINY;
-		final int NUM_SLICES = 12;
+		final int NUM_SLICES = 8;
 		Tessellator t = Tessellator.instance;
-		IIcon i = Blocks.planks.getIcon(0, 0);
+		IIcon i = Blocks.stone.getIcon(0, 0);
 		
 		final double R_MIN = 24/16f;
 		final double R_MAX = 26/16f;

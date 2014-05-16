@@ -36,7 +36,7 @@ public class TileWatermill extends TileShaft {
 			level3 = getLiquidLevel(0, -2, 1);
 			numfalls = 0;
 			for(int k = -2; k < 3; k++)
-				numfalls += isWaterfall(-2, k, 0) - isWaterfall(2, k, 0);
+				numfalls += isWaterfall(0, k, -2) - isWaterfall(0, k, 2);
 			break;
 		}
 		

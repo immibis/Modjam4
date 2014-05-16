@@ -17,7 +17,7 @@ import net.minecraft.util.IIcon;
 @SideOnly(Side.CLIENT)
 public class RenderTileShaft extends TileEntitySpecialRenderer  {
 	
-	protected void renderAttachment() {}
+	public void renderAttachment() {}
 
 	@Override
 	public void renderTileEntityAt(TileEntity te_, double renderX, double renderY, double renderZ, float partialTick) {
@@ -43,46 +43,49 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 		GL11.glRotatef(angle, 0, 1, 0);
 		
 		t.startDrawingQuads();
-		
 		renderAttachment();
-		
-		renderShaft();
-	
+		renderShaft(false);
 		t.draw();
-		t.setTranslation(0, 0, 0);
+		
 		GL11.glPopMatrix();
 	}
 	
-	public void renderShaft() {
+	public void renderShaft(boolean useNormal) {
 		Tessellator t = Tessellator.instance;
 		
 		IIcon icon = Blocks.log.getIcon(2, 0);
+		if(useNormal) t.setNormal(-1, 0, 0);
 		t.addVertexWithUV(-0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV(-0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV(-0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV(-0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());
 		
+		if(useNormal) t.setNormal(1, 0, 0);
 		t.addVertexWithUV( 0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV( 0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		
+		if(useNormal) t.setNormal(0, 0, -1);
 		t.addVertexWithUV(-0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25,  0.5,-0.25, icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25, -0.5,-0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV(-0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		
+		if(useNormal) t.setNormal(0, 0, 1);
 		t.addVertexWithUV(-0.25, -0.5, 0.25, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV( 0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV( 0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV(-0.25,  0.5, 0.25, icon.getMinU(), icon.getMaxV());
 		
 		icon = Blocks.log.getIcon(0, 0);
+		if(useNormal) t.setNormal(0, -1, 0);
 		t.addVertexWithUV( 0.25, -0.5,-0.25, icon.getMinU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25, -0.5, 0.25, icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV(-0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV(-0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		
+		if(useNormal) t.setNormal(0, 1, 0);
 		t.addVertexWithUV(-0.25,  0.5,-0.25, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV(-0.25,  0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV( 0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
