@@ -46,7 +46,7 @@ public class TileCable extends TileEntity implements ICable {
 	
 	private void setNeighbour(int dir, ICable te) {
 		if(neighbours[dir] != te) {
-			System.out.println(this+" set "+dir+" "+neighbours[dir]+" -> "+te);
+			//System.out.println(this+" set "+dir+" "+neighbours[dir]+" -> "+te);
 			if(neighbours[dir] != null) {
 				propagateNetwork(new CableNetwork());
 			}

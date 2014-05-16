@@ -15,6 +15,15 @@ public abstract class TileMachine extends TileEntity implements IShaft {
 		return null;
 	}
 	
+	private boolean firstTick = true;
+	@Override
+	public void updateEntity() {
+		if(firstTick) {
+			firstTick = false;
+			updateNeighbourConnections();
+		}
+	}
+	
 	protected void updateNeighbourConnections() {}
 	
 	@Override

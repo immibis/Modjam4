@@ -23,11 +23,12 @@ public class TileShaft extends TileMachine {
 	private boolean firstTick = true;
 	@Override
 	public void updateEntity() {
-		super.updateEntity();
 		if(firstTick) {
 			firstTick = false;
 			shaftNode.setSideMask(3 << getBlockMetadata());
 		}
+		super.updateEntity();
+		shaftNode.tick();
 	}
 	
 	@Override

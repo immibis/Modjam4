@@ -18,6 +18,13 @@ public class ShaftNetwork {
 		if(network == this)
 			return;
 		
+		network.angle += (angle - network.angle) / 2;
+
+		boolean sign = network.angvel < 0;
+		network.angvel = (int)Math.sqrt((((double)angvel)*angvel*nodes.size() + ((double)network.angvel)*network.angvel*network.nodes.size())/(nodes.size() + network.nodes.size()));
+		if(sign)
+			network.angvel = -network.angvel;
+		
 		for(ShaftNode c : nodes) {
 			c.network = network;
 			network.add(c);
@@ -30,5 +37,13 @@ public class ShaftNetwork {
 	
 	void tick() {
 		angle += angvel;
+		angvel *= 0.95;
+	}
+
+	public ShaftNetwork createSplitNetwork() {
+		ShaftNetwork n = new ShaftNetwork();
+		n.angle = angle;
+		n.angvel = angvel;
+		return n;
 	}
 }

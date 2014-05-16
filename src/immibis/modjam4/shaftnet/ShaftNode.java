@@ -11,7 +11,7 @@ import net.minecraft.util.Facing;
 public class ShaftNode {
 	
 	private TileEntity te;
-	private int sideMask;
+	private int sideMask = 0;
 	private ShaftNode adjNodes[] = new ShaftNode[6];
 	
 	ShaftNetwork network = new ShaftNetwork();
@@ -30,7 +30,7 @@ public class ShaftNode {
 		for(int k = 0; k < 6; k++)
 			newNetwork |= updateNeighbour(k);
 		if(newNetwork)
-			propagateNetwork(new ShaftNetwork());
+			propagateNetwork(network.createSplitNetwork());
 	}
 
 	private void propagateNetwork(ShaftNetwork newNetwork) {
@@ -40,7 +40,7 @@ public class ShaftNode {
 		network = newNetwork;
 		newNetwork.add(this);
 		
-		System.out.println("propagate "+te+" "+network+" -> "+Arrays.toString(adjNodes));
+		//System.out.println("propagate "+te+" "+network+" -> "+Arrays.toString(adjNodes));
 		
 		for(ShaftNode neighbour : adjNodes)
 			if(neighbour != null)
@@ -49,7 +49,7 @@ public class ShaftNode {
 	
 	@Override
 	public String toString() {
-		return te.toString();
+		return "ShaftNode("+te.toString()+")";
 	}
 
 	private boolean updateNeighbour(int dir) {
