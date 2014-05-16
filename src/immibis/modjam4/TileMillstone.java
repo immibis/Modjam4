@@ -8,6 +8,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
 public class TileMillstone extends TileShaft implements IInventory, ISidedInventory{
@@ -19,6 +22,17 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 	
 	private ItemStack processing;
 	private int progress;
+	private boolean isProcessing;
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		isProcessing = pkt.func_148853_f() != 0;
+	}
+	
+	@Override
+	public Packet getDescriptionPacket() {
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, processing != null ? 1 : 0, null);
+	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
@@ -41,16 +55,27 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if(!worldObj.isRemote && processing != null) {
+		if(worldObj.isRemote ? isProcessing : processing != null) {
 			ShaftNetwork net = shaftNode.getNetwork();
 			
-			System.out.println("xxx"+ShaftUtils.toDegreesPerSecond(net.angvel));
+			// ~20 seconds at 38 degrees/second
+			// = one tick at 38*20*20=15200 degrees/second
+			// 15200 degrees/second = 10000 progress units/tick but this overflows
+			// 3000 degrees/second = 2000 progress units/tick
+			// 1 progress unit/tick = 1.5 degrees/second
+			int scale = ShaftUtils.fromDegreesPerSecond(3000) / 2000;
+			int progressPerTick = Math.abs(net.angvel / scale);
 			
-			progress++;
-			if(progress >= 100) {
-				progress = 0;
-				processing = null;
-				worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, new ItemStack(Modjam4Mod.itemFlour)));
+			net.angvel -= (net.angvel < 0 ? -1 : 1) * progressPerTick * ShaftUtils.fromDegreesPerSecond(1);
+			
+			if(!worldObj.isRemote) {
+				progress += progressPerTick;
+				if(progress >= 10000) {
+					progress = 0;
+					processing = null;
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+					worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, new ItemStack(Modjam4Mod.itemFlour)));
+				}
 			}
 		}
 	}
@@ -67,6 +92,7 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 			processing = pl.inventory.getCurrentItem().splitStack(1);
 			if(pl.inventory.getCurrentItem().stackSize == 0)
 				pl.inventory.mainInventory[pl.inventory.currentItem] = null;
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 		return true;
 	}
@@ -117,6 +143,7 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 	@Override
 	public void setInventorySlotContents(int var1, ItemStack var2) {
 		processing = var2;
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	@Override
