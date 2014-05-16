@@ -29,9 +29,7 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			// negative slip = power generated; positive slip = power consumed
 			
 			double torque = ShaftUtils.toDegrees(slip) * 1000;
-			double genPower = torque * ShaftUtils.toRadiansPerSecond(angvel);
-			
-			System.out.println("gen "+genPower);
+			double genPower = -torque * ShaftUtils.toRadiansPerSecond(angvel);
 			
 			if(genPower > 0)
 				cable.generatedPowerAcc += genPower;

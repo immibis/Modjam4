@@ -49,11 +49,10 @@ public class CableNetwork {
 		
 		double excessPower = generatedPower - consumedPower;
 		
-		// 1kW excess = 0.01 rad/s/tick increase in frequency
-		frequency += ShaftUtils.fromRadiansPerSecond(excessPower / 1000000.0);
+		// 1kW excess = 0.01 rad/s/tick increase in frequency, for a network with 10 cables
+		frequency += ShaftUtils.fromRadiansPerSecond(excessPower / 100000.0 / cables.size());
 		
-		System.out.println("excess power "+excessPower);
-		
+		// temporary; induction generators can't supply power to a dead network 
 		if(frequency < ShaftUtils.fromRadiansPerSecond(0.0001))
 			frequency = ShaftUtils.fromRadiansPerSecond(0.0001);
 	}
