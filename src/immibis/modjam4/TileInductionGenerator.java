@@ -23,6 +23,7 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			
 			int slip = angle - conn.getAngle(shaftSide^1);
 			
+			// dspeed/dt = torque / MOMENT_OF_INERTIA
 			// torque is proportional to slip
 			// input power (W) = input torque (kgm^2s^-2) * input speed (rad/s)
 			
@@ -36,14 +37,10 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			else
 				cable.consumedPowerAcc -= genPower;
 			
-			// J*d_freq/dt = T_electric - T_mechanical
-			// J is inertia
-			// applies to whole system
-			
 			//angle += ShaftUtils.angdiff(s_angle, angle)/16;
 			
-			angvel = cable.frequency;
-			angle = s_angle + angvel;
+			angvel = s_angvel - ShaftUtils.fromRadiansPerSecond(torque / MOMENT_OF_INERTIA); 
+			angle = cable.angle;
 		}
 	}
 

@@ -12,6 +12,7 @@ public class CableNetwork {
 	public double generatedPower; // W
 	public double consumedPower; // W
 	public int frequency; // angle units/tick (!)
+	public int angle;
 	
 	public double generatedPowerAcc, consumedPowerAcc;
 
@@ -55,6 +56,8 @@ public class CableNetwork {
 		// temporary; induction generators can't supply power to a dead network 
 		if(frequency < ShaftUtils.fromRadiansPerSecond(0.0001))
 			frequency = ShaftUtils.fromRadiansPerSecond(0.0001);
+		
+		angle += frequency;
 	}
 
 }
