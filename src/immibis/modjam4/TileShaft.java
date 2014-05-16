@@ -35,6 +35,8 @@ public class TileShaft extends TileEntity implements IShaft {
 			updateOneConnection(conn2, meta);
 		
 		angvel = angle - lastAngle;
+		
+		angvel *= 0.97;
 	}
 
 	IShaft getConnected(int dir) {

@@ -4,13 +4,11 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileGearboxDouble extends TileMachineBase implements IShaft {
 	
-	public static final double MOMENT_OF_INERTIA = TileShaft.MOMENT_OF_INERTIA;
+	public static final double MOMENT_OF_INERTIA = TileShaft.MOMENT_OF_INERTIA * 30;
 	
 	// angle/angvel of low-speed side
 	public int angle;
 	public int angvel;
-	
-	public int hsAngle;
 	
 	@Override
 	public void updateEntity() {
@@ -31,17 +29,18 @@ public class TileGearboxDouble extends TileMachineBase implements IShaft {
 		
 		// find angvel such that
 		//   totEnergy = 0.5 * (ls_moi + MOMENT_OF_INERTIA + hs_moi*4)*angvel*angvel
-		angvel = (int)Math.sqrt(totEnergy * 2 / (ls_moi + MOMENT_OF_INERTIA + hs_moi*4) * 0.5);
+		angvel = (int)Math.sqrt(totEnergy * 2 / (ls_moi + MOMENT_OF_INERTIA + hs_moi*4));
 		
-		angle = ls_angle + angvel; hsAngle = hs_angle + angvel*2;
+		System.out.println(totEnergy+" "+0.5 * (ls_moi*angvel*angvel + hs_moi*angvel*angvel*4 + MOMENT_OF_INERTIA*angvel*angvel));
+		
+		angle += angvel;
 	}
 	
 
 	@Override
 	public int getAngle(int side) {
 		if(side == getBlockMetadata())
-			//return angle * 2;
-			return hsAngle;
+			return angle * 2;
 		return angle;
 	}
 

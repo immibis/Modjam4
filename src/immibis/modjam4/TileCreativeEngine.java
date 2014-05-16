@@ -24,6 +24,7 @@ public class TileCreativeEngine extends TileEntity implements IShaft {
 	
 	@Override
 	public void updateEntity() {
+		angvel = 5 << 25;
 		angle += angvel;
 	}
 	
