@@ -32,6 +32,7 @@ public class Modjam4Mod
 	public static BlockInductionGenerator blockInductionGenerator;
 	public static BlockCable blockCable;
 	public static BlockWatermill blockWatermill;
+	public static BlockMillstone blockMillstone;
 	
 	public static int NULL_RENDER_ID = 0;
 	
@@ -63,6 +64,9 @@ public class Modjam4Mod
 		blockWatermill = new BlockWatermill(Material.wood);
 		blockWatermill.setBlockName("immibis_modjam4.woodenWatermill");
 		GameRegistry.registerBlock(blockWatermill, "woodenWatermill");
+		
+		blockMillstone = new BlockMillstone();
+		GameRegistry.registerBlock(blockMillstone, "millstone");
 		
 		Blocks.fire.setFireInfo(blockWatermill, 60, 20);
 		

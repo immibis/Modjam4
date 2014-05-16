@@ -1,5 +1,5 @@
 package immibis.modjam4;
 
-public class TileMillstone extends TileMachine {
+public class TileMillstone extends TileShaft {
 
 }
