@@ -39,7 +39,7 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 			// X -> Y
 			GL11.glRotatef(90, 0, 0, 1);
 		}
-		float angle = (float)((te.angle + te.angvel * partialTick) / (4294967296.0 / 360.0));
+		float angle = (float)((te.shaftNode.getNetwork().angle + te.shaftNode.getNetwork().angvel * partialTick) / (4294967296.0 / 360.0));
 		GL11.glRotatef(angle, 0, 1, 0);
 		GL11.glTranslatef(-0.5f, -0.5f, -0.5f);
 		

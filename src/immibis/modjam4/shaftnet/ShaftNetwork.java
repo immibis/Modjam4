@@ -10,13 +10,10 @@ import java.util.List;
 public class ShaftNetwork {
 	private List<ShaftNode> nodes = new ArrayList<ShaftNode>();
 	
-	public double generatedPower; // W
-	public double consumedPower; // W
-	public int frequency; // angle units/tick (!)
-	public int angle;
+	public int angle, angvel;
 	
-	public double generatedPowerAcc, consumedPowerAcc;
-
+	long lastUpdate;
+	
 	public void mergeInto(ShaftNetwork network) {
 		if(network == this)
 			return;
@@ -29,5 +26,9 @@ public class ShaftNetwork {
 
 	public void add(ShaftNode cable) {
 		nodes.add(cable);
+	}
+	
+	void tick() {
+		angle += angvel;
 	}
 }

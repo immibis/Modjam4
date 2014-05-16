@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileShaft extends TileEntity /*implements IShaft*/ {
+public class TileShaft extends TileMachine /*implements IShaft*/ {
 	
 	public static final double MOMENT_OF_INERTIA = 50;
 	

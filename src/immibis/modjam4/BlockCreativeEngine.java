@@ -6,7 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockCreativeEngine extends BlockContainer {
+public class BlockCreativeEngine extends BlockMachineBase {
 	public BlockCreativeEngine() {
 		super(Material.iron);
 		

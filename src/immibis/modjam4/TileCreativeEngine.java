@@ -3,9 +3,9 @@ package immibis.modjam4;
 import immibis.modjam4.shaftnet.ShaftNode;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileCreativeEngine extends TileEntity implements IShaft {
+public class TileCreativeEngine extends TileMachine {
 
-	public ShaftNode shaftNode;
+	{shaftNode.setSideMask(63);}
 	
 	@Override
 	public ShaftNode getShaftNode(int side) {
@@ -14,7 +14,7 @@ public class TileCreativeEngine extends TileEntity implements IShaft {
 	
 	@Override
 	public void updateEntity() {
-		//shaftNode.angvel = 3 << 24;
+		shaftNode.getNetwork().angvel = 3 << 24;
 		shaftNode.tick();
 	}
 }

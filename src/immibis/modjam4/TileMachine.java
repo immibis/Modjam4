@@ -13,7 +13,7 @@ public abstract class TileMachine extends TileEntity implements IShaft {
 	
 	public int shaftSide = 0;
 	
-	public ShaftNode shaftNode;
+	public ShaftNode shaftNode = new ShaftNode(this);
 	
 	@Override
 	public ShaftNode getShaftNode(int side) {
@@ -24,7 +24,7 @@ public abstract class TileMachine extends TileEntity implements IShaft {
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
 		shaftSide = tag.getInteger("shaftSide");
-		shaftNode = new ShaftNode(this, 1 << shaftSide);
+		shaftNode.setSideMask(1 << shaftSide);
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public abstract class TileMachine extends TileEntity implements IShaft {
 	
 	public void initSide(int shaftSide) {
 		this.shaftSide = shaftSide;
-		this.shaftNode = new ShaftNode(this, 1 << shaftSide);
+		shaftNode.setSideMask(1 << shaftSide);
 	}
 	
 	/*@Override
@@ -99,5 +99,9 @@ public abstract class TileMachine extends TileEntity implements IShaft {
 			return null;
 		
 		return ((ICable)te).getNetwork();
+	}
+
+	public void onBlockUpdate() {
+		shaftNode.updateNeighbours();
 	}
 }

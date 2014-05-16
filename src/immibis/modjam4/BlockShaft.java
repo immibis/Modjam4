@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 // metadata is direction - 0 (Y), 2 (Z) or 4 (X)
-public class BlockShaft extends BlockContainer {
+public class BlockShaft extends BlockMachineBase {
 	public BlockShaft(Material m) {
 		super(m);
 		
