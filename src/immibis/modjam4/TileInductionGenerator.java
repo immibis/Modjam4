@@ -44,11 +44,7 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			
 			angvel = cable.frequency;
 			angle = s_angle + angvel;
-			
-			if(slip >= 0 && worldObj.isRemote) System.out.println(slip+" "+angvel+" "+angle);
 		}
-		else
-			angle = angle;
 	}
 
 	@Override

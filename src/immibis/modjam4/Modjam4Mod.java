@@ -64,7 +64,7 @@ public class Modjam4Mod
 		GameRegistry.registerTileEntity(TileGearboxDirectional.class, "immibisMJ4.dirGearbox");
 		GameRegistry.registerTileEntity(TileInductionGenerator.class, "immibisMJ4.inductionGenerator");
 		GameRegistry.registerTileEntity(TileCable.class, "immibisMJ4.cable");
-		GameRegistry.registerTileEntity(TileGearboxDouble.class, "stoneDoubleGearbox");
+		GameRegistry.registerTileEntity(TileGearboxDouble.class, "immibisMJ4.doubleGearbox");
 		
 		PROXY.init();
     }

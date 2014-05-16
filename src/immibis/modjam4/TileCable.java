@@ -46,9 +46,9 @@ public class TileCable extends TileEntity implements ICable {
 	
 	private void setNeighbour(int dir, ICable te) {
 		if(neighbours[dir] != te) {
-			//System.out.println(this+" set "+dir+" "+neighbours[dir]+" -> "+te);
+			System.out.println(this+" set "+dir+" "+neighbours[dir]+" -> "+te);
 			if(neighbours[dir] != null) {
-				neighbours[dir].propagateNetwork(new CableNetwork());
+				propagateNetwork(new CableNetwork());
 			}
 			if(te != null) {
 				te.getNetwork().mergeInto(network);
@@ -68,7 +68,7 @@ public class TileCable extends TileEntity implements ICable {
 	public void updateEntity() {
 		super.updateEntity();
 		
-		if(firstUpdate) {
+		if(worldObj.isRemote || firstUpdate) {
 			firstUpdate = false;
 			for(int k = 0; k < 6; k++)
 				updateNeighbour(k);
@@ -92,6 +92,8 @@ public class TileCable extends TileEntity implements ICable {
 		if(network == newNetwork)
 			return;
 		
+		System.out.println(this+" propagate "+network+" -> "+newNetwork);
+		
 		network = newNetwork;
 		newNetwork.add(this);
 		
@@ -100,9 +102,11 @@ public class TileCable extends TileEntity implements ICable {
 			int x = xCoord+fd.offsetX, y = yCoord+fd.offsetY, z = zCoord+fd.offsetZ;
 			
 			if(worldObj.blockExists(x, y, z)) {
-				TileEntity te = worldObj.getTileEntity(x, y, z);
-				if(te instanceof ICable)
-					((ICable)te).propagateNetwork(newNetwork);
+				if(worldObj.getBlock(x, y, z) == Modjam4Mod.blockCable) {
+					TileEntity te = worldObj.getTileEntity(x, y, z);
+					if(te instanceof ICable)
+						((ICable)te).propagateNetwork(newNetwork);
+				}
 			}
 		}
 	}
