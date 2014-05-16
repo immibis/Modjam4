@@ -43,6 +43,7 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 			//angle += ShaftUtils.angdiff(s_angle, angle)/16;
 			
 			angvel = cable.frequency;
+			angle = s_angle + angvel;
 		}
 	}
 
