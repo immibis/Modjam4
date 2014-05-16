@@ -2,8 +2,9 @@ package immibis.modjam4;
 
 import net.minecraft.tileentity.TileEntity;
 
-public class TileGearboxDouble extends TileMachineBase implements IShaft {
+public class TileGearboxDouble extends TileMachineBase /*implements IShaft*/ {
 	
+	/*
 	public static final double MOMENT_OF_INERTIA = TileShaft.MOMENT_OF_INERTIA * 30;
 	
 	// angle/angvel of low-speed side
@@ -60,6 +61,6 @@ public class TileGearboxDouble extends TileMachineBase implements IShaft {
 	public double getMomentOfInertia(int side) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}*/
 
 }

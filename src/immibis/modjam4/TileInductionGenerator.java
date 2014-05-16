@@ -2,7 +2,7 @@ package immibis.modjam4;
 
 import net.minecraft.tileentity.TileEntity;
 
-public class TileInductionGenerator extends TileOneShaftMachine implements IShaft {
+public class TileInductionGenerator extends TileOneShaftMachine /*implements IShaft*/ {
 	
 	public static final double MOMENT_OF_INERTIA = 5000; // kgm^2
 	
@@ -44,9 +44,5 @@ public class TileInductionGenerator extends TileOneShaftMachine implements IShaf
 		}
 	}
 
-	@Override
-	public double getMomentOfInertia(int side) {
-		return MOMENT_OF_INERTIA;
-	}
 	
 }

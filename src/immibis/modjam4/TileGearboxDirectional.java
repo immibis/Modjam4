@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileGearboxDirectional extends TileEntity implements IShaft {
+public class TileGearboxDirectional extends TileEntity /*implements IShaft*/ {
 	public int angle; // INT_MIN to INT_MAX
 	public int angvel; // angle units per tick
 	
@@ -15,7 +15,7 @@ public class TileGearboxDirectional extends TileEntity implements IShaft {
 	private int[] angleOffset = new int[6];
 	private int[] angles = new int[6];
 	
-	@Override
+	/*@Override
 	public void updateEntity() {
 		lastUpdate = worldObj.getTotalWorldTime();
 		angle += angvel;
@@ -123,5 +123,5 @@ public class TileGearboxDirectional extends TileEntity implements IShaft {
 	@Override
 	public double getMomentOfInertia(int side) {
 		return TileShaft.MOMENT_OF_INERTIA;
-	}
+	}*/
 }

@@ -1,36 +1,20 @@
 package immibis.modjam4;
 
+import immibis.modjam4.shaftnet.ShaftNode;
 import net.minecraft.tileentity.TileEntity;
 
 public class TileCreativeEngine extends TileEntity implements IShaft {
 
-	public int angle; // INT_MIN to INT_MAX
-	public int angvel = 3 << 24; // angle units per tick
+	public ShaftNode shaftNode;
 	
 	@Override
-	public int getAngle(int side) {
-		return angle;
-	}
-	
-	@Override
-	public int getAngVel(int side) {
-		return angvel;
-	}
-	
-	@Override
-	public boolean doesShaftConnect(int side) {
-		return true;
+	public ShaftNode getShaftNode(int side) {
+		return shaftNode;
 	}
 	
 	@Override
 	public void updateEntity() {
-		angvel = 3 << 24;
-		angle += angvel;
+		//shaftNode.angvel = 3 << 24;
+		shaftNode.tick();
 	}
-	
-	@Override
-	public double getMomentOfInertia(int side) {
-		return 100000000;
-	}
-
 }
