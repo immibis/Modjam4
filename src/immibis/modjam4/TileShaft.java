@@ -5,7 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileShaft extends TileEntity implements IShaft {
+public class TileShaft extends TileEntity /*implements IShaft*/ {
 	
 	public static final double MOMENT_OF_INERTIA = 50;
 	
@@ -26,13 +26,13 @@ public class TileShaft extends TileEntity implements IShaft {
 		IShaft conn1 = getConnected(meta);
 		IShaft conn2 = getConnected(meta^1);
 	
-		if(conn1 != null)
+		/*if(conn1 != null)
 			if(conn2 != null)
 				updateTwoConnections(conn1, meta^1, conn2, meta);
 			else
 				updateOneConnection(conn1, meta^1);
 		else if(conn2 != null)
-			updateOneConnection(conn2, meta);
+			updateOneConnection(conn2, meta);*/
 		
 		angvel = angle - lastAngle;
 		
@@ -40,7 +40,7 @@ public class TileShaft extends TileEntity implements IShaft {
 	}
 
 	IShaft getConnected(int dir) {
-		ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[dir];
+		/*ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[dir];
 		int x = xCoord+fd.offsetX, y = yCoord+fd.offsetY, z = zCoord+fd.offsetZ;
 		if(!worldObj.blockExists(x, y, z))
 			return null;
@@ -53,10 +53,11 @@ public class TileShaft extends TileEntity implements IShaft {
 		if(!s.doesShaftConnect(dir^1))
 			return null;
 		
-		return s;
+		return s;*/
+		return null;
 	}
 
-	private void updateOneConnection(IShaft conn, int dir) {
+	/*private void updateOneConnection(IShaft conn, int dir) {
 		
 		int s_angvel = conn.getAngVel(dir);
 		int s_angle = conn.getAngle(dir);
@@ -84,13 +85,13 @@ public class TileShaft extends TileEntity implements IShaft {
 		
 		angle = ShaftUtils.bisectAngle(s1_angle, s2_angle);
 		//angvel = (s1_angvel + s2_angvel)/2;
-	}
+	}*/
 	
 	public void debug(EntityPlayer p) {
 		if(!worldObj.isRemote)
 			return;
 		
-		p.addChatMessage(new ChatComponentText("Angvel: "+ShaftUtils.toDegreesPerSecond(angvel)));
+		/*p.addChatMessage(new ChatComponentText("Angvel: "+ShaftUtils.toDegreesPerSecond(angvel)));
 		
 		int meta = getBlockMetadata(); 
 		IShaft c1 = getConnected(meta);
@@ -104,10 +105,10 @@ public class TileShaft extends TileEntity implements IShaft {
 		if(c2 != null) {
 			p.addChatMessage(new ChatComponentText("End 2 angvel: "+ShaftUtils.toDegreesPerSecond(c2.getAngVel(meta))));
 			p.addChatMessage(new ChatComponentText("End 2 slip: "+ShaftUtils.toDegrees(angle - c2.getAngle(meta))));
-		}
+		}*/
 	}
 
-	@Override
+	/*@Override
 	public int getAngle(int side) {
 		if(lastUpdate != worldObj.getTotalWorldTime())
 			return angle + angvel;
@@ -127,5 +128,5 @@ public class TileShaft extends TileEntity implements IShaft {
 	@Override
 	public double getMomentOfInertia(int side) {
 		return MOMENT_OF_INERTIA;
-	}
+	}*/
 }

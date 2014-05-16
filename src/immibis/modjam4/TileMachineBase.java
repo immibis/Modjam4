@@ -5,7 +5,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileMachineBase extends TileEntity {
 	protected IShaft getConnectedShaft(int dir) {
-		ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[dir];
+		/*ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[dir];
 		int x = xCoord+fd.offsetX, y = yCoord+fd.offsetY, z = zCoord+fd.offsetZ;
 		if(!worldObj.blockExists(x, y, z))
 			return null;
@@ -18,6 +18,7 @@ public class TileMachineBase extends TileEntity {
 		if(!s.doesShaftConnect(dir^1))
 			return null;
 		
-		return s;
+		return s;*/
+		return null;
 	}
 }

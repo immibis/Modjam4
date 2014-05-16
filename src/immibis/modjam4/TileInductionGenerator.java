@@ -2,7 +2,7 @@ package immibis.modjam4;
 
 import net.minecraft.tileentity.TileEntity;
 
-public class TileInductionGenerator extends TileOneShaftMachine /*implements IShaft*/ {
+public class TileInductionGenerator extends TileMachine /*implements IShaft*/ {
 	
 	public static final double MOMENT_OF_INERTIA = 5000; // kgm^2
 	
@@ -17,7 +17,7 @@ public class TileInductionGenerator extends TileOneShaftMachine /*implements ISh
 
 		CableNetwork cable = getConnectedCable();
 		IShaft conn = getConnectedShaft();
-		if(conn != null && cable != null) {
+		/*if(conn != null && cable != null) {
 			int s_angvel = conn.getAngVel(shaftSide^1);
 			int s_angle = conn.getAngle(shaftSide^1);
 			
@@ -41,7 +41,7 @@ public class TileInductionGenerator extends TileOneShaftMachine /*implements ISh
 			
 			angvel = s_angvel - ShaftUtils.fromRadiansPerSecond(torque / MOMENT_OF_INERTIA); 
 			angle = cable.angle;
-		}
+		}*/
 	}
 
 	

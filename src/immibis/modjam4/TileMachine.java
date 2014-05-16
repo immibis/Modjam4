@@ -1,10 +1,11 @@
 package immibis.modjam4;
 
+import immibis.modjam4.shaftnet.ShaftNode;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
+public abstract class TileMachine extends TileEntity implements IShaft {
 	
 	public int angle;
 	public int angvel;
@@ -12,10 +13,18 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 	
 	public int shaftSide = 0;
 	
+	public ShaftNode shaftNode;
+	
+	@Override
+	public ShaftNode getShaftNode(int side) {
+		return side == shaftSide ? shaftNode : null;
+	}
+	
 	@Override
 	public void readFromNBT(NBTTagCompound tag) {
 		super.readFromNBT(tag);
 		shaftSide = tag.getInteger("shaftSide");
+		shaftNode = new ShaftNode(this, 1 << shaftSide);
 	}
 	
 	@Override
@@ -26,9 +35,10 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 	
 	public void initSide(int shaftSide) {
 		this.shaftSide = shaftSide;
+		this.shaftNode = new ShaftNode(this, 1 << shaftSide);
 	}
 	
-	@Override
+	/*@Override
 	public boolean doesShaftConnect(int side) {
 		return side == shaftSide;
 	}
@@ -41,7 +51,7 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 	@Override
 	public int getAngVel(int side) {
 		return angvel;
-	}
+	}*/
 	
 	@Override
 	public void updateEntity() {
@@ -49,7 +59,7 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 		
 		angle += angvel;
 		
-		IShaft conn = getConnectedShaft();
+		/*IShaft conn = getConnectedShaft();
 		if(conn != null) {
 			int s_angvel = conn.getAngVel(shaftSide^1);
 			int s_angle = conn.getAngle(shaftSide^1);
@@ -57,11 +67,11 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 			angle += ShaftUtils.angdiff(s_angle, angle)/2;
 		}
 		
-		angvel = angle - lastAngle;
+		angvel = angle - lastAngle;*/
 	}
 	
 	public IShaft getConnectedShaft() {
-		ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[shaftSide];
+		/*ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[shaftSide];
 		int x = xCoord+fd.offsetX, y = yCoord+fd.offsetY, z = zCoord+fd.offsetZ;
 		if(!worldObj.blockExists(x, y, z))
 			return null;
@@ -74,7 +84,8 @@ public abstract class TileOneShaftMachine extends TileEntity implements IShaft {
 		if(!s.doesShaftConnect(shaftSide^1))
 			return null;
 		
-		return s;
+		return s;*/
+		return null;
 	}
 	
 	public CableNetwork getConnectedCable() {
