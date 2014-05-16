@@ -2,7 +2,7 @@ package immibis.modjam4;
 
 import net.minecraft.tileentity.TileEntity;
 
-public class TileGearboxDouble extends TileMachineBase /*implements IShaft*/ {
+public class TileGearboxDouble extends TileMachine /*implements IShaft*/ {
 	
 	/*
 	public static final double MOMENT_OF_INERTIA = TileShaft.MOMENT_OF_INERTIA * 30;

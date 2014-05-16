@@ -42,10 +42,4 @@ public class BlockShaft extends BlockMachineBase {
 	public boolean renderAsNormalBlock() {
 		return false;
 	}
-	
-	@Override
-	public boolean onBlockActivated(World w, int x, int y, int z, EntityPlayer p, int side, float hitx, float hity, float hitz) {
-		((TileShaft)w.getTileEntity(x, y, z)).debug(p);
-		return true;
-	}
 }
