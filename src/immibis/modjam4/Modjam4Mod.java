@@ -3,7 +3,9 @@ package immibis.modjam4;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -33,6 +35,7 @@ public class Modjam4Mod
 	public static BlockCable blockCable;
 	public static BlockWatermill blockWatermill;
 	public static BlockMillstone blockMillstone;
+	public static Item itemFlour;
 	
 	public static int NULL_RENDER_ID = 0;
 	
@@ -64,11 +67,16 @@ public class Modjam4Mod
 		blockWatermill = new BlockWatermill(Material.wood);
 		blockWatermill.setBlockName("immibis_modjam4.woodenWatermill");
 		GameRegistry.registerBlock(blockWatermill, "woodenWatermill");
+		Blocks.fire.setFireInfo(blockWatermill, 60, 20);
 		
 		blockMillstone = new BlockMillstone();
 		GameRegistry.registerBlock(blockMillstone, "millstone");
 		
-		Blocks.fire.setFireInfo(blockWatermill, 60, 20);
+		itemFlour = new Item();
+		itemFlour.setCreativeTab(CreativeTabs.tabFood);
+		itemFlour.setTextureName("immibis_modjam4:flour");
+		itemFlour.setUnlocalizedName("immibis_modjam4.flour");
+		GameRegistry.registerItem(itemFlour, "flour");
 		
 		GameRegistry.registerTileEntity(TileShaft.class, "immibisMJ4.shaft");
 		GameRegistry.registerTileEntity(TileCreativeEngine.class, "immibisMJ4.creativeEngine");
