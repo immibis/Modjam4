@@ -15,6 +15,11 @@ public class TileShaft extends TileMachine {
 		return (side & 6) == (getBlockMetadata() & 6) ? shaftNode : null;
 	}
 	
+	@Override
+	public String toString() {
+		return xCoord+"/"+yCoord+"/"+zCoord;
+	}
+	
 	private boolean firstTick = true;
 	@Override
 	public void updateEntity() {
