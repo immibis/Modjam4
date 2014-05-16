@@ -27,8 +27,6 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		Tessellator t = Tessellator.instance;
 		
-		IIcon icon = Blocks.log.getIcon(2, 0);
-		
 		RenderHelper.disableStandardItemLighting();
 		
 		GL11.glPushMatrix();
@@ -48,6 +46,17 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 		
 		renderAttachment();
 		
+		renderShaft();
+	
+		t.draw();
+		t.setTranslation(0, 0, 0);
+		GL11.glPopMatrix();
+	}
+	
+	public void renderShaft() {
+		Tessellator t = Tessellator.instance;
+		
+		IIcon icon = Blocks.log.getIcon(2, 0);
 		t.addVertexWithUV(-0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV(-0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV(-0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
@@ -78,10 +87,6 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 		t.addVertexWithUV(-0.25,  0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV( 0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());
-	
-		t.draw();
-		t.setTranslation(0, 0, 0);
-		GL11.glPopMatrix();
 	}
 
 }

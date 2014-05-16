@@ -2,26 +2,24 @@ package immibis.modjam4;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class BlockCreativeEngine extends BlockMachineBase {
-	public BlockCreativeEngine() {
-		super(Material.iron);
+public class BlockMillstone extends BlockMachineBase {
+
+	public BlockMillstone() {
+		super(Material.rock);
 		
 		setCreativeTab(CreativeTabs.tabAllSearch);
-		setHardness(2.0F);
-        setStepSound(soundTypeMetal);
-        setBlockName("immibis_modjam4.creativeEngine");
+		setHardness(5);
 	}
-
+	
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return new TileCreativeEngine();
+		return null;
 	}
 	
 	@Override
@@ -29,4 +27,5 @@ public class BlockCreativeEngine extends BlockMachineBase {
 	public void renderInvBlock(RenderBlocks rb) {
 		
 	}
+
 }
