@@ -7,9 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * A network is a bunch of shaft machines rotating at the same speed.
+ */
 public class ShaftNetwork {
 	private List<ShaftNode> nodes = new ArrayList<ShaftNode>();
 	private List<SpeedTorqueCurve> machineCurves = new ArrayList<SpeedTorqueCurve>();
+	private List<NetworkLink> linkedNetworks = new ArrayList<NetworkLink>();
+	
+	private NetworkGroup group = new NetworkGroup();
+	{group.add(this);}
 	
 	public int angle;
 	public long angvel;
@@ -24,6 +31,8 @@ public class ShaftNetwork {
 
 		network.angvel = (angvel*nodes.size() + network.angvel*network.nodes.size()) / (network.nodes.size() + nodes.size());
 		
+		group.networks.remove(this);
+		
 		for(ShaftNode c : nodes) {
 			c.network = network;
 			network.add(c);
@@ -35,6 +44,7 @@ public class ShaftNetwork {
 		SpeedTorqueCurve curve = node.getSpeedTorqueCurve();
 		if(curve != null)
 			machineCurves.add(curve);
+		NetworkLink link = node.getNetworkLink();
 	}
 	
 	void tick() {

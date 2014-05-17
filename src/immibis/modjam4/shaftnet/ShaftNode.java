@@ -17,11 +17,7 @@ public class ShaftNode {
 		return null;
 	}
 	
-	public ShaftNode getLinkedNode() {
-		return null;
-	}
-	
-	public double getLinkedVelocityMultiplier() {
+	public NetworkLink getNetworkLink() {
 		return null;
 	}
 	
