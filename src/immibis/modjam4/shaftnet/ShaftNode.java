@@ -85,7 +85,7 @@ public class ShaftNode {
 		
 		if(neighbour != adjNodes[dir]) {
 			boolean newNetwork = (adjNodes[dir] != null);
-			if(newNetwork) System.out.println(this+" "+dir+" "+adjNodes[dir]+" -> "+neighbour);
+			//if(newNetwork) System.out.println(this+" "+dir+" "+adjNodes[dir]+" -> "+neighbour);
 			adjNodes[dir] = neighbour;
 			return newNetwork;
 		}

@@ -33,6 +33,10 @@ public class TileGearboxDouble extends TileMachine {
 	
 	NetworkLink networkLink;
 	
+	
+	ShaftNetwork lsNetwork = lsNode.getNetwork();
+	ShaftNetwork hsNetwork = hsNode.getNetwork();
+	
 	private boolean firstTick = true;
 	public void updateEntity() {
 		if(firstTick) {
@@ -43,24 +47,30 @@ public class TileGearboxDouble extends TileMachine {
 		}
 		lsNode.tick();
 		hsNode.tick();
-	}
-	
-	@Override
-	protected void updateNeighbourConnections() {
-		ShaftNetwork lsNetwork = lsNode.getNetwork();
-		ShaftNetwork hsNetwork = hsNode.getNetwork();
-		lsNode.updateNeighbours();
-		hsNode.updateNeighbours();
 		
 		ShaftNetwork lsNetwork_new = lsNode.getNetwork();
 		ShaftNetwork hsNetwork_new = hsNode.getNetwork();
 		
 		if(networkLink == null || lsNetwork_new != lsNetwork || hsNetwork_new != hsNetwork) {
-			if(networkLink != null)
+			lsNetwork = lsNetwork_new;
+			hsNetwork = hsNetwork_new;
+			
+			if(networkLink != null) {
+				//System.out.println("unlinking old gearbox link");
 				networkLink.unlink();
+			}
 			networkLink = new NetworkLink(lsNetwork_new, hsNetwork_new, 2);
+			//System.out.println("linking new gearbox link");
 			networkLink.link();
 		}
+	}
+	
+	@Override
+	protected void updateNeighbourConnections() {
+		lsNode.updateNeighbours();
+		hsNode.updateNeighbours();
+		
+		
 		
 		if(!worldObj.isRemote)
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

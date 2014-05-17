@@ -33,7 +33,7 @@ public class ShaftNetwork {
 
 		network.angvel = (angvel*nodes.size() + network.angvel*network.nodes.size()) / (network.nodes.size() + nodes.size());
 		
-		System.out.println(links);
+		/*System.out.println("merging "+this+" into "+network);
 		for(NetworkLink link : new ArrayList<NetworkLink>(links)) {
 			if(link.netA == this) {
 				link.unlink();
@@ -48,7 +48,7 @@ public class ShaftNetwork {
 			} else
 				throw new AssertionError();
 		}
-		links.clear();
+		links.clear();*/
 		
 		for(ShaftNode c : nodes) {
 			c.network = network;
@@ -103,8 +103,6 @@ public class ShaftNetwork {
 		ShaftNetwork n = new ShaftNetwork();
 		n.angle = angle;
 		n.angvel = angvel;
-		n.group = group;
-		group.add(n);
 		return n;
 	}
 
