@@ -20,12 +20,9 @@ public class ShaftNetwork {
 		if(network == this)
 			return;
 		
-		network.angle += (angle - network.angle) / 2;
+		network.angle += (int)(((double)angle - network.angle) * nodes.size() / (network.nodes.size() + nodes.size()));
 
-		boolean sign = network.angvel < 0;
-		network.angvel = (int)Math.sqrt((((double)angvel)*angvel*nodes.size() + ((double)network.angvel)*network.angvel*network.nodes.size())/(nodes.size() + network.nodes.size()));
-		if(sign)
-			network.angvel = -network.angvel;
+		network.angvel = (angvel*nodes.size() + network.angvel*network.nodes.size()) / (network.nodes.size() + nodes.size());
 		
 		for(ShaftNode c : nodes) {
 			c.network = network;

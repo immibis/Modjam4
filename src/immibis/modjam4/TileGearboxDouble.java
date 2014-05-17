@@ -1,8 +1,62 @@
 package immibis.modjam4;
 
+import immibis.modjam4.shaftnet.ShaftNode;
+import immibis.modjam4.shaftnet.SpeedTorqueCurve;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileGearboxDouble extends TileMachine /*implements IShaft*/ {
+public class TileGearboxDouble extends TileMachine {
+	
+	ShaftNode hsNode = new ShaftNode(this) {
+		public SpeedTorqueCurve getSpeedTorqueCurve() {
+			return new SpeedTorqueCurve() {
+				@Override
+				public long getTorqueAtSpeed(long hs_angvel) {
+					long ls_angvel = lsNode.getNetwork().angvel;
+					return ((ls_angvel * 2) - hs_angvel) / 100;
+				}
+			};
+		}
+	};
+	ShaftNode lsNode = new ShaftNode(this) {
+		public SpeedTorqueCurve getSpeedTorqueCurve() {
+			return new SpeedTorqueCurve() {
+				@Override
+				public long getTorqueAtSpeed(long ls_angvel) {
+					long hs_angvel = lsNode.getNetwork().angvel;
+					return ((hs_angvel / 2) - ls_angvel) / 100;
+				}
+			};
+		}
+	};
+	
+	private boolean firstTick = true;
+	public void updateEntity() {
+		if(firstTick) {
+			firstTick = false;
+			hsNode.setSideMask(1 << getBlockMetadata());
+			lsNode.setSideMask(1 << (getBlockMetadata() ^ 1));
+			updateNeighbourConnections();
+		}
+		lsNode.tick();
+		hsNode.tick();
+	}
+	
+	@Override
+	protected void updateNeighbourConnections() {
+		lsNode.updateNeighbours();
+		hsNode.updateNeighbours();
+		worldObj.getBlock(xCoord, yCoord, zCoord);
+	}
+	
+	@Override
+	public ShaftNode getShaftNode(int side) {
+		int meta = getBlockMetadata();
+		if(side == meta)
+			return hsNode;
+		if(side == (meta ^ 1))
+			return lsNode;
+		return null;
+	}
 	
 	/*
 	public static final double MOMENT_OF_INERTIA = TileShaft.MOMENT_OF_INERTIA * 30;
