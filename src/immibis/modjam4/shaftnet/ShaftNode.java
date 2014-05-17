@@ -30,9 +30,10 @@ public class ShaftNode {
 		boolean newNetwork = false;
 		for(int k = 0; k < 6; k++)
 			newNetwork |= updateNeighbour(k);
-		System.out.println("propagate split from "+this);
-		if(newNetwork)
+		if(newNetwork) {
+			System.out.println("propagate split from "+this);
 			propagateNetwork(network.createSplitNetwork());
+		}
 	}
 
 	private void propagateNetwork(ShaftNetwork newNetwork) {
@@ -73,6 +74,7 @@ public class ShaftNode {
 		
 		if(neighbour != adjNodes[dir]) {
 			boolean newNetwork = (adjNodes[dir] != null);
+			if(newNetwork) System.out.println(this+" "+dir+" "+adjNodes[dir]+" -> "+neighbour);
 			adjNodes[dir] = neighbour;
 			return newNetwork;
 		}

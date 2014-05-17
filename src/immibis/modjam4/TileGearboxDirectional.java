@@ -18,6 +18,7 @@ public class TileGearboxDirectional extends TileMachine {
 	
 	@Override
 	protected void updateNeighbourConnections() {
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		shaftNode.updateNeighbours();
 	}
 	
