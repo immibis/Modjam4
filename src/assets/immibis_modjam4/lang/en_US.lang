@@ -4,5 +4,6 @@ tile.immibis_modjam4.stoneDirectionalGearbox.name=Stone Gearbox
 tile.immibis_modjam4.inductionMotor.name=Induction Motor
 tile.immibis_modjam4.woodenWatermill.name=Wooden Watermill
 tile.immibis_modjam4.millstone.name=Millstone
+tile.immibis_modjam4.fan.name=Fan
 
 item.immibis_modjam4.flour.name=Flour
