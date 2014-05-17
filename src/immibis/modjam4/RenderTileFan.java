@@ -26,7 +26,8 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 		
 		RenderHelper.disableStandardItemLighting();
 		
-		float angle = (float)((te.shaftNode.getNetwork().angle + te.shaftNode.getNetwork().angvel * partialTick) / (4294967296.0 / 360.0));
+		long angvel = te.shaftNode.getNetwork().angvel;
+		float angle = (float)((te.shaftNode.getNetwork().angle + angvel * partialTick) / (4294967296.0 / 360.0));
 		
 		GL11.glPushMatrix();
 		GL11.glTranslated(renderX+0.5, renderY+0.5, renderZ+0.5);
@@ -38,6 +39,7 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 			// X -> Y
 			GL11.glRotatef(-90, 0, 0, 1);
 			angle = -angle;
+			angvel = -angvel;
 		}
 		if((meta & 1) == 1) {
 			// Y <-> -Y
@@ -51,7 +53,7 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 		
 		t.startDrawingQuads();
 		renderAttachment();
-		renderShaft(false, (meta & 1) == 0);
+		renderShaft(false, ((meta & 1) == 0) ^ /*((meta & 6) == 2) ^*/ (angvel < 0));
 		t.draw();
 		
 		GL11.glPopMatrix();

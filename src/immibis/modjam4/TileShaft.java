@@ -29,13 +29,17 @@ public class TileShaft extends TileMachine {
 	public void updateEntity() {
 		if(firstTick) {
 			firstTick = false;
-			shaftNode.setSideMask(3 << (getBlockMetadata() & 6));
+			shaftNode.setSideMask(getSideMask());
 			updateNeighbourConnections();
 		}
 		super.updateEntity();
 		shaftNode.tick();
 	}
 	
+	private int getSideMask() {
+		return 3 << (getBlockMetadata() & 6);
+	}
+
 	@Override
 	protected void updateNeighbourConnections() {
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
