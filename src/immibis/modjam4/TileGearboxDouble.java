@@ -12,7 +12,7 @@ public class TileGearboxDouble extends TileMachine {
 				@Override
 				public long getTorqueAtSpeed(long hs_angvel) {
 					long ls_angvel = lsNode.getNetwork().angvel;
-					return ((ls_angvel * 2) - hs_angvel) / 100;
+					return -((hs_angvel / 2) - ls_angvel) / 2;
 				}
 			};
 		}
@@ -22,8 +22,8 @@ public class TileGearboxDouble extends TileMachine {
 			return new SpeedTorqueCurve() {
 				@Override
 				public long getTorqueAtSpeed(long ls_angvel) {
-					long hs_angvel = lsNode.getNetwork().angvel;
-					return ((hs_angvel / 2) - ls_angvel) / 100;
+					long hs_angvel = hsNode.getNetwork().angvel;
+					return -((ls_angvel * 2) - hs_angvel) / 2;
 				}
 			};
 		}
