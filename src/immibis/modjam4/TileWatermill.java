@@ -5,6 +5,7 @@ import immibis.modjam4.shaftnet.SpeedTorqueCurve;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
@@ -86,6 +87,10 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 		if(level1 == LL_OBSTRUCTION || level2 == LL_OBSTRUCTION || level3 == LL_OBSTRUCTION || numfalls < -1000 || numfalls > 1000) {
 			// water wheel is obstructed
 			obstructed = true;
+			
+			getBlockType().dropBlockAsItem(worldObj, xCoord, yCoord, zCoord, 0, 0);
+			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+			
 			return;
 		}
 		
@@ -104,7 +109,10 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 	
 	
 	private int getLiquidLevel(int dx, int dy, int dz) {
-		dx+=xCoord; dy+=yCoord; dz+=zCoord;
+		return getLiquidLevel(worldObj, dx+xCoord, dy+yCoord, dz+zCoord);
+	}
+	
+	public static int getLiquidLevel(World worldObj, int dx, int dy, int dz) {
 		if(!worldObj.blockExists(dx,dy,dz))
 			return 0;
 		Block b = worldObj.getBlock(dx, dy, dz);

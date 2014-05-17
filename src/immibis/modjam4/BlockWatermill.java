@@ -27,6 +27,24 @@ public class BlockWatermill extends BlockShaft {
 	}
 	
 	@Override
+	public boolean canPlaceBlockOnSide(World w, int x, int y, int z, int side) {
+		
+		switch(side & 6) {
+		case 0:
+			// prevent horizontal placement
+			return false;
+			
+		case 2:
+			// shaft on Z axis, mill on X axis
+			for(int dx = -2; dx <= 2; dx++)
+				for(int dy = -2; dy <= 2; dy++)
+					if()
+		}
+		
+		return super.canPlaceBlockOnSide(w, x, y, z, side);
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderInvBlock(RenderBlocks rb) {
 		GL11.glPushMatrix();
