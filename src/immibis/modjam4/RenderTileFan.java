@@ -26,6 +26,8 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 		
 		RenderHelper.disableStandardItemLighting();
 		
+		float angle = (float)((te.shaftNode.getNetwork().angle + te.shaftNode.getNetwork().angvel * partialTick) / (4294967296.0 / 360.0));
+		
 		GL11.glPushMatrix();
 		GL11.glTranslated(renderX+0.5, renderY+0.5, renderZ+0.5);
 		if((meta & 6) == 2) {
@@ -34,13 +36,13 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 		}
 		if((meta & 6) == 4) {
 			// X -> Y
-			GL11.glRotatef(90, 0, 0, 1);
+			GL11.glRotatef(-90, 0, 0, 1);
+			angle = -angle;
 		}
 		if((meta & 1) == 1) {
 			// Y <-> -Y
 			GL11.glRotatef(180, 1, 0, 0);
 		}
-		float angle = (float)((te.shaftNode.getNetwork().angle + te.shaftNode.getNetwork().angvel * partialTick) / (4294967296.0 / 360.0));
 		
 		renderStatic();
 		
@@ -48,16 +50,16 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 		
 		t.startDrawingQuads();
 		renderAttachment();
-		renderShaft(false);
+		renderShaft(false, (meta & 1) == 0);
 		t.draw();
 		
 		GL11.glPopMatrix();
 	}
 	
-	public void renderShaft(boolean useNormal) {
+	public void renderShaft(boolean useNormal, boolean flipFanDir) {
 		Tessellator t = Tessellator.instance;
 		
-		final double MAXY = 2/16f;
+		double MAXY = 2/16f;
 		final double A = 2/16f;
 		
 		IIcon icon = Blocks.log.getIcon(2, 0);
@@ -105,7 +107,13 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 		
 		
 		final double B = 0.5;
-		final double BACK = MAXY - 2/16f;
+		double BACK = MAXY;
+		
+		if(flipFanDir)
+			MAXY -= 2/16f;
+		else
+			BACK -= 2/16f;
+		
 		t.addVertexWithUV(-A, MAXY, -A, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV( A, BACK, -A, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV( A, BACK, -B, icon.getMaxU(), icon.getMaxV());

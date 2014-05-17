@@ -1,5 +1,7 @@
 package immibis.modjam4;
 
+import java.util.Random;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -16,6 +18,6 @@ public class BlockFan extends BlockShaft {
 	
 	@Override
 	public int onBlockPlaced(World w, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
-		return side;
+		return side^1;
 	}
 }
