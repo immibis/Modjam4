@@ -57,42 +57,95 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 	public void renderShaft(boolean useNormal) {
 		Tessellator t = Tessellator.instance;
 		
+		final double MAXY = 2/16f;
+		final double A = 2/16f;
+		
 		IIcon icon = Blocks.log.getIcon(2, 0);
 		if(useNormal) t.setNormal(-1, 0, 0);
 		t.addVertexWithUV(-0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV(-0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
-		t.addVertexWithUV(-0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
-		t.addVertexWithUV(-0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV(-A   , MAXY, A   , icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(-A   , MAXY,-A   , icon.getMinU(), icon.getMaxV());
 		
 		if(useNormal) t.setNormal(1, 0, 0);
-		t.addVertexWithUV( 0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());
-		t.addVertexWithUV( 0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV( A   , MAXY,-A   , icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV( A   , MAXY, A   , icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV( 0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		
 		if(useNormal) t.setNormal(0, 0, -1);
-		t.addVertexWithUV(-0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());
-		t.addVertexWithUV( 0.25,  0.5,-0.25, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(-A   , MAXY,-A   , icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV( A   , MAXY,-A   , icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25, -0.5,-0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV(-0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		
 		if(useNormal) t.setNormal(0, 0, 1);
 		t.addVertexWithUV(-0.25, -0.5, 0.25, icon.getMinU(), icon.getMinV());
 		t.addVertexWithUV( 0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
-		t.addVertexWithUV( 0   ,  0.5, 0   , icon.getMaxU(), icon.getMaxV());
-		t.addVertexWithUV(-0   ,  0.5, 0   , icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV( A   , MAXY, A   , icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(-A   , MAXY, A   , icon.getMinU(), icon.getMaxV());
 		
-		icon = Blocks.log.getIcon(0, 0);
+		//icon = Blocks.log.getIcon(0, 0);
 		if(useNormal) t.setNormal(0, -1, 0);
 		t.addVertexWithUV( 0.25, -0.5,-0.25, icon.getMinU(), icon.getMaxV());
 		t.addVertexWithUV( 0.25, -0.5, 0.25, icon.getMaxU(), icon.getMaxV());
 		t.addVertexWithUV(-0.25, -0.5, 0.25, icon.getMaxU(), icon.getMinV());
 		t.addVertexWithUV(-0.25, -0.5,-0.25, icon.getMinU(), icon.getMinV());
 		
-		/*if(useNormal) t.setNormal(0, 1, 0);
-		t.addVertexWithUV(-0.25,  0.5,-0.25, icon.getMinU(), icon.getMinV());
-		t.addVertexWithUV(-0.25,  0.5, 0.25, icon.getMaxU(), icon.getMinV());
-		t.addVertexWithUV( 0.25,  0.5, 0.25, icon.getMaxU(), icon.getMaxV());
-		t.addVertexWithUV( 0.25,  0.5,-0.25, icon.getMinU(), icon.getMaxV());*/
+		
+		
+		
+		if(useNormal) t.setNormal(0, 1, 0);
+		t.addVertexWithUV(-A, MAXY,-A, icon.getMinU(), icon.getMinV());
+		t.addVertexWithUV(-A, MAXY, A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV( A, MAXY, A, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV( A, MAXY,-A, icon.getMinU(), icon.getMaxV());
+		
+		icon = Blocks.iron_block.getIcon(0, 0);
+		
+		
+		final double B = 0.5;
+		final double BACK = MAXY - 2/16f;
+		t.addVertexWithUV(-A, MAXY, -A, icon.getMinU(), icon.getMinV());
+		t.addVertexWithUV( A, BACK, -A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV( A, BACK, -B, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(-A, MAXY, -B, icon.getMinU(), icon.getMaxV());
+		
+		t.addVertexWithUV(-A, BACK, -A, icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV(-B, BACK, -A, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(-B, MAXY,  A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(-A, MAXY,  A, icon.getMinU(), icon.getMinV());
+	
+		t.addVertexWithUV( A, MAXY,  A, icon.getMinU(), icon.getMinV());
+		t.addVertexWithUV(-A, BACK,  A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(-A, BACK,  B, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV( A, MAXY,  B, icon.getMinU(), icon.getMaxV());
+		
+		t.addVertexWithUV( A, BACK,  A, icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV( B, BACK,  A, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV( B, MAXY, -A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV( A, MAXY, -A, icon.getMinU(), icon.getMinV());
+		
+		
+		t.addVertexWithUV(-A, MAXY, -B, icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV( A, BACK, -B, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV( A, BACK, -A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(-A, MAXY, -A, icon.getMinU(), icon.getMinV());
+		
+		t.addVertexWithUV(-A, MAXY,  A, icon.getMinU(), icon.getMinV());
+		t.addVertexWithUV(-B, MAXY,  A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV(-B, BACK, -A, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(-A, BACK, -A, icon.getMinU(), icon.getMaxV());
+		
+		t.addVertexWithUV( A, MAXY,  B, icon.getMinU(), icon.getMaxV());
+		t.addVertexWithUV(-A, BACK,  B, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV(-A, BACK,  A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV( A, MAXY,  A, icon.getMinU(), icon.getMinV());
+		
+		t.addVertexWithUV( A, MAXY, -A, icon.getMinU(), icon.getMinV());
+		t.addVertexWithUV( B, MAXY, -A, icon.getMaxU(), icon.getMinV());
+		t.addVertexWithUV( B, BACK,  A, icon.getMaxU(), icon.getMaxV());
+		t.addVertexWithUV( A, BACK,  A, icon.getMinU(), icon.getMaxV());
+		
 	}
 }
