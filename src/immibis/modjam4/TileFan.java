@@ -27,30 +27,54 @@ public class TileFan extends TileShaft implements SpeedTorqueCurve {
 		
 		double angvel_dps = Math.abs(ShaftUtils.toDegreesPerSecond((int)shaftNode.getNetwork().angvel));
 		
-		int range = (int)angvel_dps/32;
+		//int range = (int)angvel_dps/32;
+		int range = 8;
+		
+		double speed = angvel_dps / 160 * 0.05;
 		
 		switch(getBlockMetadata()) {
 		case 5: // -X
 			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5-range, yCoord-0.5, zCoord-0.5, xCoord-0.5, yCoord+1.5, zCoord+1.5))) {
 				if(e instanceof EntityPlayer)
 					continue;
-				e.motionX = e.motionX*0.8 - 0.05;
-				e.motionY += 0.04;
-				e.motionZ *= 0.8;
-				e.fallDistance = 0;
-				e.setPosition(e.posX, e.posY+(yCoord+0.5-e.posY)*0.1, e.posZ+(zCoord+0.5-e.posZ)*0.1);
+				e.motionX -= speed;
+			}
+			break;
+		case 4: // +X
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord+0.5, yCoord-0.5, zCoord-0.5, xCoord+0.5+range, yCoord+1.5, zCoord+1.5))) {
+				if(e instanceof EntityPlayer)
+					continue;
+				e.motionX += speed;
+			}
+			break;
+		case 3: // -Z
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord-0.5, zCoord-0.5-range, xCoord+1.5, yCoord+1.5, zCoord-0.5))) {
+				if(e instanceof EntityPlayer)
+					continue;
+				e.motionZ -= speed;
+			}
+			break;
+		case 2: // +Z
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord-0.5, zCoord+0.5, xCoord+0.5, yCoord+1.5, zCoord+0.5+range))) {
+				if(e instanceof EntityPlayer)
+					continue;
+				e.motionZ += speed;
 			}
 			break;
 		case 1: // -Y
 			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord-0.5, zCoord-0.5, xCoord+1.5, yCoord-0.5-range, zCoord+1.5))) {
 				if(e instanceof EntityPlayer)
 					continue;
-				e.motionX *= 0.8;
-				e.motionY -= 0.1;
-				e.motionZ *= 0.8;
-				e.fallDistance = 0;
-				e.setPosition(e.posX+(xCoord+0.5-e.posX)*0.1, e.posY, e.posZ+(zCoord+0.5-e.posZ)*0.1);
+				e.motionY -= speed;
 			}
+			break;
+		case 0: // +Y
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord+0.5, zCoord-0.5, xCoord+1.5, yCoord+0.5+range, zCoord+1.5))) {
+				if(e instanceof EntityPlayer)
+					continue;
+				e.motionY += speed*3;
+			}
+			break;
 		}
 	}
 	
