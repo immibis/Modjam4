@@ -15,7 +15,7 @@ import java.util.List;
 public class ShaftNetwork {
 	private List<ShaftNode> nodes = new ArrayList<ShaftNode>();
 	private List<SpeedTorqueCurve> machineCurves = new ArrayList<SpeedTorqueCurve>();
-	private Collection<NetworkLink> links = new HashSet<NetworkLink>();
+	Collection<NetworkLink> links = new HashSet<NetworkLink>();
 	
 	double relativeVelocity = 1; // relative to other networks in group
 	
