@@ -36,9 +36,23 @@ public class ShaftNode {
 		boolean newNetwork = false;
 		for(int k = 0; k < 6; k++)
 			newNetwork |= updateNeighbour(k);
+		
 		if(newNetwork) {
+			
+			ShaftNetwork newnet = network.createSplitNetwork();
+			
+			NetworkLink link = getNetworkLink();
+			
+			if(link != null) {
+				if(link.netA == network) link.netA = newnet;
+				if(link.netB == network) link.netB = newnet;
+			}
+			
 			//System.out.println("propagate split from "+this);
-			propagateNetwork(network.createSplitNetwork());
+			propagateNetwork(newnet);
+			
+			if(link != null)
+				
 		}
 	}
 

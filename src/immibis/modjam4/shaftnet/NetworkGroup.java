@@ -9,4 +9,11 @@ public class NetworkGroup {
 	void add(ShaftNetwork net) {
 		networks.add(net);
 	}
+
+	void mergeInto(NetworkGroup group) {
+		for(ShaftNetwork n : networks) {
+			n.group = group;
+			group.add(n);
+		}
+	}
 }

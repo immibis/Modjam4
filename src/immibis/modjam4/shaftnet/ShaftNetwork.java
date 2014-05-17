@@ -4,6 +4,8 @@ import immibis.modjam4.CableNetwork;
 import immibis.modjam4.ICable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -13,9 +15,9 @@ import java.util.List;
 public class ShaftNetwork {
 	private List<ShaftNode> nodes = new ArrayList<ShaftNode>();
 	private List<SpeedTorqueCurve> machineCurves = new ArrayList<SpeedTorqueCurve>();
-	private List<NetworkLink> linkedNetworks = new ArrayList<NetworkLink>();
+	private Collection<NetworkLink> links = new HashSet<NetworkLink>();
 	
-	private NetworkGroup group = new NetworkGroup();
+	NetworkGroup group = new NetworkGroup();
 	{group.add(this);}
 	
 	public int angle;
@@ -45,8 +47,28 @@ public class ShaftNetwork {
 		if(curve != null)
 			machineCurves.add(curve);
 		NetworkLink link = node.getNetworkLink();
+		if(link != null)
+			addLink(link);
 	}
 	
+	private void addLink(NetworkLink link) {
+		if(this == link.netA)
+			if(this == link.netB)
+				throw new AssertionError("invalid link");
+			else
+				addLink(link, link.netB);
+		else if(this == link.netB)
+			addLink(link, link.netA);
+		else
+			throw new AssertionError("invalid link");
+	}
+
+	private void addLink(NetworkLink link, ShaftNetwork other) {
+		group.mergeInto(other.group);
+		other.links.add(link);
+		links.add(link);
+	}
+
 	void tick() {
 		angle += angvel;
 		
