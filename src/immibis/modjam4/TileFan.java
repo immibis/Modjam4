@@ -83,7 +83,8 @@ public class TileFan extends TileShaft implements SpeedTorqueCurve {
 		return -speed / 50;
 	}
 	
-	private int getSideMask() {
+	@Override
+	protected int getSideMask() {
 		return 1 << getBlockMetadata();
 	}
 	

@@ -36,7 +36,7 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 		return maxTorque - maxTorque * speed / maxSpeed;
 	}
 	
-	private static int LL_OBSTRUCTION = -1;
+	public static int LL_OBSTRUCTION = -1;
 	
 	@Override
 	protected ShaftNode createShaftNode() {
@@ -112,17 +112,17 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 		return getLiquidLevel(worldObj, dx+xCoord, dy+yCoord, dz+zCoord);
 	}
 	
-	public static int getLiquidLevel(World worldObj, int dx, int dy, int dz) {
-		if(!worldObj.blockExists(dx,dy,dz))
+	public static int getLiquidLevel(World worldObj, int x, int y, int z) {
+		if(!worldObj.blockExists(x,y,z))
 			return 0;
-		Block b = worldObj.getBlock(dx, dy, dz);
+		Block b = worldObj.getBlock(x, y, z);
 		if(!(b instanceof BlockLiquid))
-			if(worldObj.isAirBlock(dx, dy, dz))
+			if(worldObj.isAirBlock(x, y, z))
 				return 0;
 			else
 				return LL_OBSTRUCTION;
 		
-		return 7 - (worldObj.getBlockMetadata(dx, dy, dz) & 7);
+		return 7 - (worldObj.getBlockMetadata(x, y, z) & 7);
 	}
 	
 	private int isWaterfall(int dx, int dy, int dz) {

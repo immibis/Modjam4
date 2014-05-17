@@ -35,10 +35,20 @@ public class BlockWatermill extends BlockShaft {
 			return false;
 			
 		case 2:
-			// shaft on Z axis, mill on X axis
+			// shaft on Z axis, mill on X/Y axis
 			for(int dx = -2; dx <= 2; dx++)
 				for(int dy = -2; dy <= 2; dy++)
-					if()
+					if(TileWatermill.getLiquidLevel(w, x+dx, y+dy, z) == TileWatermill.LL_OBSTRUCTION)
+						return false;
+			break;
+			
+		case 4:
+			// shaft on X axis, mill on Y/Z axis
+			for(int dz = -2; dz <= 2; dz++)
+				for(int dy = -2; dy <= 2; dy++)
+					if(TileWatermill.getLiquidLevel(w, x, y+dy, z+dz) == TileWatermill.LL_OBSTRUCTION)
+						return false;
+			break;
 		}
 		
 		return super.canPlaceBlockOnSide(w, x, y, z, side);

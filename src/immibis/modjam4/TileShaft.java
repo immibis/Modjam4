@@ -36,7 +36,7 @@ public class TileShaft extends TileMachine {
 		shaftNode.tick();
 	}
 	
-	private int getSideMask() {
+	protected int getSideMask() {
 		return 3 << (getBlockMetadata() & 6);
 	}
 
