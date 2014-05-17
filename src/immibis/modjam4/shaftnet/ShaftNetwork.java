@@ -37,11 +37,13 @@ public class ShaftNetwork {
 		for(NetworkLink link : new ArrayList<NetworkLink>(links)) {
 			if(link.netA == this) {
 				link.unlink();
-				new NetworkLink(network, link.netB, link.velocityMultiplier).link();
+				link.netA = network;
+				link.link();
 				
 			} else if(link.netB == this) {
 				link.unlink();
-				new NetworkLink(link.netA, network, link.velocityMultiplier).link();
+				link.netB = network;
+				link.link();
 				
 			} else
 				throw new AssertionError();
@@ -101,6 +103,8 @@ public class ShaftNetwork {
 		ShaftNetwork n = new ShaftNetwork();
 		n.angle = angle;
 		n.angvel = angvel;
+		n.group = group;
+		group.add(n);
 		return n;
 	}
 

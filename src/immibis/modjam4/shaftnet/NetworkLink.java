@@ -12,14 +12,21 @@ public class NetworkLink {
 	}
 
 	public void unlink() {
+		System.out.println("unlinking "+netA+" and "+netB);
 		netA.removeLink(this);
 		netB.removeLink(this);
+		NetworkGroup oldBG = netB.group;
 		netA.propagateNewGroup();
+		if(netB.group == oldBG)
+			netB.propagateNewGroup();
+		System.out.println("unlinked "+netA+" and "+netB);
 	}
 
 	public void link() {
+		System.out.println("linking "+netA+" and "+netB);
 		netA.addLink(this);
 		netB.addLink(this);
+		System.out.println("linked "+netA+" and "+netB);
 	}
 	
 	@Override
