@@ -1,6 +1,8 @@
 package immibis.modjam4;
 
 import immibis.modjam4.shaftnet.ShaftNetwork;
+import immibis.modjam4.shaftnet.ShaftNode;
+import immibis.modjam4.shaftnet.SpeedTorqueCurve;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -13,7 +15,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
-public class TileMillstone extends TileShaft implements IInventory, ISidedInventory{
+public class TileMillstone extends TileShaft implements IInventory, ISidedInventory, SpeedTorqueCurve {
 	
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
@@ -65,12 +67,12 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 			// 3000 degrees/second = 2000 progress units/tick
 			// 1 progress unit/tick = 1.5 degrees/second
 			int scale = ShaftUtils.fromDegreesPerSecond(3000) / 2000;
-			int progressPerTick = 1000;//Math.abs(net.angvel / scale);
+			long progressPerTick = Math.abs(net.angvel / scale);
 			
 			net.angvel -= (net.angvel < 0 ? -1 : 1) * progressPerTick * ShaftUtils.fromDegreesPerSecond(1);
 			
 			if(!worldObj.isRemote) {
-				progress += progressPerTick;
+				progress += (progressPerTick > 100000 ? 100000 : (int)progressPerTick);
 				if(progress >= 10000) {
 					progress = 0;
 					processing = null;
@@ -178,6 +180,24 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 	@Override
 	public boolean isItemValidForSlot(int var1, ItemStack var2) {
 		return canProcess(var2);
+	}
+
+	@Override
+	public long getTorqueAtSpeed(long speed) {
+		if(worldObj.isRemote ? isProcessing : processing != null)
+			return -speed / 400;
+		else
+			return -speed / 4000;
+	}
+	
+	@Override
+	protected ShaftNode createShaftNode() {
+		return new ShaftNode(this) {
+			@Override
+			public SpeedTorqueCurve getSpeedTorqueCurve() {
+				return TileMillstone.this;
+			}
+		};
 	}
 	
 	

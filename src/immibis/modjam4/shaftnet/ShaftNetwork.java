@@ -49,7 +49,11 @@ public class ShaftNetwork {
 		for(SpeedTorqueCurve stc : machineCurves)
 			sumtorque += stc.getTorqueAtSpeed(angvel);
 		
-		angvel += sumtorque / 10;
+		int inertia = nodes.size(); // temporary
+		
+		System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", new "+(angvel+sumtorque/inertia));
+		
+		angvel += sumtorque / inertia;
 	}
 
 	public ShaftNetwork createSplitNetwork() {
