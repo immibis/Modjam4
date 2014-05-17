@@ -7,18 +7,37 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
-public class TileWatermill extends TileShaft {
+public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
+	
+	private int power;
+	private boolean obstructed;
+	
+	// power = torque * speed
+	// torque = max torque * (1 - speed / max speed)
+	// power = max torque * speed * (1 - speed / max speed)
+	// power = max torque * speed - max torque * speed * speed / max_speed
+	// scale so max torque = max speed = 1
+	// power = speed - speed * speed -> max power at speed = 0.5
+	// actual max power at speed = max speed / 2
+	// max power = max torque * (max speed / 2) * (1 - (max speed / 2) / max spee)
+	// max power = max torque * (max speed / 2) * (1/2)
+	// max power = 1/4 * max torque * max speed
+	
+	@Override
+	public long getTorqueAtSpeed(long speed) {
+		if(obstructed)
+			return speed * -100;
+		return tar
+	}
 	
 	private static int LL_OBSTRUCTION = -1;
-	
-	private SpeedTorqueCurve speedTorqueCurve = new SpeedTorqueCurve();
 	
 	@Override
 	protected ShaftNode createShaftNode() {
 		return new ShaftNode(this) {
 			@Override
 			public SpeedTorqueCurve getSpeedTorqueCurve() {
-				return speedTorqueCurve;
+				return TileWatermill.this;
 			}
 		};
 	}
@@ -59,14 +78,14 @@ public class TileWatermill extends TileShaft {
 		
 		if(level1 == LL_OBSTRUCTION || level2 == LL_OBSTRUCTION || level3 == LL_OBSTRUCTION || numfalls < -1000 || numfalls > 1000) {
 			// water wheel is obstructed
-			shaftNode.getNetwork().angvel *= 0.7;
+			targetAngvel = 0;
 			return;
 		}
 		
 		{
 			int ANGVEL_PER_LEVEL_DIFF = ShaftUtils.fromDegreesPerSecond(13);
 			int ANGVEL_PER_WATERFALL = ShaftUtils.fromDegreesPerSecond(4);
-			int targetAngvel = ANGVEL_PER_WATERFALL * numfalls;
+			targetAngvel = ANGVEL_PER_WATERFALL * numfalls;
 			if((level3 >= level2 && level2 >= level1) || (level1 >= level2 && level2 >= level3))
 				targetAngvel += ANGVEL_PER_LEVEL_DIFF * (level1 - level3);
 			//int diff = targetAngvel - shaftNode.getNetwork().angvel;

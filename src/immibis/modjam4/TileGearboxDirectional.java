@@ -20,4 +20,10 @@ public class TileGearboxDirectional extends TileMachine {
 	protected void updateNeighbourConnections() {
 		shaftNode.updateNeighbours();
 	}
+	
+	@Override
+	public void updateEntity() {
+		shaftNode.tick();
+		super.updateEntity();
+	}
 }

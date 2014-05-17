@@ -43,11 +43,13 @@ public class ShaftNetwork {
 	void tick() {
 		angle += angvel;
 		
+		angvel *= 0.95;
+		
 		long sumtorque = 0;
 		for(SpeedTorqueCurve stc : machineCurves)
 			sumtorque += stc.getTorqueAtSpeed(angvel);
 		
-		angvel += sumtorque / 1000;
+		angvel += sumtorque / 10;
 	}
 
 	public ShaftNetwork createSplitNetwork() {
