@@ -17,6 +17,8 @@ public class ShaftNetwork {
 	private List<SpeedTorqueCurve> machineCurves = new ArrayList<SpeedTorqueCurve>();
 	private Collection<NetworkLink> links = new HashSet<NetworkLink>();
 	
+	double relativeVelocity = 1; // relative to other networks in group
+	
 	NetworkGroup group = new NetworkGroup();
 	{group.add(this);}
 	
@@ -84,6 +86,11 @@ public class ShaftNetwork {
 	}
 
 	void tick() {
+		if(group.needVelocityRecalc) {
+			group.needVelocityRecalc = false;
+			group.recalcVelocity();
+		}
+		
 		angle += angvel;
 		
 		//angvel *= 0.95;
