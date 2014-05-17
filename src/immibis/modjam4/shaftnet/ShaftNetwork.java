@@ -9,8 +9,10 @@ import java.util.List;
 
 public class ShaftNetwork {
 	private List<ShaftNode> nodes = new ArrayList<ShaftNode>();
+	private List<SpeedTorqueCurve> machineCurves = new ArrayList<SpeedTorqueCurve>();
 	
-	public int angle, angvel;
+	public int angle;
+	public long angvel;
 	
 	long lastUpdate;
 	
@@ -31,13 +33,21 @@ public class ShaftNetwork {
 		}
 	}
 
-	public void add(ShaftNode cable) {
-		nodes.add(cable);
+	public void add(ShaftNode node) {
+		nodes.add(node);
+		SpeedTorqueCurve curve = node.getSpeedTorqueCurve();
+		if(curve != null)
+			machineCurves.add(curve);
 	}
 	
 	void tick() {
 		angle += angvel;
-		angvel *= 0.95;
+		
+		long sumtorque = 0;
+		for(SpeedTorqueCurve stc : machineCurves)
+			sumtorque += stc.getTorqueAtSpeed(angvel);
+		
+		angvel += sumtorque / 1000;
 	}
 
 	public ShaftNetwork createSplitNetwork() {

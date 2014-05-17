@@ -1,9 +1,6 @@
 package immibis.modjam4.shaftnet;
 
-import java.util.Arrays;
-
 import immibis.modjam4.IShaft;
-import immibis.modjam4.TileMachine;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
 
@@ -13,6 +10,10 @@ public class ShaftNode {
 	private TileEntity te;
 	private int sideMask = 0;
 	private ShaftNode adjNodes[] = new ShaftNode[6];
+	
+	public SpeedTorqueCurve getSpeedTorqueCurve() {
+		return null;
+	}
 	
 	ShaftNetwork network = new ShaftNetwork();
 	{network.add(this);}

@@ -1,5 +1,7 @@
 package immibis.modjam4;
 
+import immibis.modjam4.shaftnet.ShaftNode;
+import immibis.modjam4.shaftnet.SpeedTorqueCurve;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.util.AxisAlignedBB;
@@ -9,9 +11,23 @@ public class TileWatermill extends TileShaft {
 	
 	private static int LL_OBSTRUCTION = -1;
 	
+	private SpeedTorqueCurve speedTorqueCurve = new SpeedTorqueCurve();
+	
+	@Override
+	protected ShaftNode createShaftNode() {
+		return new ShaftNode(this) {
+			@Override
+			public SpeedTorqueCurve getSpeedTorqueCurve() {
+				return speedTorqueCurve;
+			}
+		};
+	}
+	
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		
+		shaftNode.tick();
 		
 		int meta = getBlockMetadata();
 		
@@ -53,8 +69,8 @@ public class TileWatermill extends TileShaft {
 			int targetAngvel = ANGVEL_PER_WATERFALL * numfalls;
 			if((level3 >= level2 && level2 >= level1) || (level1 >= level2 && level2 >= level3))
 				targetAngvel += ANGVEL_PER_LEVEL_DIFF * (level1 - level3);
-			int diff = targetAngvel - shaftNode.getNetwork().angvel;
-			shaftNode.getNetwork().angvel += diff * 0.5;
+			//int diff = targetAngvel - shaftNode.getNetwork().angvel;
+			//shaftNode.getNetwork().angvel += diff * 0.5;
 		}
 	}
 	

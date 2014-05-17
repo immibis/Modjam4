@@ -65,7 +65,7 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 			// 3000 degrees/second = 2000 progress units/tick
 			// 1 progress unit/tick = 1.5 degrees/second
 			int scale = ShaftUtils.fromDegreesPerSecond(3000) / 2000;
-			int progressPerTick = Math.abs(net.angvel / scale);
+			int progressPerTick = 1000;//Math.abs(net.angvel / scale);
 			
 			net.angvel -= (net.angvel < 0 ? -1 : 1) * progressPerTick * ShaftUtils.fromDegreesPerSecond(1);
 			

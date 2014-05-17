@@ -8,7 +8,11 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class TileShaft extends TileMachine {
 	
-	ShaftNode shaftNode = new ShaftNode(this);
+	ShaftNode shaftNode = createShaftNode();
+	
+	protected ShaftNode createShaftNode() {
+		return new ShaftNode(this);
+	}
 	
 	@Override
 	public ShaftNode getShaftNode(int side) {
