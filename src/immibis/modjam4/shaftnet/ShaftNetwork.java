@@ -85,10 +85,32 @@ public class ShaftNetwork {
 		angvel += sumtorque / inertia;
 	}
 
-	public ShaftNetwork createSplitNetwork() {
+	ShaftNetwork createSplitNetwork() {
 		ShaftNetwork n = new ShaftNetwork();
 		n.angle = angle;
 		n.angvel = angvel;
 		return n;
+	}
+
+	void propagateNewGroup() {
+		propagateGroup(new NetworkGroup());
+	}
+	
+	private void propagateGroup(NetworkGroup g) {
+		if(group == g)
+			return;
+		
+		group = g;
+		g.add(this);
+		
+		for(NetworkLink l : links) {
+			l.netA.propagateGroup(g);
+			l.netB.propagateGroup(g);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return Integer.toHexString(hashCode())+", group="+Integer.toHexString(group.hashCode());
 	}
 }

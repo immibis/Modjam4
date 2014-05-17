@@ -61,4 +61,11 @@ public class BlockShaft extends BlockMachineBase {
 		new RenderTileShaft().renderShaft(true);
 		Tessellator.instance.draw();
 	}
+	
+	@Override
+	public boolean onBlockActivated(World w, int x, int y, int z,
+			EntityPlayer pl, int p_149727_6_, float p_149727_7_,
+			float p_149727_8_, float p_149727_9_) {
+		return ((TileShaft)w.getTileEntity(x, y, z)).debug(pl);
+	}
 }

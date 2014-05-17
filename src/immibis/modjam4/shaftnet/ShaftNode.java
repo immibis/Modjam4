@@ -12,6 +12,7 @@ public class ShaftNode {
 	private TileEntity te;
 	private int sideMask = 0;
 	private ShaftNode adjNodes[] = new ShaftNode[6];
+	private NetworkLink link = null;
 	
 	public SpeedTorqueCurve getSpeedTorqueCurve() {
 		return null;
@@ -41,8 +42,6 @@ public class ShaftNode {
 			
 			ShaftNetwork newnet = network.createSplitNetwork();
 			
-			NetworkLink link = getNetworkLink();
-			
 			if(link != null) {
 				if(link.netA == network) link.netA = newnet;
 				if(link.netB == network) link.netB = newnet;
@@ -51,8 +50,7 @@ public class ShaftNode {
 			//System.out.println("propagate split from "+this);
 			propagateNetwork(newnet);
 			
-			if(link != null)
-				
+			newnet.propagateNewGroup();
 		}
 	}
 
@@ -63,7 +61,7 @@ public class ShaftNode {
 		network = newNetwork;
 		newNetwork.add(this);
 		
-		System.out.println("propagate "+te+" "+network+" -> "+Arrays.toString(adjNodes));
+		//System.out.println("propagate "+te+" "+network+" -> "+Arrays.toString(adjNodes));
 		
 		for(ShaftNode neighbour : adjNodes)
 			if(neighbour != null)

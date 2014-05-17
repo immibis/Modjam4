@@ -45,4 +45,14 @@ public class TileShaft extends TileMachine {
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		shaftNode.updateNeighbours();
 	}
+
+	public boolean debug(EntityPlayer pl) {
+		
+		if(!worldObj.isRemote)
+			return false;
+		
+		pl.addChatComponentMessage(new ChatComponentText("network: "+shaftNode.getNetwork()));
+		
+		return false;
+	}
 }
