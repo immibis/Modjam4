@@ -80,6 +80,6 @@ public class TileFan extends TileShaft implements SpeedTorqueCurve {
 	
 	@Override
 	public long getTorqueAtSpeed(long speed) {
-		return 0;
+		return -speed / 50;
 	}
 }

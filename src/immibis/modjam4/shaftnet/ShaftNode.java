@@ -1,5 +1,7 @@
 package immibis.modjam4.shaftnet;
 
+import java.util.Arrays;
+
 import immibis.modjam4.IShaft;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Facing;
@@ -43,7 +45,7 @@ public class ShaftNode {
 		network = newNetwork;
 		newNetwork.add(this);
 		
-		//System.out.println("propagate "+te+" "+network+" -> "+Arrays.toString(adjNodes));
+		System.out.println("propagate "+te+" "+network+" -> "+Arrays.toString(adjNodes));
 		
 		for(ShaftNode neighbour : adjNodes)
 			if(neighbour != null)
@@ -74,7 +76,7 @@ public class ShaftNode {
 		
 		if(neighbour != adjNodes[dir]) {
 			boolean newNetwork = (adjNodes[dir] != null);
-			//if(newNetwork) System.out.println(this+" "+dir+" "+adjNodes[dir]+" -> "+neighbour);
+			if(newNetwork) System.out.println(this+" "+dir+" "+adjNodes[dir]+" -> "+neighbour);
 			adjNodes[dir] = neighbour;
 			return newNetwork;
 		}
