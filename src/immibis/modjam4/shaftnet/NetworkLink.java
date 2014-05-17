@@ -21,4 +21,9 @@ public class NetworkLink {
 		netA.addLink(this);
 		netB.addLink(this);
 	}
+	
+	@Override
+	public String toString() {
+		return "Link("+netA+", "+netB+")";
+	}
 }
