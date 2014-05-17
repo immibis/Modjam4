@@ -11,6 +11,9 @@ public class NetworkGroup {
 	}
 
 	void mergeInto(NetworkGroup group) {
+		if(this == group)
+			return;
+		
 		for(ShaftNetwork n : networks) {
 			n.group = group;
 			group.add(n);

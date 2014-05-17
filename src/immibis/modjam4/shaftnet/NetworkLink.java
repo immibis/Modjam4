@@ -10,4 +10,15 @@ public class NetworkLink {
 		netB = b;
 		velocityMultiplier = m;
 	}
+
+	public void unlink() {
+		netA.removeLink(this);
+		netB.removeLink(this);
+		netA.propagateNewGroup();
+	}
+
+	public void link() {
+		netA.addLink(this);
+		netB.addLink(this);
+	}
 }

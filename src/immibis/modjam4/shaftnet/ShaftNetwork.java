@@ -35,6 +35,21 @@ public class ShaftNetwork {
 		
 		group.networks.remove(this);
 		
+		for(NetworkLink link : links) {
+			if(link.netA == this) {
+				link.unlink();
+				link.netA = network;
+				link.link();
+				
+			} else if(link.netB == this) {
+				link.unlink();
+				link.netB = network;
+				link.link();
+				
+			} else throw new AssertionError();
+		}
+		links.clear();
+		
 		for(ShaftNode c : nodes) {
 			c.network = network;
 			network.add(c);
@@ -46,12 +61,9 @@ public class ShaftNetwork {
 		SpeedTorqueCurve curve = node.getSpeedTorqueCurve();
 		if(curve != null)
 			machineCurves.add(curve);
-		NetworkLink link = node.getNetworkLink();
-		if(link != null)
-			addLink(link);
 	}
 	
-	private void addLink(NetworkLink link) {
+	void addLink(NetworkLink link) {
 		if(this == link.netA)
 			if(this == link.netB)
 				throw new AssertionError("invalid link");
@@ -65,7 +77,6 @@ public class ShaftNetwork {
 
 	private void addLink(NetworkLink link, ShaftNetwork other) {
 		group.mergeInto(other.group);
-		other.links.add(link);
 		links.add(link);
 	}
 
@@ -112,5 +123,9 @@ public class ShaftNetwork {
 	@Override
 	public String toString() {
 		return Integer.toHexString(hashCode())+", group="+Integer.toHexString(group.hashCode());
+	}
+
+	void removeLink(NetworkLink link) {
+		links.remove(link);
 	}
 }

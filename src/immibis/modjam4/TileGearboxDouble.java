@@ -1,6 +1,7 @@
 package immibis.modjam4;
 
 import immibis.modjam4.shaftnet.NetworkLink;
+import immibis.modjam4.shaftnet.ShaftNetwork;
 import immibis.modjam4.shaftnet.ShaftNode;
 import immibis.modjam4.shaftnet.SpeedTorqueCurve;
 import net.minecraft.tileentity.TileEntity;
@@ -28,11 +29,9 @@ public class TileGearboxDouble extends TileMachine {
 				}
 			};
 		}
-		
-		{
-			link = new NetworkLink(getNetwork(), hsNode.getNetwork(), 1);
-		}
 	};
+	
+	NetworkLink networkLink;
 	
 	private boolean firstTick = true;
 	public void updateEntity() {
@@ -48,9 +47,23 @@ public class TileGearboxDouble extends TileMachine {
 	
 	@Override
 	protected void updateNeighbourConnections() {
+		ShaftNetwork lsNetwork = lsNode.getNetwork();
+		ShaftNetwork hsNetwork = hsNode.getNetwork();
 		lsNode.updateNeighbours();
 		hsNode.updateNeighbours();
-		worldObj.getBlock(xCoord, yCoord, zCoord);
+		
+		ShaftNetwork lsNetwork_new = lsNode.getNetwork();
+		ShaftNetwork hsNetwork_new = hsNode.getNetwork();
+		
+		if(networkLink == null || lsNetwork_new != lsNetwork || hsNetwork_new != hsNetwork) {
+			if(networkLink != null)
+				networkLink.unlink();
+			networkLink = new NetworkLink(lsNetwork_new, hsNetwork_new, 2);
+			networkLink.link();
+		}
+		
+		if(!worldObj.isRemote)
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 	
 	@Override

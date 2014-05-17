@@ -42,15 +42,8 @@ public class ShaftNode {
 			
 			ShaftNetwork newnet = network.createSplitNetwork();
 			
-			if(link != null) {
-				if(link.netA == network) link.netA = newnet;
-				if(link.netB == network) link.netB = newnet;
-			}
-			
 			//System.out.println("propagate split from "+this);
 			propagateNetwork(newnet);
-			
-			newnet.propagateNewGroup();
 		}
 	}
 
