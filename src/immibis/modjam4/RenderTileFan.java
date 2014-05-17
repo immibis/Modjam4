@@ -42,6 +42,7 @@ public class RenderTileFan extends TileEntitySpecialRenderer {
 		if((meta & 1) == 1) {
 			// Y <-> -Y
 			GL11.glRotatef(180, 1, 0, 0);
+			angle = -angle;
 		}
 		
 		renderStatic();
