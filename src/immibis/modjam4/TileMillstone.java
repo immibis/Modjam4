@@ -55,6 +55,7 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		shaftNode.tick();
 		if(worldObj.isRemote ? isProcessing : processing != null) {
 			ShaftNetwork net = shaftNode.getNetwork();
 			
