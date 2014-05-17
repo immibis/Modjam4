@@ -43,7 +43,7 @@ public class ShaftNetwork {
 	void tick() {
 		angle += angvel;
 		
-		angvel *= 0.95;
+		//angvel *= 0.95;
 		
 		long sumtorque = 0;
 		for(SpeedTorqueCurve stc : machineCurves)
@@ -51,7 +51,7 @@ public class ShaftNetwork {
 		
 		int inertia = nodes.size(); // temporary
 		
-		System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", new "+(angvel+sumtorque/inertia));
+		//System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", new "+(angvel+sumtorque/inertia));
 		
 		angvel += sumtorque / inertia;
 	}

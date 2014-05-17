@@ -69,7 +69,7 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 			int scale = ShaftUtils.fromDegreesPerSecond(3000) / 2000;
 			long progressPerTick = Math.abs(net.angvel / scale);
 			
-			net.angvel -= (net.angvel < 0 ? -1 : 1) * progressPerTick * ShaftUtils.fromDegreesPerSecond(1);
+			//net.angvel -= (net.angvel < 0 ? -1 : 1) * progressPerTick * ShaftUtils.fromDegreesPerSecond(1);
 			
 			if(!worldObj.isRemote) {
 				progress += (progressPerTick > 100000 ? 100000 : (int)progressPerTick);
@@ -185,9 +185,9 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 	@Override
 	public long getTorqueAtSpeed(long speed) {
 		if(worldObj.isRemote ? isProcessing : processing != null)
-			return -speed / 400;
+			return -speed / 20;
 		else
-			return -speed / 4000;
+			return -speed / 200;
 	}
 	
 	@Override

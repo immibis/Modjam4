@@ -30,6 +30,7 @@ public class TileShaft extends TileMachine {
 		if(firstTick) {
 			firstTick = false;
 			shaftNode.setSideMask(3 << getBlockMetadata());
+			updateNeighbourConnections();
 		}
 		super.updateEntity();
 		shaftNode.tick();

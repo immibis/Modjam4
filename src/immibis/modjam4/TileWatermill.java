@@ -51,8 +51,6 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 	public void updateEntity() {
 		super.updateEntity();
 		
-		shaftNode.tick();
-		
 		int meta = getBlockMetadata();
 		
 		obstructed = false;
@@ -98,7 +96,7 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 			if((level3 >= level2 && level2 >= level1) || (level1 >= level2 && level2 >= level3))
 				maxSpeed += ANGVEL_PER_LEVEL_DIFF * (level1 - level3);
 			
-			maxTorque = maxSpeed / 100;
+			maxTorque = maxSpeed / 10;
 			//int diff = targetAngvel - shaftNode.getNetwork().angvel;
 			//shaftNode.getNetwork().angvel += diff * 0.5;
 		}
