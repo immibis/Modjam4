@@ -46,6 +46,7 @@ public class Modjam4Mod
 	public static DamageSource damageSourceSpinnyBlade = new DamageSource("immibis_modjam4.spinnyBlade");
 	
 	public static int NULL_RENDER_ID = 0;
+	public static int DOUBLE_GEARBOX_RENDER_ID = 0;
 	
     @EventHandler
     public void init(FMLInitializationEvent event)
@@ -119,6 +120,9 @@ public class Modjam4Mod
 		
 		NULL_RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderBlockNothing());
+		
+		DOUBLE_GEARBOX_RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(new RenderBlockGearboxDouble());
 	}
 }
 

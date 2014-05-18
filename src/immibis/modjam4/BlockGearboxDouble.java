@@ -1,9 +1,12 @@
 package immibis.modjam4;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -11,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 // metadata is high-speed direction
@@ -22,9 +26,20 @@ public class BlockGearboxDouble extends BlockMachineBase {
 		setHardness(2);
 	}
 	
+	IIcon iEnd, iSide;
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerBlockIcons(IIconRegister p_149651_1_) {
+		iSide = p_149651_1_.registerIcon("immibis_modjam4:dgearbox");
+		iEnd = p_149651_1_.registerIcon("furnace_top");
+	}
+	
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		return (side & 6) == (meta & 6) ? Blocks.log.getIcon(0, 0) : super.getIcon(side, meta);
+		if((meta & 6) == 0)
+			return (side & 6) == 0 ? iEnd : iSide;
+		return ((side & 6) == 0) ? iSide : iEnd;
 	}
 	
 	@Override
@@ -39,12 +54,10 @@ public class BlockGearboxDouble extends BlockMachineBase {
 	}
 
 	@Override
-	public void renderInvBlock(RenderBlocks rb) {
-		
-	}
+	public void renderInvBlock(RenderBlocks rb) {}
 	
 	@Override
 	public int getRenderType() {
-		return 0;
+		return Modjam4Mod.DOUBLE_GEARBOX_RENDER_ID;
 	}
 }
