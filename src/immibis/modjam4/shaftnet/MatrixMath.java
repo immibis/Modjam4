@@ -10,10 +10,10 @@ public class MatrixMath {
 	 */
 	public static void toReducedRowEchelonForm(double[][] matrix) throws SingularMatrixException {
 		int ncols = matrix[0].length, nrows = matrix.length;
-		for(int col = 0; col < ncols; col++) {
+		for(int col = 0; col < ncols && col < nrows; col++) {
 			int maxLeadingValueRow = -1;
 			double maxLeadingValue = Double.NEGATIVE_INFINITY;
-			for(int row = 0; row < nrows; row++) {
+			for(int row = col; row < nrows; row++) {
 				double leadingValue = Math.abs(matrix[row][col]);
 				if(leadingValue > maxLeadingValue) {
 					maxLeadingValue = leadingValue;
@@ -27,6 +27,11 @@ public class MatrixMath {
 			
 			swapRows(matrix, col, maxLeadingValueRow);
 			
+			double multiplier = 1.0 / matrix[col][col];
+			// row[col] *= multiplier
+			for(int col2 = 0; col2 < ncols; col2++)
+				matrix[col][col2] *= multiplier;
+			
 			for(int rowBelow = col+1; rowBelow < nrows; rowBelow++) {
 				// row[rowBelow] += x*row[col]
 				double x = -matrix[rowBelow][col]/matrix[col][col];
@@ -34,6 +39,22 @@ public class MatrixMath {
 					matrix[rowBelow][col2] += x*matrix[col][col2];
 			}
 		}
+		
+		for(int col = Math.min(ncols, nrows)-1; col >= 0; col--) {
+			if(matrix[col][col] != 1)
+				throw new AssertionError();
+			for(int rowAbove = col-1; rowAbove >= 0; rowAbove--) {
+				double x = -matrix[rowAbove][col];
+				// row[rowAbove] += row[col]*x
+				for(int col2 = 0; col2 < ncols; col2++)
+					matrix[rowAbove][col2] += matrix[col][col2]*x;
+			}
+		}
+		
+		for(int x = 0; x < nrows; x++)
+			for(int y = 0; y < ncols; y++)
+				if(matrix[x][y] == -0.0)
+					matrix[x][y] = 0.0;
 	}
 
 	private static void swapRows(double[][] matrix, int a, int b) {

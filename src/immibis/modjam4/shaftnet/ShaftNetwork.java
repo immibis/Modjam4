@@ -17,7 +17,7 @@ public class ShaftNetwork {
 	private List<SpeedTorqueCurve> machineCurves = new ArrayList<SpeedTorqueCurve>();
 	Collection<NetworkLink> links = new HashSet<NetworkLink>();
 	
-	double relativeVelocity = 1; // relative to other networks in group
+	double relativeVelocity = 1; // relative to group velocity
 	
 	NetworkGroup group = new NetworkGroup();
 	{group.add(this);}
@@ -103,7 +103,7 @@ public class ShaftNetwork {
 		
 		//System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", new "+(angvel+sumtorque/inertia));
 		
-		angvel += sumtorque / inertia;
+		group.groupAngVel += sumtorque / inertia / relativeVelocity;
 	}
 
 	ShaftNetwork createSplitNetwork() {
