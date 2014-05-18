@@ -48,6 +48,10 @@ public class Modjam4Mod
 	public static BlockFiller blockFiller;
 	public static BlockCartBooster blockCartBooster;
 	public static Item itemFlour;
+	public static Item itemGear;
+	public static Item itemPaddle;
+	public static Item itemBlade;
+	public static Item itemSail;
 	
 	public static DamageSource damageSourceSpinnyBlade = new DamageSource("immibis_modjam4.spinnyBlade");
 	
@@ -81,8 +85,8 @@ public class Modjam4Mod
 		//blockInductionGenerator = new BlockInductionGenerator();
 		//GameRegistry.registerBlock(blockInductionGenerator, "inductionGenerator");
 		
-		blockCable = new BlockCable();
-		GameRegistry.registerBlock(blockCable, "cable");
+		//blockCable = new BlockCable();
+		//GameRegistry.registerBlock(blockCable, "cable");
 		
 		blockStoneDoubleGearbox = new BlockGearboxDouble(Material.rock);
 		blockStoneDoubleGearbox.setBlockName("immibis_modjam4.stoneDoubleGearbox");
@@ -119,6 +123,30 @@ public class Modjam4Mod
 		itemFlour.setUnlocalizedName("immibis_modjam4.flour");
 		GameRegistry.registerItem(itemFlour, "flour");
 		
+		itemGear = new Item();
+		itemGear.setCreativeTab(CreativeTabs.tabAllSearch);
+		itemGear.setTextureName("immibis_modjam4:gear");
+		itemGear.setUnlocalizedName("immibis_modjam4.gear");
+		GameRegistry.registerItem(itemGear, "gear1");
+		
+		itemPaddle = new Item();
+		itemPaddle.setCreativeTab(CreativeTabs.tabAllSearch);
+		itemPaddle.setTextureName("immibis_modjam4:gear");
+		itemPaddle.setUnlocalizedName("immibis_modjam4.gear");
+		GameRegistry.registerItem(itemPaddle, "paddle");
+		
+		itemBlade = new Item();
+		itemBlade.setCreativeTab(CreativeTabs.tabAllSearch);
+		itemBlade.setTextureName("immibis_modjam4:blade");
+		itemBlade.setUnlocalizedName("immibis_modjam4.blade");
+		GameRegistry.registerItem(itemBlade, "blade");
+		
+		itemSail = new Item();
+		itemSail.setCreativeTab(CreativeTabs.tabAllSearch);
+		itemSail.setTextureName("immibis_modjam4:sail");
+		itemSail.setUnlocalizedName("immibis_modjam4.sail");
+		GameRegistry.registerItem(itemGear, "sail");
+		
 		GameRegistry.registerTileEntity(TileShaft.class, "immibisMJ4.shaft");
 		GameRegistry.registerTileEntity(TileCreativeEngine.class, "immibisMJ4.creativeEngine");
 		GameRegistry.registerTileEntity(TileGearboxDirectional.class, "immibisMJ4.dirGearbox");
@@ -133,6 +161,19 @@ public class Modjam4Mod
 		GameRegistry.registerTileEntity(TileCartBooster.class, "immibisMJ4.booster");
 		
 		FurnaceRecipes.smelting().func_151396_a(itemFlour, new ItemStack(Items.bread), 0.3f);
+		
+		GameRegistry.addRecipe(new ItemStack(blockWoodenShaft), "/ /", "/ /", "/ /", '/', Items.stick);
+		GameRegistry.addRecipe(new ItemStack(itemGear), " X ", "XIX", " X ", 'X', Blocks.cobblestone, 'I', blockWoodenShaft);
+		GameRegistry.addRecipe(new ItemStack(itemSail), "/CC", "/CC", "/CC", '/', Items.stick, 'C', Blocks.wool);
+		GameRegistry.addRecipe(new ItemStack(itemPaddle), " W ", "WWW", " / ", '/', Items.stick, 'W', Blocks.planks);
+		GameRegistry.addRecipe(new ItemStack(blockStoneDirectionalGearbox), "CGC", "GGG", "CGC", 'G', itemGear, 'C', Blocks.cobblestone);
+		GameRegistry.addRecipe(new ItemStack(blockStoneDoubleGearbox), "CCC", "GGG", "CCC", 'G', itemGear, 'C', Blocks.cobblestone);
+		GameRegistry.addRecipe(new ItemStack(blockWatermill), "PPP", "PAP", "PPP", 'P', itemPaddle, 'A', blockWoodenShaft);
+		GameRegistry.addRecipe(new ItemStack(blockWindmill), " S ", "SAS", " S ", 'S', itemSail, 'A', blockWoodenShaft);
+		GameRegistry.addRecipe(new ItemStack(blockMillstone), "SSS", "SAS", "SSS", 'S', blockWoodenShaft, 'S', Blocks.stone);
+		GameRegistry.addRecipe(new ItemStack(blockFan), " I ", "IAI", " I ", 'I', Items.iron_ingot, 'A', blockWoodenShaft);
+		GameRegistry.addRecipe(new ItemStack(blockSpinnyDeathBlade), "BBB", "BAB", "BBB", 'B', itemBlade, 'A', blockWoodenShaft);
+		GameRegistry.addRecipe(new ItemStack(blockCartBooster), "SIS", "AGA", "SSS", 'S', Blocks.cobblestone, 'I', Items.iron_ingot, 'A', blockWoodenShaft);
 		
 		PROXY.init();
     }

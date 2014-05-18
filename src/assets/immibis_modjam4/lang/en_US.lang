@@ -11,6 +11,10 @@ tile.immibis_modjam4.windmill.name=Windmill
 tile.immibis_modjam4.booster.name=Cart Booster
 
 item.immibis_modjam4.flour.name=Flour
+item.immibis_modjam4.gear.name=Stone Gear
+item.immibis_modjam4.paddle.name=Wooden Paddle
+item.immibis_modjam4.blade.name=Iron Blade
+item.immibis_modjam4.sail.name=Sail
 
-death.attack.immibis_modjam4.spinnyBlade=%s walked straight into a giant spinning death blade
-death.attack.immibis_modjam4.spinnyBlade.player=%s walked into a giant spinning death blade whilst fighting %s
+death.attack.immibis_modjam4.spinnyBlade=%s was dumb enough to walk into a giant spinning blade of death.
+death.attack.immibis_modjam4.spinnyBlade.player=%s walked into a giant spinning death blade whilst fighting %s.
