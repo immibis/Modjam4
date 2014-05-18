@@ -1,5 +1,7 @@
 package immibis.modjam4.shaftnet;
 
+import java.util.Arrays;
+
 public class MatrixMath {
 	
 	public static class SingularMatrixException extends Exception {}
@@ -9,6 +11,8 @@ public class MatrixMath {
 	 * The matrix is indexed as [row][col]
 	 */
 	public static void toReducedRowEchelonForm(double[][] matrix) throws SingularMatrixException {
+		for(int row = 0; row < matrix.length; row++)
+			System.out.println(Arrays.toString(matrix[row]));
 		int ncols = matrix[0].length, nrows = matrix.length;
 		for(int col = 0; col < ncols && col < nrows; col++) {
 			int maxLeadingValueRow = -1;

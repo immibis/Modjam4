@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 	
-	private int maxSpeed;
+	private static final int maxSpeed = ShaftUtils.fromDegreesPerSecond(45);
 	private int maxTorque;
 	private boolean obstructed;
 	
@@ -33,7 +33,7 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 			return -speed;
 		if(maxTorque == 0)
 			return 0;
-		return maxTorque - maxTorque * speed / maxSpeed;
+		return maxTorque - maxTorque * speed / (maxTorque < 0 ? -maxSpeed : maxSpeed);
 	}
 	
 	public static int LL_OBSTRUCTION = -1;
@@ -55,7 +55,6 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 		int meta = getBlockMetadata();
 		
 		obstructed = false;
-		maxSpeed = 1;
 		maxTorque = 0;
 		
 		int level1, level2, level3, numfalls;
@@ -95,13 +94,11 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 		}
 		
 		{
-			int ANGVEL_PER_LEVEL_DIFF = ShaftUtils.fromDegreesPerSecond(13);
-			int ANGVEL_PER_WATERFALL = ShaftUtils.fromDegreesPerSecond(4);
-			maxSpeed = ANGVEL_PER_WATERFALL * numfalls;
+			int TORQUE_PER_LEVEL_DIFF = ShaftUtils.fromDegreesPerSecond(13) / 10;
+			int TORQUE_PER_WATERFALL = ShaftUtils.fromDegreesPerSecond(4) / 10;
+			maxTorque = TORQUE_PER_WATERFALL * numfalls;
 			if((level3 >= level2 && level2 >= level1) || (level1 >= level2 && level2 >= level3))
-				maxSpeed += ANGVEL_PER_LEVEL_DIFF * (level1 - level3);
-			
-			maxTorque = maxSpeed / 10;
+				maxTorque += TORQUE_PER_LEVEL_DIFF * (level1 - level3);
 			//int diff = targetAngvel - shaftNode.getNetwork().angvel;
 			//shaftNode.getNetwork().angvel += diff * 0.5;
 		}

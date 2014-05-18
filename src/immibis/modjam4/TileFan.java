@@ -30,49 +30,51 @@ public class TileFan extends TileShaft implements SpeedTorqueCurve {
 		//int range = (int)angvel_dps/32;
 		int range = 8;
 		
-		double speed = angvel_dps / 160 * 0.05;
+		double speed = angvel_dps / 160 * 0.01;
+		
+		final double OVERHANG = 2/16f;
 		
 		switch(getBlockMetadata()) {
 		case 5: // -X
-			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5-range, yCoord-0.5, zCoord-0.5, xCoord-0.5, yCoord+1.5, zCoord+1.5))) {
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-range, yCoord-OVERHANG, zCoord-OVERHANG, xCoord, yCoord+1+OVERHANG, zCoord+1+OVERHANG))) {
 				if(e instanceof EntityPlayer)
 					continue;
 				e.motionX -= speed;
 			}
 			break;
 		case 4: // +X
-			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord+0.5, yCoord-0.5, zCoord-0.5, xCoord+0.5+range, yCoord+1.5, zCoord+1.5))) {
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord+1, yCoord-OVERHANG, zCoord-OVERHANG, xCoord+1+range, yCoord+1+OVERHANG, zCoord+1+OVERHANG))) {
 				if(e instanceof EntityPlayer)
 					continue;
 				e.motionX += speed;
 			}
 			break;
 		case 3: // -Z
-			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord-0.5, zCoord-0.5-range, xCoord+1.5, yCoord+1.5, zCoord-0.5))) {
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-OVERHANG, yCoord-OVERHANG, zCoord-range, xCoord+1+OVERHANG, yCoord+1+OVERHANG, zCoord))) {
 				if(e instanceof EntityPlayer)
 					continue;
 				e.motionZ -= speed;
 			}
 			break;
 		case 2: // +Z
-			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord-0.5, zCoord+0.5, xCoord+0.5, yCoord+1.5, zCoord+0.5+range))) {
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-OVERHANG, yCoord-OVERHANG, zCoord+1, xCoord+1+OVERHANG, yCoord+1+OVERHANG, zCoord+1+range))) {
 				if(e instanceof EntityPlayer)
 					continue;
 				e.motionZ += speed;
 			}
 			break;
 		case 1: // -Y
-			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord-0.5, zCoord-0.5, xCoord+1.5, yCoord-0.5-range, zCoord+1.5))) {
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-OVERHANG, yCoord-range, zCoord-OVERHANG, xCoord+1+OVERHANG, yCoord, zCoord+1+OVERHANG))) {
 				if(e instanceof EntityPlayer)
 					continue;
 				e.motionY -= speed;
 			}
 			break;
 		case 0: // +Y
-			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-0.5, yCoord+0.5, zCoord-0.5, xCoord+1.5, yCoord+0.5+range, zCoord+1.5))) {
+			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-OVERHANG, yCoord+1, zCoord-OVERHANG, xCoord+1+OVERHANG, yCoord+1+range, zCoord+1+OVERHANG))) {
 				if(e instanceof EntityPlayer)
 					continue;
-				e.motionY += speed*3;
+				e.motionY += speed;
 			}
 			break;
 		}

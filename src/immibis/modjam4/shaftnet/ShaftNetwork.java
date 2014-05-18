@@ -103,7 +103,7 @@ public class ShaftNetwork {
 		
 		//System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", new "+(angvel+sumtorque/inertia));
 		
-		group.groupAngVel += sumtorque / group.calcInertia() / relativeVelocity;
+		group.groupAngVel += sumtorque / group.calcInertia() / (relativeVelocity*relativeVelocity);
 	}
 
 	ShaftNetwork createSplitNetwork() {
@@ -137,5 +137,9 @@ public class ShaftNetwork {
 
 	void removeLink(NetworkLink link) {
 		links.remove(link);
+	}
+
+	double calcNetworkInertia() {
+		return nodes.size();
 	}
 }
