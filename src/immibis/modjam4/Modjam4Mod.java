@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -41,6 +42,8 @@ public class Modjam4Mod
 	public static BlockFan blockFan;
 	public static BlockSpinnyDeathBlade blockSpinnyDeathBlade;
 	public static Item itemFlour;
+	
+	public static DamageSource damageSourceSpinnyBlade = new DamageSource("immibis_modjam4.spinnyBlade");
 	
 	public static int NULL_RENDER_ID = 0;
 	
