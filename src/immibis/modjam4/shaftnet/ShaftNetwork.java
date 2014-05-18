@@ -36,23 +36,20 @@ public class ShaftNetwork {
 
 		network.angvel = (angvel*nodes.size() + network.angvel*network.nodes.size()) / (network.nodes.size() + nodes.size());
 		
-		/*System.out.println("merging "+this+" into "+network);
+		System.out.println("merging "+this+" into "+network);
 		for(NetworkLink link : new ArrayList<NetworkLink>(links)) {
 			if(link.netA == this) {
-				link.unlink();
 				link.netA = network;
-				link.link();
 				
 			} else if(link.netB == this) {
-				link.unlink();
 				link.netB = network;
-				link.link();
 				
 			} else
 				throw new AssertionError();
 		}
-		links.clear();*/
-		
+		links.clear();
+		network.links.addAll(links);
+		group.networks.remove(this);
 		//group.mergeInto(network.group);
 		
 		for(ShaftNode c : nodes) {

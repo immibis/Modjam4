@@ -93,9 +93,14 @@ public class NetworkGroup {
 			group.calcInertia();
 		}
 		
-		double thisInertia = calcInertia();
-		double otherInertia = group.calcInertia();
-		group.groupAngVel = (long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia));
+		//
+		
+		//double thisInertia = calcInertia();
+		//double otherInertia = group.calcInertia();
+		//System.out.println(thisInertia+" * "+groupAngVel+" + "+otherInertia+" * "+group.groupAngVel);
+		//System.out.println("/ "+(thisInertia + otherInertia)+" = "+(long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia)));
+		//group.groupAngVel = (long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia));
+		group.groupAngVel = groupAngVel;
 		group.needVelocityRecalc = true;
 		
 		for(ShaftNetwork n : networks) {
