@@ -145,7 +145,7 @@ public class Modjam4Mod
 		itemSail.setCreativeTab(CreativeTabs.tabAllSearch);
 		itemSail.setTextureName("immibis_modjam4:sail");
 		itemSail.setUnlocalizedName("immibis_modjam4.sail");
-		GameRegistry.registerItem(itemGear, "sail");
+		GameRegistry.registerItem(itemSail, "sail");
 		
 		GameRegistry.registerTileEntity(TileShaft.class, "immibisMJ4.shaft");
 		GameRegistry.registerTileEntity(TileCreativeEngine.class, "immibisMJ4.creativeEngine");
@@ -166,6 +166,7 @@ public class Modjam4Mod
 		GameRegistry.addRecipe(new ItemStack(itemGear), " X ", "XIX", " X ", 'X', Blocks.cobblestone, 'I', blockWoodenShaft);
 		GameRegistry.addRecipe(new ItemStack(itemSail), "/CC", "/CC", "/CC", '/', Items.stick, 'C', Blocks.wool);
 		GameRegistry.addRecipe(new ItemStack(itemPaddle), " W ", "WWW", " / ", '/', Items.stick, 'W', Blocks.planks);
+		GameRegistry.addRecipe(new ItemStack(itemBlade), "II ", " II", " I ", 'I', Items.iron_ingot);
 		GameRegistry.addRecipe(new ItemStack(blockStoneDirectionalGearbox), "CGC", "GGG", "CGC", 'G', itemGear, 'C', Blocks.cobblestone);
 		GameRegistry.addRecipe(new ItemStack(blockStoneDoubleGearbox), "CCC", "GGG", "CCC", 'G', itemGear, 'C', Blocks.cobblestone);
 		GameRegistry.addRecipe(new ItemStack(blockWatermill), "PPP", "PAP", "PPP", 'P', itemPaddle, 'A', blockWoodenShaft);

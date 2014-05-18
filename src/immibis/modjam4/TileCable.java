@@ -102,11 +102,11 @@ public class TileCable extends TileEntity implements ICable {
 			int x = xCoord+fd.offsetX, y = yCoord+fd.offsetY, z = zCoord+fd.offsetZ;
 			
 			if(worldObj.blockExists(x, y, z)) {
-				if(worldObj.getBlock(x, y, z) == Modjam4Mod.blockCable) {
+				/*if(worldObj.getBlock(x, y, z) == Modjam4Mod.blockCable) {
 					TileEntity te = worldObj.getTileEntity(x, y, z);
 					if(te instanceof ICable)
 						((ICable)te).propagateNetwork(newNetwork);
-				}
+				}*/
 			}
 		}
 	}

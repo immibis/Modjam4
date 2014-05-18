@@ -37,6 +37,13 @@ public class NetworkGroup {
 			return;
 		}
 		
+		for(NetworkLink l : links)
+			if(!networks.contains(l.netA) || !networks.contains(l.netB)) {
+				System.out.println("[ImmibisMJ4 Debug/Warning] Group "+Integer.toHexString(hashCode())+" has a link to a network not in the group. Link: "+l+". Networks in group: "+networks);
+				noValidVelocities = true;
+				return;
+			}
+		
 		// construct a matrix for a system of linear equations
 		// one equation for each link, one variable for each network's relativeVelocity
 		double[][] matrix = new double[links.size()][networks.size()]; // [row][col]
