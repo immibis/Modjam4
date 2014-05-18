@@ -78,6 +78,9 @@ public class NetworkGroup {
 			double mult = previousLastNetworkRelativeVelocity / networks.get(networks.size()-1).relativeVelocity;
 			groupAngVel *= mult;
 		}
+		
+		for(ShaftNetwork n : networks)
+			n.angvel = (long)(groupAngVel * n.relativeVelocity);
 	}
 
 	void add(ShaftNetwork net) {

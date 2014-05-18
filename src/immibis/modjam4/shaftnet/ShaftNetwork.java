@@ -34,7 +34,15 @@ public class ShaftNetwork {
 		
 		network.angle += (int)(((double)angle - network.angle) * nodes.size() / (network.nodes.size() + nodes.size()));
 
-		network.angvel = (angvel*nodes.size() + network.angvel*network.nodes.size()) / (network.nodes.size() + nodes.size());
+		System.out.println(relativeVelocity+" "+network.relativeVelocity);
+		
+		long myAngvel = (long)(angvel * relativeVelocity);
+		long otherAngvel = (long)(network.angvel*network.relativeVelocity);
+		
+		double myInertia = calcNetworkInertia();
+		double otherInertia = network.calcNetworkInertia();
+		
+		//network.angvel = (long)((angvel*myInertia + network.angvel*otherInertia) / (myInertia * otherInertia));
 		
 		System.out.println("merging "+this+" into "+network);
 		for(NetworkLink link : new ArrayList<NetworkLink>(links)) {

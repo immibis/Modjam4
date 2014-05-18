@@ -14,6 +14,7 @@ import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -62,6 +63,8 @@ public class Modjam4Mod
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+    	FMLCommonHandler.instance().bus().register(this);
+    	
 		blockWoodenShaft = new BlockShaft(Material.wood);
 		blockWoodenShaft.setBlockName("immibis_modjam4.woodenShaft");
 		GameRegistry.registerBlock(blockWoodenShaft, "woodenShaft");
