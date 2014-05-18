@@ -97,7 +97,7 @@ public class NetworkGroup {
 	public double calcInertia() {
 		double inertia = 0;
 		for(ShaftNetwork sn : networks)
-			inertia += sn.relativeVelocity*sn.relativeVelocity*sn.calcNetworkInertia();
+			inertia += sn.relativeVelocity*sn.calcNetworkInertia();
 		return inertia;
 	}
 }

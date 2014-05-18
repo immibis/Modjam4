@@ -23,7 +23,7 @@ public class MatrixMath {
 					leadingValue = leadingValue;
 				if(leadingValue > maxLeadingValue) {
 					maxLeadingValue = leadingValue;
-					maxLeadingValueRow = col;
+					maxLeadingValueRow = row;
 				}
 			}
 			if(maxLeadingValueRow == -1) {
@@ -71,9 +71,11 @@ public class MatrixMath {
 	}
 
 	private static void swapRows(double[][] matrix, int a, int b) {
-		double[] temp = matrix[a];
-		matrix[a] = matrix[b];
-		matrix[b] = temp;
+		if(a != b) {
+			double[] temp = matrix[a];
+			matrix[a] = matrix[b];
+			matrix[b] = temp;
+		}
 	}
 
 }
