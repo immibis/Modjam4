@@ -68,13 +68,17 @@ public class TileFan extends TileShaft implements SpeedTorqueCurve {
 				if(e instanceof EntityPlayer)
 					continue;
 				e.motionY -= speed;
+				//e.motionX += (xCoord + 0.5 - e.posX) * 0.01;
+				//e.motionZ += (zCoord + 0.5 - e.posZ) * 0.01;
 			}
 			break;
 		case 0: // +Y
 			for(Entity e : (List<Entity>)worldObj.getEntitiesWithinAABB(Entity.class, AxisAlignedBB.getAABBPool().getAABB(xCoord-OVERHANG, yCoord+1, zCoord-OVERHANG, xCoord+1+OVERHANG, yCoord+1+range, zCoord+1+OVERHANG))) {
 				if(e instanceof EntityPlayer)
 					continue;
-				e.motionY += speed;
+				e.motionY += speed * 2;
+				//e.motionX += (xCoord + 0.5 - e.posX) * 0.01;
+				//e.motionZ += (zCoord + 0.5 - e.posZ) * 0.01;
 			}
 			break;
 		}

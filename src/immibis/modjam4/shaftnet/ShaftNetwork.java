@@ -101,7 +101,7 @@ public class ShaftNetwork {
 		for(SpeedTorqueCurve stc : machineCurves)
 			sumtorque += stc.getTorqueAtSpeed(angvel);
 		
-		System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", inertia "+group.calcInertia()/(relativeVelocity * relativeVelocity));
+		//System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", inertia "+group.calcInertia()/(relativeVelocity * relativeVelocity));
 		
 		group.groupAngVel += sumtorque / group.calcInertia() / (relativeVelocity * relativeVelocity);
 	}
@@ -110,11 +110,19 @@ public class ShaftNetwork {
 		ShaftNetwork n = new ShaftNetwork();
 		n.angle = angle;
 		n.angvel = angvel;
+		n.group.groupAngVel = group.groupAngVel;
+		n.relativeVelocity = relativeVelocity;
+		n.group.recalcVelocity();
 		return n;
 	}
 
 	void propagateNewGroup() {
-		propagateGroup(new NetworkGroup());
+		NetworkGroup ng = new NetworkGroup();
+		ng.groupAngVel = group.groupAngVel;
+		ng.needVelocityRecalc = true;
+		ng.noValidVelocities = group.noValidVelocities;
+		propagateGroup(ng);
+		ng.recalcVelocity();
 	}
 	
 	private void propagateGroup(NetworkGroup g) {
