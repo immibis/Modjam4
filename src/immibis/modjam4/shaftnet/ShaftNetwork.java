@@ -71,10 +71,7 @@ public class ShaftNetwork {
 	
 	void addLink(NetworkLink link) {
 		if(this == link.netA)
-			if(this == link.netB)
-				throw new AssertionError("invalid link");
-			else
-				addLink(link, link.netB);
+			addLink(link, link.netB);
 		else if(this == link.netB)
 			addLink(link, link.netA);
 		else

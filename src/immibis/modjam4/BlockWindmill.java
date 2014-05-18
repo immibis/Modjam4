@@ -66,12 +66,12 @@ public class BlockWindmill extends BlockShaft {
 		GL11.glRotatef(90, 0, 0, 1);
 		Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
 		Tessellator.instance.startDrawingQuads();
-		new RenderTileWatermill().renderShaft(true);
+		new RenderTileWindmill().renderShaft(true);
 		Tessellator.instance.draw();
 		
 		GL11.glDisable(GL11.GL_LIGHTING);
 		Tessellator.instance.startDrawingQuads();
-		new RenderTileWatermill().renderAttachment();
+		new RenderTileWindmill().renderAttachment();
 		Tessellator.instance.draw();
 		GL11.glPopMatrix();
 		GL11.glEnable(GL11.GL_LIGHTING);
