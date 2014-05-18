@@ -53,6 +53,8 @@ public class ShaftNetwork {
 		}
 		links.clear();*/
 		
+		group.mergeInto(network.group);
+		
 		for(ShaftNode c : nodes) {
 			c.network = network;
 			network.add(c);
@@ -108,15 +110,18 @@ public class ShaftNetwork {
 
 	ShaftNetwork createSplitNetwork() {
 		ShaftNetwork n = new ShaftNetwork();
+		
 		n.angle = angle;
 		n.angvel = angvel;
 		n.group.groupAngVel = group.groupAngVel;
 		n.relativeVelocity = relativeVelocity;
 		n.group.recalcVelocity();
+		System.out.println("createSplitNetwork "+this+" -> "+n);
 		return n;
 	}
 
 	void propagateNewGroup() {
+		System.out.println("propagateNewGroup "+this);
 		NetworkGroup ng = new NetworkGroup();
 		ng.groupAngVel = group.groupAngVel;
 		ng.needVelocityRecalc = true;
