@@ -187,9 +187,9 @@ public class TileMillstone extends TileShaft implements IInventory, ISidedInvent
 	@Override
 	public long getTorqueAtSpeed(long speed) {
 		if(worldObj.isRemote ? isProcessing : processing != null)
-			return -speed / 20;
+			return -speed;
 		else
-			return -speed / 200;
+			return -speed / 20;
 	}
 	
 	@Override
