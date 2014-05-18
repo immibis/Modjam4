@@ -15,13 +15,22 @@ public class MatrixMath {
 			double maxLeadingValue = Double.NEGATIVE_INFINITY;
 			for(int row = col; row < nrows; row++) {
 				double leadingValue = Math.abs(matrix[row][col]);
+				if(Double.isInfinite(leadingValue) || Double.isNaN(leadingValue))
+					leadingValue = leadingValue;
 				if(leadingValue > maxLeadingValue) {
 					maxLeadingValue = leadingValue;
 					maxLeadingValueRow = col;
 				}
 			}
-			if(maxLeadingValueRow == -1)
-				throw new AssertionError();
+			if(maxLeadingValueRow == -1) {
+				//throw new AssertionError();
+				
+				// at least don't crash the client
+				for(int x = 0; x < nrows; x++)
+					for(int y = 0; y < ncols; y++)
+						matrix[x][y] = 0;
+				return;
+			}
 			if(maxLeadingValue == 0)
 				throw new SingularMatrixException();
 			

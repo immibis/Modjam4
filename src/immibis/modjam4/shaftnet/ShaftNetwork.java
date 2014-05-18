@@ -2,6 +2,7 @@ package immibis.modjam4.shaftnet;
 
 import immibis.modjam4.CableNetwork;
 import immibis.modjam4.ICable;
+import immibis.modjam4.ShaftUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -91,6 +92,7 @@ public class ShaftNetwork {
 			group.recalcVelocity();
 		}
 		
+		angvel = (long)(group.groupAngVel * relativeVelocity);
 		angle += angvel;
 		
 		//angvel *= 0.95;
@@ -99,11 +101,9 @@ public class ShaftNetwork {
 		for(SpeedTorqueCurve stc : machineCurves)
 			sumtorque += stc.getTorqueAtSpeed(angvel);
 		
-		int inertia = nodes.size(); // temporary
-		
 		//System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", new "+(angvel+sumtorque/inertia));
 		
-		group.groupAngVel += sumtorque / inertia / relativeVelocity;
+		group.groupAngVel += sumtorque / group.calcInertia() / relativeVelocity;
 	}
 
 	ShaftNetwork createSplitNetwork() {
@@ -132,7 +132,7 @@ public class ShaftNetwork {
 	
 	@Override
 	public String toString() {
-		return Integer.toHexString(hashCode())+", group="+Integer.toHexString(group.hashCode());
+		return Integer.toHexString(hashCode())+", group="+Integer.toHexString(group.hashCode())+", rv="+relativeVelocity+", angvel="+ShaftUtils.toDegreesPerSecond((int)angvel);
 	}
 
 	void removeLink(NetworkLink link) {

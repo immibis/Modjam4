@@ -31,6 +31,12 @@ public class NetworkGroup {
 			return;
 		}
 		
+		if(networks.size() == 1) {
+			groupAngVel *= networks.get(0).relativeVelocity;
+			networks.get(0).relativeVelocity = 1;
+			return;
+		}
+		
 		// construct a matrix for a system of linear equations
 		// one equation for each link, one variable for each network's relativeVelocity
 		double[][] matrix = new double[links.size()][networks.size()]; // [row][col]
@@ -86,5 +92,11 @@ public class NetworkGroup {
 			n.group = group;
 			group.add(n);
 		}
+	}
+
+	public double calcInertia() {
+		double inertia = 0;
+		for(ShaftNetwork sn : networks)
+			inertia += 
 	}
 }
