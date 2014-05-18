@@ -35,10 +35,10 @@ public class Modjam4Mod
 	@SidedProxy(clientSide="immibis.modjam4.ProxyClient", serverSide="immibis.modjam4.ProxyBase") public static ProxyBase PROXY;
 	
 	public static BlockShaft blockWoodenShaft;
-	public static BlockCreativeEngine blockCreativeEngine;
+	//public static BlockCreativeEngine blockCreativeEngine;
 	public static BlockGearboxDirectional blockStoneDirectionalGearbox;
 	public static BlockGearboxDouble blockStoneDoubleGearbox;
-	public static BlockInductionGenerator blockInductionGenerator;
+	//public static BlockInductionGenerator blockInductionGenerator;
 	public static BlockCable blockCable;
 	public static BlockWatermill blockWatermill;
 	public static BlockMillstone blockMillstone;
@@ -46,6 +46,7 @@ public class Modjam4Mod
 	public static BlockSpinnyDeathBlade blockSpinnyDeathBlade;
 	public static BlockWindmill blockWindmill;
 	public static BlockFiller blockFiller;
+	public static BlockCartBooster blockCartBooster;
 	public static Item itemFlour;
 	
 	public static DamageSource damageSourceSpinnyBlade = new DamageSource("immibis_modjam4.spinnyBlade");
@@ -57,7 +58,7 @@ public class Modjam4Mod
 	
 	@SubscribeEvent
 	public void onTick(TickEvent.ServerTickEvent evt) {
-		System.out.println("tick");
+		//System.out.println("tick");
 	}
 	
     @EventHandler
@@ -69,16 +70,16 @@ public class Modjam4Mod
 		blockWoodenShaft.setBlockName("immibis_modjam4.woodenShaft");
 		GameRegistry.registerBlock(blockWoodenShaft, "woodenShaft");
 		
-		blockCreativeEngine = new BlockCreativeEngine();
-		GameRegistry.registerBlock(blockCreativeEngine, "creativeEngine");
+		//blockCreativeEngine = new BlockCreativeEngine();
+		//GameRegistry.registerBlock(blockCreativeEngine, "creativeEngine");
 		
 		blockStoneDirectionalGearbox = new BlockGearboxDirectional(Material.rock);
 		blockStoneDirectionalGearbox.setBlockTextureName("immibis_modjam4:gearbox1");
 		blockStoneDirectionalGearbox.setBlockName("immibis_modjam4.stoneDirectionalGearbox");
 		GameRegistry.registerBlock(blockStoneDirectionalGearbox, "stoneDirectionalGearbox");
 		
-		blockInductionGenerator = new BlockInductionGenerator();
-		GameRegistry.registerBlock(blockInductionGenerator, "inductionGenerator");
+		//blockInductionGenerator = new BlockInductionGenerator();
+		//GameRegistry.registerBlock(blockInductionGenerator, "inductionGenerator");
 		
 		blockCable = new BlockCable();
 		GameRegistry.registerBlock(blockCable, "cable");
@@ -109,6 +110,9 @@ public class Modjam4Mod
 		blockFiller = new BlockFiller();
 		GameRegistry.registerBlock(blockFiller, "filler");
 		
+		blockCartBooster = new BlockCartBooster();
+		GameRegistry.registerBlock(blockCartBooster, "cartBooster");
+		
 		itemFlour = new Item();
 		itemFlour.setCreativeTab(CreativeTabs.tabFood);
 		itemFlour.setTextureName("immibis_modjam4:flour");
@@ -126,6 +130,7 @@ public class Modjam4Mod
 		GameRegistry.registerTileEntity(TileFan.class, "immibisMJ4.fan");
 		GameRegistry.registerTileEntity(TileSpinnyDeathBlade.class, "immibisMJ4.spinnyDeathBlade");
 		GameRegistry.registerTileEntity(TileWindmill.class, "immibisMJ4.windmill");
+		GameRegistry.registerTileEntity(TileCartBooster.class, "immibisMJ4.booster");
 		
 		FurnaceRecipes.smelting().func_151396_a(itemFlour, new ItemStack(Items.bread), 0.3f);
 		

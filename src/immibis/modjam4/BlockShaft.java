@@ -26,6 +26,7 @@ public class BlockShaft extends BlockMachineBase {
 		setCreativeTab(CreativeTabs.tabAllSearch);
 		setHardness(2.0F);
         setStepSound(soundTypeWood);
+        setBlockTextureName("log_oak");
 	}
 	
 	@Override
