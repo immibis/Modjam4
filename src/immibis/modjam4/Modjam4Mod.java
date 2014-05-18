@@ -5,7 +5,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -36,6 +39,7 @@ public class Modjam4Mod
 	public static BlockWatermill blockWatermill;
 	public static BlockMillstone blockMillstone;
 	public static BlockFan blockFan;
+	public static BlockSpinnyDeathBlade blockSpinnyDeathBlade;
 	public static Item itemFlour;
 	
 	public static int NULL_RENDER_ID = 0;
@@ -77,6 +81,9 @@ public class Modjam4Mod
 		blockFan.setBlockName("immibis_modjam4.fan");
 		GameRegistry.registerBlock(blockFan, "fan");
 		
+		blockSpinnyDeathBlade = new BlockSpinnyDeathBlade();
+		GameRegistry.registerBlock(blockSpinnyDeathBlade, "spinnyDeathBlade");
+		
 		itemFlour = new Item();
 		itemFlour.setCreativeTab(CreativeTabs.tabFood);
 		itemFlour.setTextureName("immibis_modjam4:flour");
@@ -92,6 +99,9 @@ public class Modjam4Mod
 		GameRegistry.registerTileEntity(TileWatermill.class, "immibisMJ4.watermill");
 		GameRegistry.registerTileEntity(TileMillstone.class, "immibisMJ4.millstone");
 		GameRegistry.registerTileEntity(TileFan.class, "immibisMJ4.fan");
+		GameRegistry.registerTileEntity(TileSpinnyDeathBlade.class, "immibisMJ4.spinnyDeathBlade");
+		
+		FurnaceRecipes.smelting().func_151396_a(itemFlour, new ItemStack(Items.bread), 0.3f);
 		
 		PROXY.init();
     }
@@ -102,6 +112,7 @@ public class Modjam4Mod
 		ClientRegistry.bindTileEntitySpecialRenderer(TileWatermill.class, new RenderTileWatermill());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileMillstone.class, new RenderTileMillstone());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileFan.class, new RenderTileFan());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileSpinnyDeathBlade.class, new RenderTileSpinnyDeathBlade());
 		
 		NULL_RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderBlockNothing());

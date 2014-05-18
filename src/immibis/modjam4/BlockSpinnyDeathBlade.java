@@ -17,8 +17,7 @@ public class BlockSpinnyDeathBlade extends BlockShaft {
 	
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TileSpinnyDeathBlade();
 	}
 	
 	@Override
