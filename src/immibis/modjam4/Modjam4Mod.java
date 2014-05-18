@@ -171,10 +171,10 @@ public class Modjam4Mod
 		GameRegistry.addRecipe(new ItemStack(blockStoneDoubleGearbox), "CCC", "GGG", "CCC", 'G', itemGear, 'C', Blocks.cobblestone);
 		GameRegistry.addRecipe(new ItemStack(blockWatermill), "PPP", "PAP", "PPP", 'P', itemPaddle, 'A', blockWoodenShaft);
 		GameRegistry.addRecipe(new ItemStack(blockWindmill), " S ", "SAS", " S ", 'S', itemSail, 'A', blockWoodenShaft);
-		GameRegistry.addRecipe(new ItemStack(blockMillstone), "SSS", "SAS", "SSS", 'S', blockWoodenShaft, 'S', Blocks.stone);
+		GameRegistry.addRecipe(new ItemStack(blockMillstone), "SSS", "SAS", "SSS", 'A', blockWoodenShaft, 'S', Blocks.stone);
 		GameRegistry.addRecipe(new ItemStack(blockFan), " I ", "IAI", " I ", 'I', Items.iron_ingot, 'A', blockWoodenShaft);
 		GameRegistry.addRecipe(new ItemStack(blockSpinnyDeathBlade), "BBB", "BAB", "BBB", 'B', itemBlade, 'A', blockWoodenShaft);
-		GameRegistry.addRecipe(new ItemStack(blockCartBooster), "SIS", "AGA", "SSS", 'S', Blocks.cobblestone, 'I', Items.iron_ingot, 'A', blockWoodenShaft);
+		GameRegistry.addRecipe(new ItemStack(blockCartBooster), "SIS", "AGA", "SSS", 'S', Blocks.cobblestone, 'I', Items.iron_ingot, 'A', blockWoodenShaft, 'G', itemGear);
 		
 		PROXY.init();
     }
