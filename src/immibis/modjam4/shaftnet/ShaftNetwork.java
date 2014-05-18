@@ -118,8 +118,8 @@ public class ShaftNetwork {
 		
 		n.angle = angle;
 		n.angvel = angvel;
-		n.group.groupAngVel = group.groupAngVel;
-		n.relativeVelocity = relativeVelocity;
+		//n.group.groupAngVel = group.groupAngVel;
+		//n.relativeVelocity = relativeVelocity;
 		n.group.needVelocityRecalc = true;
 		//System.out.println("createSplitNetwork "+this+" -> "+n);
 		return n;
