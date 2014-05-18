@@ -14,6 +14,22 @@ public class NetworkGroup {
 			for(NetworkLink l : n.links)
 				if(l.netA == n)
 					links.add(l);
+		
+		// construct a matrix for a system of linear equations
+		// one equation for each link, one variable for each network's relativeVelocity
+		double[][] matrix = new double[links.size()][networks.size()]; // [row][col]
+		int linkIndex = 0;
+		for(NetworkLink l : links) {
+			// netAspeed*vm = netBspeed
+			// -> netAspeed*vm - netBspeed = 0
+			matrix[linkIndex][networks.indexOf(l.netA)] = l.velocityMultiplier;
+			matrix[linkIndex][networks.indexOf(l.netB)] = -1;
+			linkIndex++;
+		}
+		
+		MatrixMath.toReducedRowEchelonForm(matrix);
+		
+		
 	}
 
 	void add(ShaftNetwork net) {
