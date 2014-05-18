@@ -8,30 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 
 public class TileGearboxDouble extends TileMachine {
 	
-	ShaftNode hsNode = new ShaftNode(this) {
-		public SpeedTorqueCurve getSpeedTorqueCurve() {
-			return new SpeedTorqueCurve() {
-				@Override
-				public long getTorqueAtSpeed(long hs_angvel) {
-					return 0;
-					//long ls_angvel = lsNode.getNetwork().angvel;
-					//return -((hs_angvel / 2) - ls_angvel) * 2;
-				}
-			};
-		}
-	};
-	ShaftNode lsNode = new ShaftNode(this) {
-		public SpeedTorqueCurve getSpeedTorqueCurve() {
-			return new SpeedTorqueCurve() {
-				@Override
-				public long getTorqueAtSpeed(long ls_angvel) {
-					return 0;
-					//long hs_angvel = hsNode.getNetwork().angvel;
-					//return -((ls_angvel * 2) - hs_angvel) * 2;
-				}
-			};
-		}
-	};
+	ShaftNode hsNode = new ShaftNode(this);
+	ShaftNode lsNode = new ShaftNode(this);
 	
 	NetworkLink networkLink;
 	

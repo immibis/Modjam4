@@ -94,8 +94,8 @@ public class TileWatermill extends TileShaft implements SpeedTorqueCurve {
 		}
 		
 		{
-			int TORQUE_PER_LEVEL_DIFF = ShaftUtils.fromDegreesPerSecond(13) / 10;
-			int TORQUE_PER_WATERFALL = ShaftUtils.fromDegreesPerSecond(4) / 10;
+			int TORQUE_PER_LEVEL_DIFF = ShaftUtils.fromDegreesPerSecond(13) / 40;
+			int TORQUE_PER_WATERFALL = ShaftUtils.fromDegreesPerSecond(4) / 40;
 			maxTorque = TORQUE_PER_WATERFALL * numfalls;
 			if((level3 >= level2 && level2 >= level1) || (level1 >= level2 && level2 >= level3))
 				maxTorque += TORQUE_PER_LEVEL_DIFF * (level1 - level3);

@@ -53,7 +53,7 @@ public class ShaftNetwork {
 		}
 		links.clear();*/
 		
-		group.mergeInto(network.group);
+		//group.mergeInto(network.group);
 		
 		for(ShaftNode c : nodes) {
 			c.network = network;
@@ -94,6 +94,11 @@ public class ShaftNetwork {
 			group.recalcVelocity();
 		}
 		
+		if(group.noValidVelocities) {
+			angvel = 0;
+			return;
+		}
+		
 		angvel = (long)(group.groupAngVel * relativeVelocity);
 		angle += angvel;
 		
@@ -115,19 +120,18 @@ public class ShaftNetwork {
 		n.angvel = angvel;
 		n.group.groupAngVel = group.groupAngVel;
 		n.relativeVelocity = relativeVelocity;
-		n.group.recalcVelocity();
-		System.out.println("createSplitNetwork "+this+" -> "+n);
+		n.group.needVelocityRecalc = true;
+		//System.out.println("createSplitNetwork "+this+" -> "+n);
 		return n;
 	}
 
 	void propagateNewGroup() {
-		System.out.println("propagateNewGroup "+this);
+		//System.out.println("propagateNewGroup "+this);
 		NetworkGroup ng = new NetworkGroup();
 		ng.groupAngVel = group.groupAngVel;
 		ng.needVelocityRecalc = true;
 		ng.noValidVelocities = group.noValidVelocities;
 		propagateGroup(ng);
-		ng.recalcVelocity();
 	}
 	
 	private void propagateGroup(NetworkGroup g) {
