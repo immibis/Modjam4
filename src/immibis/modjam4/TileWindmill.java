@@ -70,7 +70,7 @@ public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 		
 		
 		{
-			int NORMAL_TORQUE = ShaftUtils.fromDegreesPerSecond(60) / 10;
+			int NORMAL_TORQUE = ShaftUtils.fromDegreesPerSecond(15) / 10;
 			int NORMAL_SPEED = ShaftUtils.fromDegreesPerSecond(45);
 			
 			int windSpeed = worldObj.isRemote ? clientWindSpeed : Modjam4Mod.windSpeed;

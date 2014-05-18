@@ -68,7 +68,7 @@ public class BlockWindmill extends BlockShaft {
 	
 	@Override
 	public void onPostBlockPlaced(World w, int x, int y, int z, int meta) {
-		switch(meta) {
+		switch(meta & 6) {
 		case 2:
 			w.setBlock(x-1, y, z, Modjam4Mod.blockFiller, Dir.PX, 3);
 			w.setBlock(x-2, y, z, Modjam4Mod.blockFiller, Dir.PX, 3);
