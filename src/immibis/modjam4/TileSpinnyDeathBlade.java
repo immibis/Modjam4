@@ -20,7 +20,7 @@ public class TileSpinnyDeathBlade extends TileShaft {
 			angle += (int)(angvel*4);
 			if(Math.abs(angvel) >= (1L << 30) || (angvel > 0 ? angle < lastAngle : angle > lastAngle)) {
 				
-				int damage = (int)Math.min(5000, Math.abs(angvel) / ShaftUtils.fromDegreesPerSecond(20));
+				int damage = (int)Math.min(5000, Math.abs(angvel) / ShaftUtils.fromDegreesPerSecond(10));
 				
 				AxisAlignedBB bb = null;
 				switch(getBlockMetadata()) {
@@ -60,7 +60,7 @@ public class TileSpinnyDeathBlade extends TileShaft {
 				return new SpeedTorqueCurve() {
 					@Override
 					public long getTorqueAtSpeed(long speed) {
-						return -speed/5;
+						return -speed;
 					}
 				};
 			}

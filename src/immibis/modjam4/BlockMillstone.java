@@ -63,6 +63,7 @@ public class BlockMillstone extends BlockShaft {
 		rtm.renderAttachment();
 		Tessellator.instance.draw();
 		GL11.glPopMatrix();
+		GL11.glEnable(GL11.GL_LIGHTING);
 	}
 
 }

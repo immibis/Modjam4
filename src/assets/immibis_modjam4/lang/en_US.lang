@@ -8,3 +8,6 @@ tile.immibis_modjam4.fan.name=Fan
 tile.immibis_modjam4.deathBlade.name=Spinny Death Blade
 
 item.immibis_modjam4.flour.name=Flour
+
+death.attack.immibis_modjam4.spinnyBlade=%s walked straight into a giant spinning death blade
+death.attack.immibis_modjam4.spinnyBlade.player=%s walked into a giant spinning death blade whilst fighting %s
