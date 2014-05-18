@@ -10,13 +10,17 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 
 /**
  * Windmill is affected by non-air blocks up to 9 blocks in front of the windmill centre block, 4 blocks down, 4 blocks left and right,
- * and 4 blocks up. If a column cannot see the sky, all blocks in that column also count as blocked.
+ * and 4 blocks up. If a column cannot see the sky, all blocks in that column also count as non-air.
+ * 
+ * This is a 9x9x9 area. 729 blocks total. 9 blocks are checked each tick, so it refreshes every 81 ticks (4.05 seconds)
  */
 public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 	
 	private int maxSpeed = 1;
 	private int maxTorque;
-	private boolean obstructed; // true if there is a block overlapping the actual windmill
+	private int obstructingBlocks = 729;
+	private int obstructingBlocksAcc;
+	private int nextX, nextZ;
 	
 	// power = torque * speed
 	// torque = max torque * (1 - speed / max speed)
@@ -33,14 +37,12 @@ public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 	
 	@Override
 	public long getTorqueAtSpeed(long speed) {
-		if(obstructed || speed >= Integer.MAX_VALUE || speed <= Integer.MIN_VALUE)
+		if(speed >= Integer.MAX_VALUE || speed <= Integer.MIN_VALUE)
 			return -speed;
 		if(maxTorque == 0)
 			return 0;
 		return maxTorque - maxTorque * speed / (maxTorque < 0 ? -maxSpeed : maxSpeed);
 	}
-	
-	public static int LL_OBSTRUCTION = -1;
 	
 	@Override
 	protected ShaftNode createShaftNode() {
@@ -58,18 +60,8 @@ public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 		
 		int meta = getBlockMetadata();
 		
-		obstructed = false;
-		maxTorque = 0;
+		checkObstructions();
 		
-		if(false) {
-			// windmill is obstructed
-			obstructed = true;
-			
-			getBlockType().dropBlockAsItem(worldObj, xCoord, yCoord, zCoord, 0, 0);
-			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
-			
-			return;
-		}
 		
 		{
 			int NORMAL_TORQUE = ShaftUtils.fromDegreesPerSecond(60) / 10;
@@ -78,6 +70,18 @@ public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 		}
 	}
 	
+	private void checkObstructions() {
+		
+		if(++nextX == 9) {
+			nextX = 0;
+			if(++nextZ == 9) {
+				nextZ = 0;
+				obstructingBlocks = obstructingBlocksAcc;
+				obstructingBlocksAcc = 0;
+			}
+		}
+	}
+
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		return AxisAlignedBB.getAABBPool().getAABB(xCoord-3, yCoord-3, zCoord-3, xCoord+3, yCoord+3, zCoord+3);

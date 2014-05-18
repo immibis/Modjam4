@@ -101,13 +101,15 @@ public class ShaftNetwork {
 		
 		//angvel *= 0.95;
 		
+		double inertia = group.calcInertia() * (relativeVelocity * relativeVelocity);
+		
 		long sumtorque = 0;
 		for(SpeedTorqueCurve stc : machineCurves)
-			sumtorque += stc.getTorqueAtSpeed(angvel);
+			sumtorque += stc.getTorqueAtSpeed(angvel) / inertia;
 		
-		//System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", inertia "+group.calcInertia()/(relativeVelocity * relativeVelocity));
+		//System.out.println("angvel "+angvel+", sumtorque "+sumtorque+", inertia "+inertia);
 		
-		group.groupAngVel += sumtorque / group.calcInertia() / (relativeVelocity * relativeVelocity);
+		group.groupAngVel += sumtorque;
 	}
 
 	ShaftNetwork createSplitNetwork() {
