@@ -27,26 +27,15 @@ public class RenderBlockGearboxDouble implements ISimpleBlockRenderingHandler {
 	private final static int[][] ROTATION_LOOKUP = {
 		// block face:                  high-speed side
 		// NY  PY  NZ  PZ  NX  PX
-		{  -1, -1,  3,  3,  3,  3 }, // NY
-		{  -1, -1,  0,  0,  0,  0 }, // PY
-		{   0,  0, -1, -1,  0,  0 }, // NZ
-		{   3,  3, -1, -1,  0,  0 }, // PZ
-		{   1,  2,  0,  0, -1, -1 }, // NX
-		{   2,  1,  0,  0, -1, -1 }  // PX
+		{  -1, -1,  1,  2,  1,  2 }, // NY
+		{  -1, -1,  2,  1,  2,  1 }, // PY
+		{   1,  2, -1, -1,  2,  4 }, // NZ
+		{   2,  1, -1, -1,  1,  3 }, // PZ
+		{   3,  3,  2,  4, -1, -1 }, // NX
+		{   0,  0,  1,  0, -1, -1 }  // PX
 	};
 
 	private void setRotation(RenderBlocks rb, int hsside) {
-		int[][] ROTATION_LOOKUP = {
-			// block face:                  high-speed side
-			// NY  PY  NZ  PZ  NX  PX
-			{  -1, -1,  3,  3,  3,  3 }, // NY
-			{  -1, -1,  2,  1,  2,  1 }, // PY
-			{   1,  2, -1, -1,  2,  4 }, // NZ
-			{   2,  1, -1, -1,  1,  3 }, // PZ
-			{   3,  3,  2,  4, -1, -1 }, // NX
-			{   0,  0,  1,  0, -1, -1 }  // PX
-		};
-	
 		rb.uvRotateBottom = ROTATION_LOOKUP[hsside][0];
 		rb.uvRotateEast = ROTATION_LOOKUP[hsside][3];
 		rb.uvRotateNorth = ROTATION_LOOKUP[hsside][4];
@@ -56,7 +45,12 @@ public class RenderBlockGearboxDouble implements ISimpleBlockRenderingHandler {
 	}
 
 	private void clearRotation(RenderBlocks rb) {
-		rb.uvRotateBottom = rb.uvRotateEast = rb.uvRotateNorth = rb.uvRotateSouth = rb.uvRotateTop = rb.uvRotateWest = 0;
+		rb.uvRotateBottom = 0;
+		rb.uvRotateEast = 0;
+		rb.uvRotateNorth = 0;
+		rb.uvRotateSouth = 0;
+		rb.uvRotateTop = 0;
+		rb.uvRotateWest = 0;
 	}
 
 	@Override

@@ -41,6 +41,7 @@ public class Modjam4Mod
 	public static BlockMillstone blockMillstone;
 	public static BlockFan blockFan;
 	public static BlockSpinnyDeathBlade blockSpinnyDeathBlade;
+	public static BlockWindmill blockWindmill;
 	public static Item itemFlour;
 	
 	public static DamageSource damageSourceSpinnyBlade = new DamageSource("immibis_modjam4.spinnyBlade");
@@ -88,6 +89,10 @@ public class Modjam4Mod
 		blockSpinnyDeathBlade = new BlockSpinnyDeathBlade();
 		GameRegistry.registerBlock(blockSpinnyDeathBlade, "spinnyDeathBlade");
 		
+		blockWindmill = new BlockWindmill();
+		GameRegistry.registerBlock(blockWindmill, "windmill");
+		Blocks.fire.setFireInfo(blockWindmill, 60, 20);
+		
 		itemFlour = new Item();
 		itemFlour.setCreativeTab(CreativeTabs.tabFood);
 		itemFlour.setTextureName("immibis_modjam4:flour");
@@ -104,6 +109,7 @@ public class Modjam4Mod
 		GameRegistry.registerTileEntity(TileMillstone.class, "immibisMJ4.millstone");
 		GameRegistry.registerTileEntity(TileFan.class, "immibisMJ4.fan");
 		GameRegistry.registerTileEntity(TileSpinnyDeathBlade.class, "immibisMJ4.spinnyDeathBlade");
+		GameRegistry.registerTileEntity(TileWindmill.class, "immibisMJ4.windmill");
 		
 		FurnaceRecipes.smelting().func_151396_a(itemFlour, new ItemStack(Items.bread), 0.3f);
 		
@@ -117,6 +123,7 @@ public class Modjam4Mod
 		ClientRegistry.bindTileEntitySpecialRenderer(TileMillstone.class, new RenderTileMillstone());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileFan.class, new RenderTileFan());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileSpinnyDeathBlade.class, new RenderTileSpinnyDeathBlade());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileWindmill.class, new RenderTileWindmill());
 		
 		NULL_RENDER_ID = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RenderBlockNothing());
