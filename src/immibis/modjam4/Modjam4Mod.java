@@ -19,6 +19,8 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -49,6 +51,13 @@ public class Modjam4Mod
 	
 	public static int NULL_RENDER_ID = 0;
 	public static int DOUBLE_GEARBOX_RENDER_ID = 0;
+	
+	public static int windSpeed;
+	
+	@SubscribeEvent
+	public void onTick(TickEvent.ServerTickEvent evt) {
+		System.out.println("tick");
+	}
 	
     @EventHandler
     public void init(FMLInitializationEvent event)

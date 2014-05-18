@@ -75,7 +75,8 @@ public class NetworkGroup {
 		if(previousNVV) {
 			groupAngVel = 0;
 		} else {
-			groupAngVel *= previousLastNetworkRelativeVelocity / networks.get(networks.size()-1).relativeVelocity;
+			double mult = previousLastNetworkRelativeVelocity / networks.get(networks.size()-1).relativeVelocity;
+			groupAngVel *= mult;
 		}
 	}
 
@@ -87,6 +88,10 @@ public class NetworkGroup {
 	void mergeInto(NetworkGroup group) {
 		if(this == group)
 			return;
+		
+		if(group.needVelocityRecalc) {
+			group.calcInertia();
+		}
 		
 		double thisInertia = calcInertia();
 		double otherInertia = group.calcInertia();

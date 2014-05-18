@@ -158,4 +158,8 @@ public class ShaftNetwork {
 	double calcNetworkInertia() {
 		return nodes.size();
 	}
+
+	public void forceAngVel(long angvel) {
+		group.groupAngVel = (long)(angvel / relativeVelocity);
+	}
 }

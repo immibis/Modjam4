@@ -4,6 +4,10 @@ import immibis.modjam4.shaftnet.ShaftNode;
 import immibis.modjam4.shaftnet.SpeedTorqueCurve;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
@@ -21,6 +25,8 @@ public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 	private int obstructingBlocks = 729;
 	private int obstructingBlocksAcc;
 	private int nextX, nextZ;
+	
+	private int clientWindSpeed;
 	
 	// power = torque * speed
 	// torque = max torque * (1 - speed / max speed)
@@ -65,9 +71,33 @@ public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 		
 		{
 			int NORMAL_TORQUE = ShaftUtils.fromDegreesPerSecond(60) / 10;
+			int NORMAL_SPEED = ShaftUtils.fromDegreesPerSecond(45);
+			
+			int windSpeed = worldObj.isRemote ? clientWindSpeed : Modjam4Mod.windSpeed;
+			
+			double obstructionMultiplier = 1 - obstructingBlocks / 729.0;
+			double windSpeedMultiplier = 0;
+			
 			maxTorque = NORMAL_TORQUE;
-			maxSpeed = ShaftUtils.fromDegreesPerSecond(45);
+			maxTorque *= obstructionMultiplier;
+			
+			maxSpeed = NORMAL_SPEED;
+			maxSpeed *= obstructionMultiplier;
 		}
+	}
+	
+	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setInteger("wind", Modjam4Mod.windSpeed);
+		tag.setLong("angvel", shaftNode.getNetwork().angvel);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, tag);
+	}
+	
+	@Override
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+		clientWindSpeed = pkt.func_148857_g().getInteger("wind");
+		shaftNode.getNetwork().forceAngVel(pkt.func_148857_g().getLong("angvel"));
 	}
 	
 	private void checkObstructions() {
