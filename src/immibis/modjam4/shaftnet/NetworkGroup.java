@@ -93,20 +93,40 @@ public class NetworkGroup {
 			group.calcInertia();
 		}
 		
-		//
+		
+		for(ShaftNetwork n : networks)
+			n.angvel = (long)(n.relativeVelocity * groupAngVel); 
+		for(ShaftNetwork n : group.networks)
+			n.angvel = (long)(n.relativeVelocity * group.groupAngVel);
+		
+		ShaftNetwork referenceNetwork = networks.get(0);
+		
+		double referenceNetworkOldRelativeVelocity = referenceNetwork.relativeVelocity;
 		
 		//double thisInertia = calcInertia();
 		//double otherInertia = group.calcInertia();
 		//System.out.println(thisInertia+" * "+groupAngVel+" + "+otherInertia+" * "+group.groupAngVel);
 		//System.out.println("/ "+(thisInertia + otherInertia)+" = "+(long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia)));
 		//group.groupAngVel = (long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia));
-		group.groupAngVel = groupAngVel;
-		group.needVelocityRecalc = true;
 		
 		for(ShaftNetwork n : networks) {
 			n.group = group;
 			group.add(n);
 		}
+		
+		group.recalcVelocity();
+		
+		double groupRelativeVelocity = referenceNetwork.relativeVelocity / referenceNetworkOldRelativeVelocity;
+		
+		// if groupRelativeVelocity is 2, then the R.V. of all networks previously in this group just doubled
+		
+		double thisInertia = calcInertia();
+		double otherInertia = group.calcInertia();
+		System.out.println(thisInertia+" * "+groupAngVel+" + "+otherInertia+" * "+group.groupAngVel+"   (GRV is "+groupRelativeVelocity+")");
+		System.out.println("/ "+(thisInertia + otherInertia)+" = "+(long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia)));
+		group.groupAngVel = (long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia));
+		
+		
 	}
 
 	public double calcInertia() {
