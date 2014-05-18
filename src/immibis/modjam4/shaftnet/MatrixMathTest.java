@@ -1,4 +1,4 @@
-package immibis.modjam4.shaftnet;
+/*package immibis.modjam4.shaftnet;
 
 import java.util.Arrays;
 
@@ -39,3 +39,4 @@ public class MatrixMathTest {
 		}
 	}
 }
+*/
