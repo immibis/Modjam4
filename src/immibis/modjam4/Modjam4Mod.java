@@ -39,7 +39,7 @@ public class Modjam4Mod
 	public static BlockGearboxDirectional blockStoneDirectionalGearbox;
 	public static BlockGearboxDouble blockStoneDoubleGearbox;
 	//public static BlockInductionGenerator blockInductionGenerator;
-	public static BlockCable blockCable;
+	//public static BlockCable blockCable;
 	public static BlockWatermill blockWatermill;
 	public static BlockMillstone blockMillstone;
 	public static BlockFan blockFan;

@@ -18,20 +18,22 @@ public class TileCartBooster extends TileShaft implements SpeedTorqueCurve {
 		if(usePowerTimer > 0)
 			usePowerTimer--;
 		
-		// 45 deg/s = 1 blocks/tick; quadratic growth
-		double speed = shaftNode.getNetwork().angvel / (double)ShaftUtils.fromDegreesPerSecond(45);
-		speed *= speed;
+		// 360 deg/s = 2.0 blocks/tick (max speed enforced by EntityMinecart)
+		double speed = shaftNode.getNetwork().angvel / (double)ShaftUtils.fromDegreesPerSecond(360);
+		//speed *= speed;
+		speed *= 2.0;
 		
 		AxisAlignedBB bb = AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord+1, zCoord, xCoord+1, yCoord+2, zCoord+1);
 		for(EntityMinecart mc : (List<EntityMinecart>)worldObj.getEntitiesWithinAABB(EntityMinecart.class, bb)) {
 			double curSpeed = Math.sqrt(mc.motionX*mc.motionX+mc.motionZ*mc.motionZ);
-			if(curSpeed < 0.01 || curSpeed >= speed)
+			if(curSpeed < 0.01 || curSpeed >= speed*0.9)
 				continue;
 			
 			double mult = speed / curSpeed;
 			mc.motionX *= mult;
 			mc.motionZ *= mult;
 			usePowerTimer += 5;
+			//if(!worldObj.isRemote) System.out.println("*"+mult+" -> "+speed);
 		}
 	}
 	
@@ -51,6 +53,6 @@ public class TileCartBooster extends TileShaft implements SpeedTorqueCurve {
 
 	@Override
 	public long getTorqueAtSpeed(long speed) {
-		return usePowerTimer > 0 ? -speed/2 : -speed/50;
+		return usePowerTimer > 0 ? -speed : -speed/50;
 	}
 }

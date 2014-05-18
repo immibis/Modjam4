@@ -128,11 +128,12 @@ public class NetworkGroup {
 		
 		double thisInertia = calcInertia();
 		double otherInertia = group.calcInertia();
-		System.out.println(thisInertia+" * "+groupAngVel+" + "+otherInertia+" * "+group.groupAngVel+"   (GRV is "+groupRelativeVelocity+")");
-		System.out.println("/ "+(thisInertia + otherInertia)+" = "+(long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia)));
+		//System.out.println(thisInertia+" * "+groupAngVel+" + "+otherInertia+" * "+group.groupAngVel+"   (GRV is "+groupRelativeVelocity+")");
+		//System.out.println("/ "+(thisInertia + otherInertia)+" = "+(long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia)));
 		//group.groupAngVel = (long)((thisInertia * groupAngVel + otherInertia * group.groupAngVel) / (thisInertia + otherInertia));
 		
 		
+		// this is wrong. TODO fix the above code somehow
 		double thisMomentum = thisInertia * groupAngVel;
 		double otherMomentum = otherInertia * group.groupAngVel;
 		group.groupAngVel = (long)(((thisMomentum < 0) != (otherMomentum < 0) ? otherMomentum + thisMomentum : Math.abs(thisMomentum) > Math.abs(otherMomentum) ? thisMomentum : otherMomentum) / (thisInertia + otherInertia));
