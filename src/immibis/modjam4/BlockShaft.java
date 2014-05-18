@@ -66,9 +66,9 @@ public class BlockShaft extends BlockMachineBase {
 	public boolean onBlockActivated(World w, int x, int y, int z,
 			EntityPlayer pl, int p_149727_6_, float p_149727_7_,
 			float p_149727_8_, float p_149727_9_) {
-		if(getClass() == BlockShaft.class)
-			return ((TileShaft)w.getTileEntity(x, y, z)).debug(pl);
-		else
+		//if(getClass() == BlockShaft.class)
+		//	return ((TileShaft)w.getTileEntity(x, y, z)).debug(pl);
+		//else
 			return super.onBlockActivated(w, x, y, z, pl, 0, 0, 0, 0);
 	}
 }

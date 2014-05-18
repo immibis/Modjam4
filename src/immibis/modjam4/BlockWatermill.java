@@ -69,14 +69,14 @@ public class BlockWatermill extends BlockShaft {
 			w.setBlock(x+1, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
 			break;
 		case 4:
-			w.setBlock(x-1, y, z, Modjam4Mod.blockFiller, Dir.PX, 2);
-			w.setBlock(x+1, y, z, Modjam4Mod.blockFiller, Dir.NX, 2);
-			w.setBlock(x-1, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x, y, z-1, Modjam4Mod.blockFiller, Dir.PZ, 2);
+			w.setBlock(x, y, z+1, Modjam4Mod.blockFiller, Dir.NZ, 2);
+			w.setBlock(x, y-1, z-1, Modjam4Mod.blockFiller, Dir.PY, 2);
 			w.setBlock(x, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
-			w.setBlock(x+1, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
-			w.setBlock(x-1, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			w.setBlock(x, y-1, z+1, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x, y+1, z-1, Modjam4Mod.blockFiller, Dir.NY, 2);
 			w.setBlock(x, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
-			w.setBlock(x+1, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			w.setBlock(x, y+1, z+1, Modjam4Mod.blockFiller, Dir.NY, 2);
 			break;
 		}
 	}
