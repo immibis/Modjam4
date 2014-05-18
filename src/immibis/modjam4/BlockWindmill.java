@@ -18,8 +18,12 @@ import net.minecraft.world.World;
 
 // metadata is axis (0=Y 2=Z 4=X)
 public class BlockWindmill extends BlockShaft {
+	
+	public static final float HARDNESS = 5;
+	
 	public BlockWindmill() {
 		super(Material.wood);
+		setHardness(HARDNESS);
 		setBlockName("immibis_modjam4.windmill");
 		setCreativeTab(CreativeTabs.tabAllSearch);
 	}

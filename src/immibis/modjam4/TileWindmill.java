@@ -8,11 +8,15 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 
+/**
+ * Windmill is affected by non-air blocks up to 9 blocks in front of the windmill centre block, 4 blocks down, 4 blocks left and right,
+ * and 4 blocks up. If a column cannot see the sky, all blocks in that column also count as blocked.
+ */
 public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 	
 	private int maxSpeed = 1;
 	private int maxTorque;
-	private boolean obstructed;
+	private boolean obstructed; // true if there is a block overlapping the actual windmill
 	
 	// power = torque * speed
 	// torque = max torque * (1 - speed / max speed)
