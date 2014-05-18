@@ -131,8 +131,8 @@ public class Modjam4Mod
 		
 		itemPaddle = new Item();
 		itemPaddle.setCreativeTab(CreativeTabs.tabAllSearch);
-		itemPaddle.setTextureName("immibis_modjam4:gear");
-		itemPaddle.setUnlocalizedName("immibis_modjam4.gear");
+		itemPaddle.setTextureName("immibis_modjam4:paddle");
+		itemPaddle.setUnlocalizedName("immibis_modjam4.paddle");
 		GameRegistry.registerItem(itemPaddle, "paddle");
 		
 		itemBlade = new Item();
@@ -162,7 +162,7 @@ public class Modjam4Mod
 		
 		FurnaceRecipes.smelting().func_151396_a(itemFlour, new ItemStack(Items.bread), 0.3f);
 		
-		GameRegistry.addRecipe(new ItemStack(blockWoodenShaft), "/ /", "/ /", "/ /", '/', Items.stick);
+		GameRegistry.addRecipe(new ItemStack(blockWoodenShaft, 6), "/ /", "/ /", "/ /", '/', Items.stick);
 		GameRegistry.addRecipe(new ItemStack(itemGear), " X ", "XIX", " X ", 'X', Blocks.cobblestone, 'I', blockWoodenShaft);
 		GameRegistry.addRecipe(new ItemStack(itemSail), "/CC", "/CC", "/CC", '/', Items.stick, 'C', Blocks.wool);
 		GameRegistry.addRecipe(new ItemStack(itemPaddle), " W ", "WWW", " / ", '/', Items.stick, 'W', Blocks.planks);
