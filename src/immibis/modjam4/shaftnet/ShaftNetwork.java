@@ -78,8 +78,8 @@ public class ShaftNetwork {
 	private void addLink(NetworkLink link, ShaftNetwork other) {
 		if(link.netA != this && link.netB != this)
 			throw new AssertionError();
-		group.mergeInto(other.group);
 		links.add(link);
+		group.mergeInto(other.group);
 	}
 
 	void tick() {
