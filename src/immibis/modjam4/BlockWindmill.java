@@ -62,6 +62,36 @@ public class BlockWindmill extends BlockShaft {
 	}
 	
 	@Override
+	public void onPostBlockPlaced(World w, int x, int y, int z, int meta) {
+		switch(meta) {
+		case 2:
+			w.setBlock(x-1, y, z, Modjam4Mod.blockFiller, Dir.PX, 3);
+			w.setBlock(x-2, y, z, Modjam4Mod.blockFiller, Dir.PX, 3);
+			w.setBlock(x+1, y, z, Modjam4Mod.blockFiller, Dir.NX, 3);
+			w.setBlock(x+2, y, z, Modjam4Mod.blockFiller, Dir.NX, 3);
+			for(int dx = -2; dx <= 2; dx++) {
+				w.setBlock(x+dx, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 3);
+				w.setBlock(x+dx, y-2, z, Modjam4Mod.blockFiller, Dir.PY, 3);
+				w.setBlock(x+dx, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 3);
+				w.setBlock(x+dx, y+2, z, Modjam4Mod.blockFiller, Dir.NY, 3);
+			}
+			break;
+		case 4:
+			w.setBlock(x, y, z-1, Modjam4Mod.blockFiller, Dir.PZ, 3);
+			w.setBlock(x, y, z-2, Modjam4Mod.blockFiller, Dir.PZ, 3);
+			w.setBlock(x, y, z+1, Modjam4Mod.blockFiller, Dir.NZ, 3);
+			w.setBlock(x, y, z+2, Modjam4Mod.blockFiller, Dir.NZ, 3);
+			for(int dz = -2; dz <= 2; dz++) {
+				w.setBlock(x, y-1, z+dz, Modjam4Mod.blockFiller, Dir.PY, 3);
+				w.setBlock(x, y-2, z+dz, Modjam4Mod.blockFiller, Dir.PY, 3);
+				w.setBlock(x, y+1, z+dz, Modjam4Mod.blockFiller, Dir.NY, 3);
+				w.setBlock(x, y+2, z+dz, Modjam4Mod.blockFiller, Dir.NY, 3);
+			}
+			break;
+		}
+	}
+	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderInvBlock(RenderBlocks rb) {
 		GL11.glPushMatrix();

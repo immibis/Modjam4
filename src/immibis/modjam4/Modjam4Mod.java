@@ -42,6 +42,7 @@ public class Modjam4Mod
 	public static BlockFan blockFan;
 	public static BlockSpinnyDeathBlade blockSpinnyDeathBlade;
 	public static BlockWindmill blockWindmill;
+	public static BlockWindmillFiller blockFiller;
 	public static Item itemFlour;
 	
 	public static DamageSource damageSourceSpinnyBlade = new DamageSource("immibis_modjam4.spinnyBlade");
@@ -92,6 +93,9 @@ public class Modjam4Mod
 		blockWindmill = new BlockWindmill();
 		GameRegistry.registerBlock(blockWindmill, "windmill");
 		Blocks.fire.setFireInfo(blockWindmill, 60, 20);
+		
+		blockFiller = new BlockWindmillFiller();
+		GameRegistry.registerBlock(blockFiller, "filler");
 		
 		itemFlour = new Item();
 		itemFlour.setCreativeTab(CreativeTabs.tabFood);
