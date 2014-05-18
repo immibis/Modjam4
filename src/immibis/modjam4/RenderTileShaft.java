@@ -30,17 +30,35 @@ public class RenderTileShaft extends TileEntitySpecialRenderer  {
 		
 		RenderHelper.disableStandardItemLighting();
 		
+		int angle_r = te.shaftNode.getNetwork().angle;
+		long angvel = te.shaftNode.getNetwork().angvel;
+		float angle = (float)((angle_r + angvel * partialTick) / (4294967296.0 / 360.0));
+		
 		GL11.glPushMatrix();
 		GL11.glTranslated(renderX+0.5, renderY+0.5, renderZ+0.5);
-		if(meta == 2) {
+		/*if(meta == 2) {
 			// Z -> Y
 			GL11.glRotatef(90, 1, 0, 0);
 		}
 		if(meta == 4) {
 			// X -> Y
 			GL11.glRotatef(90, 0, 0, 1);
+		}*/
+		if((meta & 6) == 2) {
+			// Z -> Y
+			GL11.glRotatef(90, 1, 0, 0);
 		}
-		float angle = (float)((te.shaftNode.getNetwork().angle + te.shaftNode.getNetwork().angvel * partialTick) / (4294967296.0 / 360.0));
+		if((meta & 6) == 4) {
+			// X -> Y
+			GL11.glRotatef(-90, 0, 0, 1);
+			angle = -angle;
+			angvel = -angvel;
+		}
+		if((meta & 1) == 1) {
+			// Y <-> -Y
+			GL11.glRotatef(180, 1, 0, 0);
+			angle = -angle;
+		}
 		
 		renderStatic();
 		

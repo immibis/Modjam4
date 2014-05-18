@@ -24,13 +24,13 @@ public class TileSpinnyDeathBlade extends TileShaft {
 				
 				AxisAlignedBB bb = null;
 				switch(getBlockMetadata()) {
-				case 0:
+				case 0: case 1:
 					bb = AxisAlignedBB.getAABBPool().getAABB(xCoord-4, yCoord, zCoord-4, xCoord+5, yCoord+1, zCoord+5);
 					break;
-				case 2:
+				case 2: case 3:
 					bb = AxisAlignedBB.getAABBPool().getAABB(xCoord-4, yCoord-4, zCoord, xCoord+5, yCoord+5, zCoord+1);
 					break;
-				case 4:
+				case 4: case 5:
 					bb = AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord-4, zCoord-4, xCoord+1, yCoord+5, zCoord+5);
 					break;
 				}

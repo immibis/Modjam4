@@ -62,6 +62,11 @@ public class BlockWindmill extends BlockShaft {
 	}
 	
 	@Override
+	public int onBlockPlaced(World w, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
+		return side^1;
+	}
+	
+	@Override
 	public void onPostBlockPlaced(World w, int x, int y, int z, int meta) {
 		switch(meta) {
 		case 2:

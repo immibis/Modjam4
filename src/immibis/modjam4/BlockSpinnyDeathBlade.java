@@ -21,6 +21,11 @@ public class BlockSpinnyDeathBlade extends BlockShaft {
 	}
 	
 	@Override
+	public int onBlockPlaced(World w, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
+		return side^1;
+	}
+	
+	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TileSpinnyDeathBlade();
 	}
