@@ -10,7 +10,7 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 
 public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 	
-	private int maxSpeed;
+	private int maxSpeed = 1;
 	private int maxTorque;
 	private boolean obstructed;
 	
@@ -70,6 +70,7 @@ public class TileWindmill extends TileShaft implements SpeedTorqueCurve {
 		{
 			int NORMAL_TORQUE = ShaftUtils.fromDegreesPerSecond(60) / 10;
 			maxTorque = NORMAL_TORQUE;
+			maxSpeed = ShaftUtils.fromDegreesPerSecond(45);
 		}
 	}
 	
