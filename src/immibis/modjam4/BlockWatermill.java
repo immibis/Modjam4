@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 public class BlockWatermill extends BlockShaft {
 	public BlockWatermill(Material m) {
 		super(m);
+		setHardness(5);
 	}
 	
 	@Override
@@ -52,6 +53,32 @@ public class BlockWatermill extends BlockShaft {
 		}
 		
 		return super.canPlaceBlockOnSide(w, x, y, z, side);
+	}
+	
+	@Override
+	public void onPostBlockPlaced(World w, int x, int y, int z, int meta) {
+		switch(meta) {
+		case 2:
+			w.setBlock(x-1, y, z, Modjam4Mod.blockFiller, Dir.PX, 2);
+			w.setBlock(x+1, y, z, Modjam4Mod.blockFiller, Dir.NX, 2);
+			w.setBlock(x-1, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x+1, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x-1, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			w.setBlock(x, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			w.setBlock(x+1, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			break;
+		case 4:
+			w.setBlock(x-1, y, z, Modjam4Mod.blockFiller, Dir.PX, 2);
+			w.setBlock(x+1, y, z, Modjam4Mod.blockFiller, Dir.NX, 2);
+			w.setBlock(x-1, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x+1, y-1, z, Modjam4Mod.blockFiller, Dir.PY, 2);
+			w.setBlock(x-1, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			w.setBlock(x, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			w.setBlock(x+1, y+1, z, Modjam4Mod.blockFiller, Dir.NY, 2);
+			break;
+		}
 	}
 	
 	@Override

@@ -1,9 +1,13 @@
 package immibis.modjam4;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
@@ -41,9 +45,10 @@ public class BlockFiller extends Block {
 			return INVALID_STRUCTURE;
 		if(!w.blockExists(x, y, z))
 			return CENTRE_NOT_LOADED;
-		if(w.getBlock(x, y, z) == Modjam4Mod.blockWindmill)
+		Block block = w.getBlock(x, y, z);
+		if(block == Modjam4Mod.blockWindmill || block == Modjam4Mod.blockWatermill)
 			return new ChunkCoordinates(x, y, z);
-		if(w.getBlock(x, y, z) != Modjam4Mod.blockFiller)
+		if(block != Modjam4Mod.blockFiller)
 			return INVALID_STRUCTURE;
 		int meta = w.getBlockMetadata(x, y, z);
 		if(meta > 5)
@@ -87,7 +92,7 @@ public class BlockFiller extends Block {
 	}
 	
 	@Override
-	public void harvestBlock(World w, EntityPlayer pl, int x, int y, int z, int meta) {
+	public void onBlockHarvested(World w, int x, int y, int z, int meta, EntityPlayer pl) {
 		ForgeDirection fd = ForgeDirection.VALID_DIRECTIONS[meta];
 		ChunkCoordinates cc = findMainBlock(w, x+fd.offsetX, y+fd.offsetY, z+fd.offsetZ);
 		if(cc == INVALID_STRUCTURE)
@@ -95,6 +100,21 @@ public class BlockFiller extends Block {
 		if(cc == CENTRE_NOT_LOADED)
 			return;
 		w.getBlock(cc.posX, cc.posY, cc.posZ).harvestBlock(w, pl, cc.posX, cc.posY, cc.posZ, w.getBlockMetadata(cc.posX, cc.posY, cc.posZ));
+	}
+	
+	@Override
+	public int quantityDropped(int meta, int fortune, Random random) {
+		return 0;
+	}
+	
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
+		return new ArrayList<ItemStack>();
+	}
+	
+	@Override
+	public void harvestBlock(World w, EntityPlayer pl, int x, int y, int z, int meta) {
+		
 	}
 	
 	@Override

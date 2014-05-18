@@ -29,7 +29,7 @@ public class RenderTileWindmill extends RenderTileShaft {
 			//renderStem(t, MINY, MAXY, R*0.50, R*0.50+0.1, -1, -0.1, true, i);
 			//renderStem(t, MINY, MAXY, R*0.75, R*0.75+0.1, -0.85, -0.1, true, i);
 			
-			renderStem(t, CMINY, CMAXY, R*0.25+0.05, R, -1.13, -0.05, true, Blocks.wool.getIcon(0, 0));
+			renderStem(t, CMINY, CMAXY, R*0.25, R-0.05, -1.13, -0.05, true, Blocks.wool.getIcon(0, 0));
 			
 			t.draw();
 		}
